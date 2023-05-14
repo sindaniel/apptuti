@@ -60,17 +60,12 @@
     </div>
 
     <div class="col-span-1">
-        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
-            <h3 class="mb-4 text-xl font-semibold ">Marcas</h3>
-            <div class="grid grid-cols-2 gap-3">
-                @foreach ($brands as $brand) 
-                    <div class="flex items-center cursor-pointer">
-                        <input id="brand{{ $brand->id }}" name="brands[]" type="checkbox" value="{{ $brand->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-0 ">
-                        <label for="brand{{ $brand->id }}" class="ml-2 text-sm font-medium text-gray-900 ">{{ $brand->name }}</label>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+    
+        <x-product-attributes relation='brands' :items="$brands" title="Marcas" />
+    
+        <x-product-attributes relation='categories' :items="$categories" title="Categorías" />
+        <x-product-attributes relation='labels' :items="$labels" title="Etiquetas" />
+
 
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Impuesto</h3>

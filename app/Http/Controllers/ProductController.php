@@ -43,7 +43,8 @@ class ProductController extends Controller
         $brands = Brand::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
         $labels = Label::orderBy('name')->get();
-        $context = compact('brands', 'taxes', 'labels');
+        $categories = Category::orderBy('name')->get();
+        $context = compact('brands', 'taxes', 'labels', 'categories');
         return view('products.create', $context);
     }
 
@@ -81,12 +82,16 @@ class ProductController extends Controller
         ]);
 
         $brands = $request->brands;
+        $categories = $request->categories;
+        $labels = $request->labels;
 
         $slug =  Str::slug($request->name);
         $validate['slug'] = $slug;
 
         $product = Product::create($validate);
         $product->brands()->attach($brands);
+        $product->labels()->attach($labels);
+        $product->categories()->attach($categories);
 
         return redirect()->route('products.index')->with('success', 'Producto creado');
 
