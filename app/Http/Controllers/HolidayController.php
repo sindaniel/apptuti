@@ -85,6 +85,8 @@ class HolidayController extends Controller
      */
     public function destroy(Holiday $holiday)
     {
-        //
+        $holiday->delete();
+
+        return to_route('holidays.index')->with('success', 'Festivo eliminado');
     }
 }

@@ -18,8 +18,6 @@
 
 <body class="antialiased">
 
-
-
     @include('elements.admin.header')
     <div class="flex  overflow-hidden bg-gray-50 dark:bg-gray-900">
 
@@ -40,7 +38,7 @@
     </div>
 
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
     @yield('scripts')
 </body>

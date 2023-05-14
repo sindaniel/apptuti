@@ -101,11 +101,11 @@ class VendorController extends Controller
         
         //save file
         if($request->hasFile('image_file')){
-            $validate['image'] = $request->image_file->store('/brands', 'public');
+            $validate['image'] = $request->image_file->store('/vendors', 'public');
         }
 
         if($request->hasFile('banner_file')){
-            $validate['banner'] = $request->banner_file->store('/brands', 'public');
+            $validate['banner'] = $request->banner_file->store('/vendors', 'public');
         }
 
         $vendor->brands()->sync($request->brands);
