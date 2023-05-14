@@ -42,9 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('labels', LabelController::class);
-    
-    Route::post('/vendors/{vendor}/brand', [VendorController::class, 'addBrand'])->name('vendors.addBrand');
-    Route::delete('/vendors/{vendor}/brand', [VendorController::class, 'removeBrand'])->name('vendors.removeBrand');
     Route::resource('vendors', VendorController::class);
 
 

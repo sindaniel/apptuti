@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+{{ Aire::open()->route('vendors.update', $vendor)->bind($vendor)->enctype('multipart/form-data')}}
 <div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
     <div class="mb-4 col-span-full xl:mb-2">
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Editar vendor</h1>
@@ -10,7 +10,9 @@
     <!-- Right Content -->
    
     <div class="col-span-2">
-        {{ Aire::open()->route('vendors.update', $vendor)->bind($vendor)->enctype('multipart/form-data')}}
+
+       
+        
             <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
                 <h3 class="mb-4 text-xl font-semibold ">Información</h3>
                 
@@ -74,54 +76,25 @@
 
                 
             </div>
-        {{ Aire::close() }}
+     
     </div>
     
     <div class="col-span-full xl:col-auto">
+
+        <x-product-attributes relation='brands' :product="$vendor" :items="$brands" title="Marcas" />
+
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
-            <h3 class="mb-4 text-xl font-semibold ">Marcas</h3>
-            {{ Aire::open()->route('vendors.addBrand', $vendor)}}
-                <div class="grid grid-cols-6 gap-6">
-                    {{  Aire::select($brands, 'brand_id')->groupClass('col-span-4')}}
-                    {{ Aire::button('Agregar')->variant()->submit()->addClass('col-span-2') }} 
-                </div>
-            {{ Aire::close() }}  
-
-
-            <div class="relative overflow-x-auto  mt-5">
-                <table class="w-full text-sm text-left text-gray-500 ">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Marca</th>
-                            <th scope="col" class="px-6 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($vendor->brands as $brand)
-                            <tr class="bg-white border-b ">
-
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('brands.edit', $brand) }}" class="text-reset" tabindex="-1">{{ $brand->name }}</a>
-                                </td>
-            
-                                            
-                                <td class="px-6 py-4 text-end">
-                                    {{ Aire::open()->route('vendors.removeBrand', [$vendor, 'brand_id'=>$brand->id])->delete()->class('d-inline-block')}}
-                                        <button class="text-red-500 text-small">Eliminar							  </button>
-                                    {{ Aire::close() }}
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-
-
+            <p class="flex space-x-2 justify-between items-center">
+                {{ Aire::submit('Actualizar')->variant()->submit() }}
+                <x-remove-button />  
+            </p>
         </div>
+
+       
     </div>
 </div>
+{{ Aire::close() }}
+
 
 <x-remove-drawer title="Vendor" route='vendors.destroy' :item='$vendor' />
 

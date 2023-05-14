@@ -78,7 +78,8 @@ class VendorController extends Controller
     {
         $vendor->load('brands');
         $brands = $vendor->brands;
-        $brands = Brand::get()->whereNotIn('id', $brands->pluck('id'))->pluck('name', 'id');
+        $brands = Brand::orderBy('name')->get();
+        
 
         $context = compact('vendor', 'brands'); 
         
@@ -106,6 +107,8 @@ class VendorController extends Controller
         if($request->hasFile('banner_file')){
             $validate['banner'] = $request->banner_file->store('/brands', 'public');
         }
+
+        $vendor->brands()->sync($request->brands);
 
         $validate['slug'] =  Str::slug($request->slug);
         

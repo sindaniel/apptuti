@@ -28,7 +28,7 @@
                     </p>
 
 
-                    
+                     
                     <x-remove-button />  
                    
                 </div>
