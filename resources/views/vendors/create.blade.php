@@ -1,0 +1,44 @@
+@extends('layouts.admin')
+
+
+@section('content')
+{{ Aire::open()->route('vendors.store')->enctype('multipart/form-data')}}
+<div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
+    <div class="mb-4 col-span-full xl:mb-2">
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Nuevo vendor</h1>
+    </div>
+    <!-- Right Content -->
+   
+    <div class="col-span-2">
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <h3 class="mb-4 text-xl font-semibold ">Información</h3>
+         
+                <div class="grid grid-cols-6 gap-6">
+                  
+                    
+                        {{ Aire::input('name', "Nombre")->placeholder('Nombre')->groupClass('col-span-6') }}
+                        {{ Aire::number('minimum_purchase', "Compra mínima")->placeholder('Compra mínima')->groupClass('col-span-6') }}
+                 
+                        <div class="col-span-6 items-center space-x-2 flex">
+                            {{ Aire::submit('Crear')->variant()->submit(); }}
+                            <a href="{{ route('vendors.index') }}">Cancelar</a>
+                          
+                        </div>
+                </div>
+
+              
+        </div>
+    </div>
+    
+    <div class="col-span-full xl:col-auto">
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <h3 class="mb-4 text-xl font-semibold ">Imagenes</h3>
+            {{ Aire::file('image_file', 'Imagen') }}
+            {{ Aire::file('banner_file', 'Banner') }}
+        </div>
+    </div>
+</div>
+{{ Aire::close() }}
+
+
+@endsection
