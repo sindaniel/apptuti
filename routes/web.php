@@ -35,6 +35,10 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+
+    Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+    Route::post('/products/{product}/related', [ProductController::class, 'addRelated'])->name('products.addRelated');
+    Route::post('/products/{product}/related/remove', [ProductController::class, 'removeRelated'])->name('products.removeRelated');
   
     Route::resource('brands', BrandController::class);
     Route::resource('taxes', TaxController::class);

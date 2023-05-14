@@ -112,7 +112,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product->load('brands'); // eager loading
+        $product->load(['brands', 'related']); // eager loading
+       
         $brands = Brand::orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
         $labels = Label::orderBy('name')->get();
@@ -129,6 +130,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+       
         $validate = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
@@ -172,5 +174,48 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //TODO validar que no tenga pedidos
+    }
+
+
+
+    public function search(Request $request)
+    {
+        $products = Product::query()
+        ->select('name as text', 'id')
+        ->when($request->product_id, function($query, $p){
+            $product= Product::find($p);
+            $query
+                ->whereNot('id', $p)
+                ->whereNotIn('id', $product->related->pluck('id'));
+        })
+        ->when($request->q, function($query, $q){
+            $query->whereNot(function ($query) use ($q) {
+                $query->where('name', 'like', "%{$q}%")
+                    ->where('sku', 'like', "%{$q}%")
+                    ->where('description', 'like', "%{$q}%")
+                    ->where('short_description', 'like', "%{$q}%");
+            });
+           
+        })
+       
+        ->orderBy('name')
+        ->limit(10)
+        ->get();
+       
+        return $products;
+    }
+
+
+    public function addRelated(Request $request, Product $product)
+    {
+        $product->related()->attach($request->related_id);
+        return;
+    }
+
+    public function removeRelated(Request $request, Product $product)
+    {
+        
+        $product->related()->detach($request->related_id);
+        return;
     }
 }

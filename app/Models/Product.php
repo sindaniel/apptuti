@@ -37,6 +37,10 @@ class Product extends Model
         return $this->belongsToMany(Label::class);
     }
 
+    public function related(){
+        return $this->belongsToMany(Product::class, 'product_related', 'product_id', 'product_related_id');
+    }
+
     
     public function tax(){
         return $this->belongsTo(Tax::class);

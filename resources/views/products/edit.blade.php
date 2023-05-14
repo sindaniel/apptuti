@@ -2,6 +2,9 @@
 
 @section('head')
     <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 
@@ -67,6 +70,24 @@
     </div>
 
     <div class="col-span-1">
+
+
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <h3 class="mb-4 text-xl font-semibold ">Productos relacionados</h3>
+            <div class="grid grid-cols-1 gap-3">
+                {{-- <input id="tom-select-it" /> --}}
+
+          
+                <select class="js-example-basic-single" multiple name="related">
+                    {{-- <option selected value="1">Test</option> --}}
+                </select>
+            
+                    
+            </div>
+        </div>
+
+
+
       
         <x-product-attributes relation='brands' :product="$product" :items="$brands" title="Marcas" />
         <x-product-attributes relation='categories' :product="$product" :items="$categories" title="Categorías"  />
@@ -81,12 +102,15 @@
         </div>
 
 
+
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <p class="flex space-x-2 justify-between items-center">
                 {{ Aire::submit('Actualizar')->variant()->submit() }}
                 <x-remove-button />  
             </p>
         </div>
+
+
         
 
 
@@ -105,14 +129,112 @@
 
 
 @section('scripts')
-<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  	
-<script>
-new FroalaEditor('#description', {
-    height: 200
-});		
 
-new FroalaEditor('#sort_description', {
-    height: 200
-});		
-</script>	
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+<script>
+
+$(document).ready(function() {
+        
+
+        $('.js-example-basic-single').select2({
+         
+            ajax: {
+                url: '{{ route('products.search') }}',
+                data: function (params) {
+                    var query = {
+                        q: params.term,
+                        product_id: {{ $product->id }}
+                    } 
+                    return query;
+                },
+                processResults: function(data) {
+                    return {results: data};
+                }
+            },
+        })
+        
+        .on('select2:unselecting', function (e) {
+            
+            axios.post('{{ route('products.removeRelated', $product) }}', {
+                related_id: e.params.args.data.id
+            })
+        })
+        .on('select2:select', function (e) {
+            if(!e.params.data.quiet){
+                axios.post('{{ route('products.addRelated', $product) }}', {
+                    related_id: e.params.data.id
+                })
+            }
+
+        
+        })
+
+        @foreach ($product->related as $related)
+            $(".js-example-basic-single").select2("trigger", "select", {data: {quiet:true, id: {{ $related->id }}, text: '{{ $related->name }}' }, });    
+        @endforeach
+        
+      
+
+   
+
+});
+
+
+    // var config = {
+    //     valueField: 'url',
+	// 	labelField: 'name',
+	// 	searchField: 'name',
+	// 	load: function(query, callback) {
+    //         console.log(query)
+    //         //var url = 'https://api.github.com/search/repositories?q=' + encodeURIComponent(query);
+    //         var url = '{{ route('products.search') }}';
+    //         fetch(url)
+    //             .then(response => response.json())
+    //             .then(json => {
+    //                 callback(json);
+    //             }).catch(()=>{
+    //                 callback();
+    //             });
+
+    //     },
+
+    //     render: {
+    //      option: function(item, escape) {
+    //         return `<div class="py-2 d-flex">
+    //                  <div class="mb-1">
+    //                     <span class="h5">
+    //                        ${ escape(item.name) }
+    //                     </span>
+    //                  </div>
+    //                  <div class="ms-auto">${ escape(item.type.join(', ')) }</div>
+    //               </div>`;
+    //      }
+    //   },
+        
+    //     // options: [
+    //     //     { value: "opt1", text: "Option 1" },
+    //     //     { value: "opt2", text: "Option 2" },
+    //     // ],
+    //     // valueField: 'id',
+    //     // labelField: 'name',
+    //     // searchField: ['name']
+    // };
+    // new TomSelect('#tom-select-it',config);
+    </script>
+
+
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  	
+    <script>
+    new FroalaEditor('#description', {
+        height: 200
+    });		
+
+    new FroalaEditor('#sort_description', {
+        height: 200
+    });		
+    </script>	
 @endsection
