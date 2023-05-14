@@ -44,6 +44,7 @@ class BrandController extends Controller
             'delivery_days'=>'numeric',
             'discount'=>'numeric',
             'description'=>'nullable',
+            'active'=>'nullable',
         ]);
 
 
@@ -93,6 +94,7 @@ class BrandController extends Controller
             'discount'=>'numeric',
             'description'=>'nullable',
             'slug'=>'required|unique:brands,slug,'.$brand->id,
+            'active'=>'nullable',
         ]);
         
         //save file

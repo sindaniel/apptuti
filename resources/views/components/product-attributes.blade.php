@@ -7,7 +7,7 @@
             <div class="flex items-center cursor-pointer">
                     <input  
                     @checked($product[$relation]->contains($item->id))
-                    id="item{{ $item->id }}" 
+                    id="{{ $relation }}{{ $item->id }}" 
                     name="{{ $relation }}[]"
                     type="checkbox" 
                     value="{{ $item->id }}"
@@ -15,7 +15,7 @@
                         'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-0 cursor-pointer ', 
                         'opacity-50' => !$item->active])
                     >
-                    <label  data-tooltip-target="tooltip-default{{ $item->id }}" for="item{{ $item->id }}"  @class([
+                    <label  data-tooltip-target="tooltip-default{{ $item->id }}" for="{{ $relation }}{{ $item->id }}"  @class([
                         'ml-2 text-sm font-medium  cursor-pointer',
                         'text-gray-900' => $item->active,
                         'text-gray-400' => !$item->active

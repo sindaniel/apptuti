@@ -23,6 +23,7 @@
                         'taxes'=>'Impuestos', 
                         'vendors'=>'Vendors', 
                         'categories'=>'Categorías', 
+                        'labels'=>'Etiquetas', 
                         ]" />
 
                     <x-dropdown title='Configuraciones'

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Label;
 use App\Models\Product;
 use App\Models\Tax;
 use Illuminate\Http\Request;
@@ -41,7 +42,8 @@ class ProductController extends Controller
     {
         $brands = Brand::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
-        $context = compact('brands', 'taxes');
+        $labels = Label::orderBy('name')->get();
+        $context = compact('brands', 'taxes', 'labels');
         return view('products.create', $context);
     }
 
@@ -108,10 +110,10 @@ class ProductController extends Controller
         $product->load('brands'); // eager loading
         $brands = Brand::orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
+        $labels = Label::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
-        
        
-        $context = compact('brands', 'taxes', 'product', 'categories');
+        $context = compact('brands', 'taxes', 'product', 'categories', 'labels');
 
 
         return view('products.edit', $context);
@@ -150,6 +152,7 @@ class ProductController extends Controller
         $validate['slug'] =  Str::slug($request->slug);
 
         $product->brands()->sync($request->brands);
+        $product->labels()->sync($request->labels);
         $product->categories()->sync($request->categories);
 
         $product->update($validate);

@@ -71,7 +71,7 @@
                                     </span>
                                 </a>
                             </td>
-                            <td class="p-4 text-base  text-gray-900 whitespace-nowra">
+                            <td class="p-4 text-xs  text-gray-900 whitespace-nowra">
                                 {{ $product->sku }}
                             </td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
@@ -95,7 +95,6 @@
                             </td>
                             <td class="p-4 text-base  text-gray-900 whitespace-nowra">
                                 <div class="flex items-center">
-                                   
                                     <div @class([
                                         'inline-block w-4 h-4 mr-2 rounded-full', 
                                         'bg-green-700' => $product->active,

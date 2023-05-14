@@ -40,6 +40,11 @@
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Compra mínima
                             </th>
+
+                            <th scope="col"
+                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Estado
+                            </th>
                            
                             <th scope="col"
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
@@ -67,6 +72,18 @@
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
                                 ${{ number_format($vendor->minimum_purchase, 2) }}
                             </td>
+
+                            <td class="p-4 text-base  text-gray-900 whitespace-nowra">
+                                <div class="flex items-center">
+                                    <div @class([
+                                        'inline-block w-4 h-4 mr-2 rounded-full', 
+                                        'bg-green-700' => $vendor->active,
+                                        'bg-red-700' => !$vendor->active
+                                        ])></div>
+                                    {{ $vendor->active ? 'Activo' : 'Inactivo' }}
+                                </div>
+                            </td>
+                          
                           
 
                             <td class="p-4 space-x-2 whitespace-nowrap text-end">

@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::query()
         ->when($request->q, function($query, $q){
-            $query->where('name', 'like', "%{$q}%");
+            $query->where('name', 'like', "%{$q}%")->orWhere('description', 'like', "%{$q}%");
         })
         ->orderBy('name')
         ->paginate();
@@ -57,7 +57,7 @@ class CategoryController extends Controller
         ]);
 
         if($request->hasFile('image_file')){
-            $validate['image'] = $request->image_file->store('/brands', 'public');
+            $validate['image'] = $request->image_file->store('/categories', 'public');
         }
 
         $slug =  Str::slug($request->name);
@@ -114,7 +114,7 @@ class CategoryController extends Controller
         ]);
 
         if($request->hasFile('image_file')){
-            $validate['image'] = $request->image_file->store('/brands', 'public');
+            $validate['image'] = $request->image_file->store('/categories', 'public');
         }
 
         $slug =  Str::slug($request->name);

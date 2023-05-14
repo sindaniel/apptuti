@@ -17,6 +17,7 @@ class Brand extends Model
         'slug',
         'delivery_days',
         'discount',
+        'active'
     ];
 
     public function vendors(){

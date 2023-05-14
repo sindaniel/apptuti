@@ -2,10 +2,10 @@
 
 
 @section('content')
-{{ Aire::open()->route('categories.store')->enctype('multipart/form-data')}}
+{{ Aire::open()->route('labels.store')->enctype('multipart/form-data')}}
 <div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
     <div class="mb-4 col-span-full xl:mb-2">
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Crear categoría</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Crear etiqueta</h1>
     </div>
 
     <div class="col-span-2">
@@ -16,6 +16,7 @@
 
                 {{ Aire::input('name', "Nombre")->groupClass('col-span-6') }}
                 {{ Aire::textarea('description', "Descripción")->rows(5)->groupClass('col-span-6') }}
+                
                 <div>
                     {{ Aire::hidden('active')->value(0)}}
                     <label class="relative inline-flex items-center cursor-pointer">
@@ -28,7 +29,7 @@
                 <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">
                     <p class="flex space-x-2 items-center">
                         {{ Aire::submit('Crear')->variant()->submit() }}
-                        <a href="{{ route('categories.index') }}">Cancelar</a>
+                        <a href="{{ route('labels.index') }}">Cancelar</a>
                     </p>
                 </div>
             </div>
