@@ -9,11 +9,27 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'name', 'slug', 'description', 'active', 'image'];
+    protected $fillable = [ 'name', 'slug', 'description', 'active', 'image', 'parent_id'];
 
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+   
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 }

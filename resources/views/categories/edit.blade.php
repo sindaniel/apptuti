@@ -16,6 +16,8 @@
 
                 {{ Aire::input('name', "Nombre")->groupClass('col-span-6') }}
                 {{ Aire::input('slug', "Slug")->groupClass('col-span-6') }}
+
+                {{ Aire::select($categories, 'parent_id', 'Padre')->groupClass('col-span-6') }}
                 {{ Aire::textarea('description', "Descripción")->rows(5)->groupClass('col-span-6') }}
 
                 <div>

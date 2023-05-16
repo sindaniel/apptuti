@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LabelController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaxController;
@@ -24,14 +25,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/categoria-producto/{slug}', [PageController::class, 'category'])->name('category');
+Route::get('/categoria-producto/{slug}/{slug2?}', [PageController::class, 'category'])->name('category2');
 
-Route::middleware('auth')->group(function () {
+Route::get('/producto/{slug}', [PageController::class, 'product'])->name('product');
+
+Route::get('/etiqueta-producto/{slug}', [PageController::class, 'label'])->name('label');
 
 
-    Route::get('/', function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
+
+    Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 

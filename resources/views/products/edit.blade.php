@@ -233,8 +233,8 @@ $(document).ready(function() {
         height: 200
     });		
 
-    new FroalaEditor('#sort_description', {
-        height: 200
-    });		
+    // new FroalaEditor('#sort_description', {
+    //     height: 200
+    // });		
     </script>	
 @endsection

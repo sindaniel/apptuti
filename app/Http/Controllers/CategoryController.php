@@ -15,6 +15,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = Category::query()
+        ->with('parent')
         ->when($request->q, function($query, $q){
             $query->where('name', 'like', "%{$q}%")->orWhere('description', 'like', "%{$q}%");
         })
@@ -31,7 +32,13 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+
+        $categories = Category::active()->whereNull('parent_id')->orderBy('name')->get()->pluck('name', 'id');
+        $categories->prepend('Seleccione', null);
+
+        $context = compact('categories');
+
+        return view('categories.create', $context);
     }
 
     /**
@@ -51,6 +58,7 @@ class CategoryController extends Controller
                     }
                 },
             ],
+            'parent_id' => 'nullable',
             'description' => 'nullable',
             'image' => 'nullable|image',
             'active' => 'nullable|boolean',
@@ -81,7 +89,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $context = compact('category');
+        $categories = Category::active()->whereNot('id', $category->id)->whereNull('parent_id')->orderBy('name')->get()->pluck('name', 'id');
+        $categories->prepend('Seleccione', null);
+        $context = compact('category', 'categories');
         return view('categories.edit', $context);
 
     }
@@ -99,6 +109,7 @@ class CategoryController extends Controller
                 
             ],
             'description' => 'nullable',
+            'parent_id' => 'nullable',
             'image' => 'nullable|image',
             'active' => 'nullable|boolean',
             'slug' => [
@@ -130,6 +141,17 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+       
+        if($category->children()->count()){
+            return back()->with('error', 'No se puede eliminar una categoría que tiene subcategorías');
+        }
+
+        if($category->products()->count()){
+            return back()->with('error', 'No se puede eliminar una categoría que tiene productos asociados');
+        }
         
+        $category->delete();
+        return to_route('categories.index')->with('success', 'La categoría se ha eliminado correctamente');
+
     }
 }

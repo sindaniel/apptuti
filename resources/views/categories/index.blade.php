@@ -35,6 +35,11 @@
 
                             <th scope="col"
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Padre
+                            </th>
+
+                            <th scope="col"
+                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Estado
                             </th>
                             <th scope="col"
@@ -56,6 +61,10 @@
                                         {{ $category->slug }}
                                     </span>
                                 </a>
+                            </td>
+
+                            <td class="p-4 text-base  text-gray-900 whitespace-nowra">
+                                {{$category->parent ? $category->parent->name : ''}}
                             </td>
                             
                             <td class="p-4 text-base  text-gray-900 whitespace-nowra">
