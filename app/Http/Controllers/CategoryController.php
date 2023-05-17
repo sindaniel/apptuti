@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessImage;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str as Str;
 use Closure;
+use Faker\Core\File;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class CategoryController extends Controller
 {
@@ -65,7 +69,7 @@ class CategoryController extends Controller
         ]);
 
         if($request->hasFile('image_file')){
-            $validate['image'] = $request->image_file->store('/categories', 'public');
+            $validate['image'] = $request->image_file->store('/categories', 'do');
         }
 
         $slug =  Str::slug($request->name);
@@ -89,6 +93,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+
+       # dd(ProcessImage::dispatch('hola', 'categories'));
+     
         $categories = Category::active()->whereNot('id', $category->id)->whereNull('parent_id')->orderBy('name')->get()->pluck('name', 'id');
         $categories->prepend('Seleccione', null);
         $context = compact('category', 'categories');
@@ -110,7 +117,7 @@ class CategoryController extends Controller
             ],
             'description' => 'nullable',
             'parent_id' => 'nullable',
-            'image' => 'nullable|image',
+            'image_file' => 'nullable|image|max:5000',
             'active' => 'nullable|boolean',
             'slug' => [
                 'required',
@@ -124,8 +131,34 @@ class CategoryController extends Controller
             ]
         ]);
 
+       
+        // $name = asset_name('categories'); 
+        // $n = ProcessImage::dispatch($name, $request->image_file);
+        
+        // $image = $request->image_file;
+        
+        // $folder = 'categories';
+        // $imgFile = Image::make($image->getRealPath());
+
+     
+        // Storage::disk('do')->put("{$name}.jpg", $imgFile->stream());
+        
+        // $imgFile->resize(1000, 1000, function ($constraint) {$constraint->aspectRatio();});
+        // Storage::disk('do')->put("{$name}-1000x1000.jpg", $imgFile->encode('jpg', 75)->stream());
+
+
+        // $imgFile->resize(500, 500, function ($constraint) {$constraint->aspectRatio();});
+        // Storage::disk('do')->put("{$name}-500x500.jpg", $imgFile->encode('jpg', 75)->stream());
+
+
+        // dd(file_get_contents($imgFile->));
+        // Storage::disk('do')->put("image,hog", file_get_contents($imgFile));
+
+              
         if($request->hasFile('image_file')){
-            $validate['image'] = $request->image_file->store('/categories', 'public');
+            $validate['image'] = $request->image_file->store('/categories', 'do'); 
+            ProcessImage::dispatch($category, 'categories');
+
         }
 
         $slug =  Str::slug($request->name);
