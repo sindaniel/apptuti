@@ -117,7 +117,7 @@ class CategoryController extends Controller
             ],
             'description' => 'nullable',
             'parent_id' => 'nullable',
-            'image_file' => 'nullable|image|max:5000',
+            'image_file' => 'nullable|image|max:2000',
             'active' => 'nullable|boolean',
             'slug' => [
                 'required',
@@ -157,7 +157,7 @@ class CategoryController extends Controller
               
         if($request->hasFile('image_file')){
             $validate['image'] = $request->image_file->store('/categories', 'do'); 
-            ProcessImage::dispatch($category, 'categories');
+           # ProcessImage::dispatch($category, 'categories');
 
         }
 

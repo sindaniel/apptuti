@@ -16,11 +16,13 @@ if (! function_exists('asset_url')) {
     }
 }
 
-if (! function_exists('asset_name')) {
-    function asset_name($folder)
+
+if (! function_exists('public_asset')) {
+    function public_asset($file)
     {   
-        $random = Str::random(40);
-        return "{$folder}/{$random}";
+        $path = config('app.url');
+        return "{$path}/{$file}";
         
     }
 }
+

@@ -50,7 +50,7 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Imagenes</h3>
-            {{ asset_url($category->image, 1000) }}
+      
             <div class="mb-3 text-center">
                 <img src="{{ asset($category->image) }}" alt="" class="w-48 inline-block">
             </div>
