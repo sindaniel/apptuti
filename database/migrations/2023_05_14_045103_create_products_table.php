@@ -34,13 +34,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('brand_product', function (Blueprint $table) {
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('brand_id');
+        // Schema::create('brand_product', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('product_id');
+        //     $table->unsignedBigInteger('brand_id');
 
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-        });
+        //     $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        //     $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+        // });
 
 
     }

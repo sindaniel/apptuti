@@ -20,7 +20,7 @@
                         {{ Aire::input('delivery_days', "Dias de entrega")->groupClass('col-span-6 sm:col-span-3') }}
                    
                    
-                        {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', 0))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
+                       
                
                         {{  Aire::textarea('description', 'Descripción')->id('description')->rows(5)->groupClass('col-span-6') }}
 

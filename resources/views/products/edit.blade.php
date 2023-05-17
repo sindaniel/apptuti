@@ -89,8 +89,15 @@
 
 
       
-        <x-product-attributes relation='brands' :product="$product" :items="$brands" title="Marcas" />
-        <x-product-attributes relation='categories' :product="$product" :items="$categories" title="Categorías"  />
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <h3 class="mb-4 text-xl font-semibold ">Marca</h3>
+            <div class="grid grid-cols-1 gap-3">
+                {{Aire::select($brands, 'brand_id')}}
+            </div>
+        </div>
+
+                                                    
+        <x-product-categories relation='categories' :product="$product" :items="$categories" title="Categorías"  />
         <x-product-attributes relation='labels' :product="$product" :items="$labels" title="Etiquetas" />
      
 

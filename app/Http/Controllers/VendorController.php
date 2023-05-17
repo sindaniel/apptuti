@@ -43,6 +43,7 @@ class VendorController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'minimum_purchase'=> 'required|numeric',
+            'discount'=>'numeric',
             'active'=>'nullable',
         ]);
 
@@ -95,6 +96,7 @@ class VendorController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'minimum_purchase'=> 'required|numeric',
+            'discount'=>'numeric',
             'slug'=>'required|unique:brands,slug,'.$vendor->id,
             'active'=>'nullable',
         ]);

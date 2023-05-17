@@ -38,6 +38,10 @@
                             </th>
                             <th scope="col"
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Descuento
+                            </th>
+                            <th scope="col"
+                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Compra mínima
                             </th>
 
@@ -68,6 +72,9 @@
                             </td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
                                 {{ $vendor->brands_count }}
+                            </td>
+                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
+                                {{ $vendor->discount }}%
                             </td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
                                 ${{ number_format($vendor->minimum_purchase, 2) }}

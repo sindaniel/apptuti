@@ -40,10 +40,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $brands = Brand::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
+        $brands->prepend('Seleccione', null);
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
         $labels = Label::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::with('children')->whereNull('parent_id')->orderBy('name')->get();
         $context = compact('brands', 'taxes', 'labels', 'categories');
         return view('products.create', $context);
     }
@@ -77,6 +78,7 @@ class ProductController extends Controller
             'quantity_max' => 'required|numeric',
             'step' => 'required|numeric',
             'tax_id' => 'required',
+            'brand_id' => 'required',
             
             
         ]);
@@ -114,8 +116,10 @@ class ProductController extends Controller
     {
         $product->load(['brands', 'related']); // eager loading
        
-        $brands = Brand::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
+        $brands->prepend('Seleccione', null);
+
+        $categories = Category::with('children')->whereNull('parent_id')->orderBy('name')->get();
         $labels = Label::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
        
@@ -144,6 +148,7 @@ class ProductController extends Controller
             'quantity_max' => 'required|numeric',
             'step' => 'required|numeric',
             'tax_id' => 'required',
+            'brand_id' => 'required',
             'slug' => [
                 'required',
                 function (string $attribute, $value, Closure $fail) use($product){
@@ -165,7 +170,7 @@ class ProductController extends Controller
         $product->update($validate);
        # return back()->with('success', 'Producto actualizado');
 
-        return to_route('products.index')->with('success', 'Producto actualizado');
+        return to_route('products.index')->with('success', "Producto actualizado");
     }
 
     /**

@@ -42,7 +42,7 @@ class BrandController extends Controller
         $validate = $request->validate([
             'name'=>'required|max:255',
             'delivery_days'=>'numeric',
-            'discount'=>'numeric',
+           
             'description'=>'nullable',
             'active'=>'nullable',
         ]);
@@ -91,7 +91,7 @@ class BrandController extends Controller
         $validate = $request->validate([
             'name'=>'required|max:255',
             'delivery_days'=>'numeric',
-            'discount'=>'numeric',
+          
             'description'=>'nullable',
             'slug'=>'required|unique:brands,slug,'.$brand->id,
             'active'=>'nullable',

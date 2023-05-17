@@ -16,7 +16,6 @@ class Brand extends Model
         'description',
         'slug',
         'delivery_days',
-        'discount',
         'active'
     ];
 

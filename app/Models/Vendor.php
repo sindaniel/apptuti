@@ -15,7 +15,8 @@ class Vendor extends Model
         'banner',
         'slug',
         'minimum_purchase',
-        'active'
+        'active',
+        'discount'
     ];
 
     public function brands(){

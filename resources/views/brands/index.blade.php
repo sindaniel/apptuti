@@ -32,10 +32,7 @@
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Marca
                             </th>
-                            <th scope="col"
-                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
-                                Descuento
-                            </th>
+                           
                             <th scope="col"
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Dias de entrega
@@ -64,9 +61,7 @@
                                     </span>
                                 </a>
                             </td>
-                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
-                                {{ $brand->discount }}%
-                            </td>
+                           
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
                                 {{ $brand->delivery_days }}%
                             </td>

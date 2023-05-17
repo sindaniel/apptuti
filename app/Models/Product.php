@@ -22,7 +22,8 @@ class Product extends Model
         'quantity_min',
         'quantity_max',
         'step',
-        'tax_id'
+        'tax_id',
+        'brand_id'
     ];
 
     public function brands(){
