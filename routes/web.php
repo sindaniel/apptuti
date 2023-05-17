@@ -34,6 +34,10 @@ Route::get('/producto/{slug}', [PageController::class, 'product'])->name('produc
 Route::get('/etiqueta-producto/{slug}', [PageController::class, 'label'])->name('label');
 
 
+Route::get('/proveedores', [PageController::class, 'brands'])->name('brands');
+Route::get('/proveedores/{brand}', [PageController::class, 'brand'])->name('brand');
+
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
 

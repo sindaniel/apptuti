@@ -1,47 +1,23 @@
 @extends('layouts.page')
 
+
 @section('head')
     @include('elements.seo', [
-        'title'=>$product->name, 
-        'description'=> $product->sort_description
+        'title'=>$brand->name, 
+        'description'=> $brand->sort_description
         ])
 @endsection
+
+
 
 @section('content')
     
 
-<h1 class="text-4xl font-bold">{{ $product->name }}</h1>
 <div class="w-full">
-    <p>
-        {!! $product->short_description !!}
-    </p>
-
-
-    <div class="mt-5">
-        @foreach ($product->labels as $label)
-            
-            <a href="{{ route('label', $label->slug) }}" class="inline-block bg-blue-500 hover:bg-blue-700 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">{{ $label->name }}</a>
-
-        @endforeach
-    </div>
-
-    <div class="mt-5">
-        Marca: <a href="{{ route('brand', $product->brand->slug) }}" class="text-blue-500">{{ $product->brand->name }}</a>
-    </div>
+    <h1 class="text-3xl mb-5">{{ $brand->name }}</h1>
 </div>
-
-
-
-
-
-
-@if($product->related->count() )
-<hr class="borde-b border-blue-500 my-10 w-full">
-<div class="w-full">
-    <h2 class="font-bold text-xl mb-5">Productos relacionados</h2>
-</div>
-<div class="grid grid-cols-5 gap-4">
-    @foreach ($product->related as $product)
+<div class="grid grid-cols-4 gap-4">
+    @foreach ($products as $product)
 
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
@@ -52,7 +28,9 @@
                 <a href="{{route('product', $product->slug)}}" class="text-gray-900  hover:text-blue-500">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight">{{ $product->name }}</h5>
                 </a>
-              
+                {{-- <p class="mb-5 font-normal text-gray-700 dark:text-gray-400">
+                    {!! $product->short_description !!}
+                </p> --}}
 
 
                 <p class="mb-5  text-gray-700 text-2xl ">
@@ -81,7 +59,7 @@
     @endforeach
 </div>
 
-@endif
 
+{{ $products->withQueryString()->links() }}
 
 @endsection

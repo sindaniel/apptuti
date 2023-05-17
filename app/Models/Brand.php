@@ -22,4 +22,8 @@ class Brand extends Model
     public function vendors(){
         return $this->belongsToMany(Vendor::class);
     }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Label;
 use App\Models\Product;
@@ -68,5 +69,13 @@ class PageController extends Controller
         $products = $label->products()->paginate();
         $context = compact('label', 'products');
         return view('pages.label', $context);
+    }
+
+
+    public function brand($slug){
+        $brand = Brand::where('slug', $slug)->firstOrFail();
+        $products = $brand->products()->paginate();
+        $context = compact('brand', 'products');
+        return view('pages.brand', $context);
     }
 }

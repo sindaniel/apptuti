@@ -114,7 +114,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product->load(['brands', 'related']); // eager loading
+        $product->load(['brand', 'related']); // eager loading
        
         $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
         $brands->prepend('Seleccione', null);
@@ -163,7 +163,6 @@ class ProductController extends Controller
 
         $validate['slug'] =  Str::slug($request->slug);
 
-        $product->brands()->sync($request->brands);
         $product->labels()->sync($request->labels);
         $product->categories()->sync($request->categories);
 
