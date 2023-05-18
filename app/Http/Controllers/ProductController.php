@@ -91,7 +91,7 @@ class ProductController extends Controller
         $validate['slug'] = $slug;
 
         $product = Product::create($validate);
-        $product->brands()->attach($brands);
+       
         $product->labels()->attach($labels);
         $product->categories()->attach($categories);
 
@@ -130,7 +130,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        dd($request->all());
+    
         $validate = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
