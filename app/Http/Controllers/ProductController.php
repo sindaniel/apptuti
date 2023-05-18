@@ -20,18 +20,18 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = Product::query()
-        ->with('tax')
-        ->when($request->q, function($query, $q){
-            $query->where('name', 'like', "%{$q}%")
-                ->orWhere('sku', 'like', "%{$q}%")
-                ->orWhere('description', 'like', "%{$q}%")
-                ->orWhere('short_description', 'like', "%{$q}%");
-        })
-        ->orderBy('name')
-        ->paginate();
-       
-        $context = compact('products'); 
-        
+            ->with('tax')
+            ->when($request->q, function ($query, $q) {
+                $query->where('name', 'like', "%{$q}%")
+                    ->orWhere('sku', 'like', "%{$q}%")
+                    ->orWhere('description', 'like', "%{$q}%")
+                    ->orWhere('short_description', 'like', "%{$q}%");
+            })
+            ->orderBy('name')
+            ->paginate();
+
+        $context = compact('products');
+
         return view('products.index', $context);
     }
 
@@ -54,15 +54,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $validate = $request->validate([
             'name' => [
-                'required', 
+                'required',
                 'max:255',
-                function (string $attribute, $value, Closure $fail){
+                function (string $attribute, $value, Closure $fail) {
                     $slug =  Str::slug($value);
                     $p = Product::where('slug', $slug)->first();
-                    if($p){
+                    if ($p) {
                         $fail('El slug para este nombre ya existe');
                     }
                 },
@@ -79,8 +79,8 @@ class ProductController extends Controller
             'step' => 'required|numeric',
             'tax_id' => 'required',
             'brand_id' => 'required',
-            
-            
+
+
         ]);
 
         $brands = $request->brands;
@@ -96,9 +96,6 @@ class ProductController extends Controller
         $product->categories()->attach($categories);
 
         return redirect()->route('products.index')->with('success', 'Producto creado');
-
-
-        
     }
 
     /**
@@ -106,7 +103,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        
     }
 
     /**
@@ -115,14 +111,14 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $product->load(['brand', 'related']); // eager loading
-       
+
         $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
         $brands->prepend('Seleccione', null);
 
         $categories = Category::with('children')->whereNull('parent_id')->orderBy('name')->get();
         $labels = Label::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
-       
+
         $context = compact('brands', 'taxes', 'product', 'categories', 'labels');
 
 
@@ -134,7 +130,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-       
+        dd($request->all());
         $validate = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
@@ -151,10 +147,10 @@ class ProductController extends Controller
             'brand_id' => 'required',
             'slug' => [
                 'required',
-                function (string $attribute, $value, Closure $fail) use($product){
+                function (string $attribute, $value, Closure $fail) use ($product) {
                     $slug =  Str::slug($value);
                     $p = Product::whereNot('id', $product->id)->where('slug', $slug)->first();
-                    if($p){
+                    if ($p) {
                         $fail('El slug ya existe');
                     }
                 },
@@ -167,7 +163,7 @@ class ProductController extends Controller
         $product->categories()->sync($request->categories);
 
         $product->update($validate);
-       # return back()->with('success', 'Producto actualizado');
+        # return back()->with('success', 'Producto actualizado');
 
         return to_route('products.index')->with('success', "Producto actualizado");
     }
@@ -185,27 +181,26 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $products = Product::query()
-        ->select('name as text', 'id')
-        ->when($request->product_id, function($query, $p){
-            $product= Product::find($p);
-            $query
-                ->whereNot('id', $p)
-                ->whereNotIn('id', $product->related->pluck('id'));
-        })
-        ->when($request->q, function($query, $q){
-            $query->whereNot(function ($query) use ($q) {
-                $query->where('name', 'like', "%{$q}%")
-                    ->where('sku', 'like', "%{$q}%")
-                    ->where('description', 'like', "%{$q}%")
-                    ->where('short_description', 'like', "%{$q}%");
-            });
-           
-        })
-       
-        ->orderBy('name')
-        ->limit(10)
-        ->get();
-       
+            ->select('name as text', 'id')
+            ->when($request->product_id, function ($query, $p) {
+                $product = Product::find($p);
+                $query
+                    ->whereNot('id', $p)
+                    ->whereNotIn('id', $product->related->pluck('id'));
+            })
+            ->when($request->q, function ($query, $q) {
+                $query->whereNot(function ($query) use ($q) {
+                    $query->where('name', 'like', "%{$q}%")
+                        ->where('sku', 'like', "%{$q}%")
+                        ->where('description', 'like', "%{$q}%")
+                        ->where('short_description', 'like', "%{$q}%");
+                });
+            })
+
+            ->orderBy('name')
+            ->limit(10)
+            ->get();
+
         return $products;
     }
 
@@ -218,7 +213,7 @@ class ProductController extends Controller
 
     public function removeRelated(Request $request, Product $product)
     {
-        
+
         $product->related()->detach($request->related_id);
         return;
     }

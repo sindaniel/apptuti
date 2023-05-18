@@ -15,6 +15,8 @@
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Actualizar Producto</h1>
     </div>
 
+  
+
     <div class="col-span-2">
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Información</h3>
@@ -71,24 +73,14 @@
 
     <div class="col-span-1">
 
-
+       
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
-            <h3 class="mb-4 text-xl font-semibold ">Productos relacionados</h3>
-            <div class="grid grid-cols-1 gap-3">
-                {{-- <input id="tom-select-it" /> --}}
-
+            <h3 class="mb-4 text-xl font-semibold ">Marca</h3>
+            <div id='app'></div>
           
-                <select class="js-example-basic-single" multiple name="related">
-                    {{-- <option selected value="1">Test</option> --}}
-                </select>
-            
-                    
-            </div>
         </div>
 
 
-
-      
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Marca</h3>
             <div class="grid grid-cols-1 gap-3">
@@ -107,6 +99,23 @@
                 {{Aire::select($taxes, 'tax_id')}}
             </div>
         </div>
+
+
+
+{{-- 
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <h3 class="mb-4 text-xl font-semibold ">Productos relacionados</h3>
+            <div class="grid grid-cols-1 gap-3">
+                
+
+
+                <select class="js-example-basic-single" multiple name="related">
+                    
+                </select>
+            
+                    
+            </div>
+        </div> --}}
 
 
 

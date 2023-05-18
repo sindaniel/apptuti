@@ -71,9 +71,15 @@ class PageController extends Controller
         return view('pages.label', $context);
     }
 
+    public function brands(){
+        $brands = Brand::whereActive(1)->orderBy('name')->get();
+        $context = compact('brands');
+        return view('pages.brands', $context);
+    }
+
 
     public function brand($slug){
-        $brand = Brand::where('slug', $slug)->firstOrFail();
+        $brand = Brand::whereActive(1)->where('slug', $slug)->firstOrFail();
         $products = $brand->products()->paginate();
         $context = compact('brand', 'products');
         return view('pages.brand', $context);

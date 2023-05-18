@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Tax;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,11 +22,10 @@ class ProcessImage implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-       public $item, 
-       public $folder
+        //    public $item, 
+        //    public $folder
     )
     {
-        
     }
 
     /**
@@ -33,18 +33,23 @@ class ProcessImage implements ShouldQueue
      */
     public function handle(): void
     {
-        
-        info("proceso jon");
-        info($this->item);
+
+        // info("proceso jon");
+        // info($this->item);
+
+        Tax::create([
+            'name' => 'IVA',
+            'tax' => 21,
+        ]);
         // $image = $this->image;
         // $name = $this->name;
-        
-      
+
+
         // $imgFile = Image::make($image->getRealPath());
 
-     
+
         // Storage::disk('do')->put("{$name}.jpg", $imgFile->stream());
-        
+
         // $imgFile->resize(1000, 1000, function ($constraint) {$constraint->aspectRatio();});
         // Storage::disk('do')->put("{$name}-1000x1000.jpg", $imgFile->encode('jpg', 75)->stream());
 
@@ -54,5 +59,4 @@ class ProcessImage implements ShouldQueue
 
 
     }
-
 }

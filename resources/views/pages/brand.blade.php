@@ -16,7 +16,7 @@
 <div class="w-full">
     <h1 class="text-3xl mb-5">{{ $brand->name }}</h1>
 </div>
-<div class="grid grid-cols-4 gap-4">
+<div class="grid grid-cols-5 gap-4">
     @foreach ($products as $product)
 
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

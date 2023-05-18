@@ -19,7 +19,7 @@
 <body class="antialiased">
 
     @include('elements.admin.header')
-    <div class="flex  overflow-hidden bg-gray-50 dark:bg-gray-900">
+    <div class="flex overflow-hidden bg-gray-50 dark:bg-gray-900">
 
         @include('elements.admin.aside')
 
@@ -27,7 +27,8 @@
             <main class="pt-[4.5rem]">
             
                 <x-alert />
-
+               
+                
                 @yield('content')
               
             </main>
