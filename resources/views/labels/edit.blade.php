@@ -14,8 +14,8 @@
 
             <div class="grid grid-cols-6 gap-6">
 
-                {{ Aire::input('name', "Nombre")->groupClass('col-span-6') }}
-                {{ Aire::input('slug', "Slug")->groupClass('col-span-6') }}
+                {{ Aire::input('name', "Nombre")->groupClass('col-span-3') }}
+                {{ Aire::input('slug', "Slug")->groupClass('col-span-3') }}
                 {{ Aire::textarea('description', "Descripción")->rows(5)->groupClass('col-span-6') }}
 
                 <div>

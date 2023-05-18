@@ -91,7 +91,34 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $label)
     {
-        //
+        $validate = $request->validate([
+            'name' => [
+                'required', 
+                'max:255',
+            ],
+            'description' => 'nullable',
+            'image' => 'nullable|image',
+            'active' => 'nullable|boolean',
+            'slug' => [
+                'required',
+                function (string $attribute, $value, Closure $fail) use($label){
+                    $slug =  Str::slug($value);
+                    $p = Label::whereNot('id', $label->id)->where('slug', $slug)->first();
+                    if($p){
+                        $fail('El slug para este nombre ya existe');
+                    }
+                },
+            ]
+            
+        ]);
+
+
+        $slug =  Str::slug($request->name);
+        $validate['slug'] = $slug;
+
+        Label::create($validate);
+
+        return to_route('labels.index')->with('success', 'La etiqueta actualizada');
     }
 
     /**
