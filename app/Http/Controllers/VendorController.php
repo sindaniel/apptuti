@@ -61,7 +61,7 @@ class VendorController extends Controller
         
         Vendor::create($validate);
 
-        return to_route('vendors.index')->with('success', 'Vendor creada');
+        return to_route('vendors.index')->with('success', 'Vendor creado correctamente');
     }
 
     /**
@@ -129,30 +129,9 @@ class VendorController extends Controller
             return to_route('vendors.index')->with('success', 'Vendor eliminado');
         }
 
-        return back()->with('error', 'No es posible eliminar el vendor por que tiene marcas asociadas');
+        return to_route('vendors.edit', $vendor)->with('error', 'No es posible eliminar el vendor por que tiene marcas asociadas');
         
-       
     }
 
-    public function addBrand(Vendor $vendor, Request $request){
-        
-        $validate = $request->validate([
-            'brand_id' => 'required|exists:brands,id',
-        ]);
 
-        $vendor->brands()->attach($validate['brand_id']);
-
-        return to_route('vendors.edit', $vendor)->with('success', 'Marca agregada');
-    }
-
-    public function removeBrand(Vendor $vendor, Request $request){
-        
-        $validate = $request->validate([
-            'brand_id' => 'required|exists:brands,id',
-        ]);
-
-        $vendor->brands()->detach($validate['brand_id']);
-
-        return to_route('vendors.edit', $vendor)->with('success', 'Marca eliminada');
-    }
 }

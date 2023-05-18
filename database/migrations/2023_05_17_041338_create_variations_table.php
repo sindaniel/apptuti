@@ -37,6 +37,11 @@ return new class extends Migration
             $table->foreign('variation_items_id')->references('id')->on('variation_items')->onDelete('cascade');
             $table->timestamps();
         });
+
+
+        Schema::table('vendors', function (Blueprint $table) {
+            $table->integer('discount')->default(0);
+        });
     }
 
     /**
@@ -44,6 +49,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('product_variations');
+        Schema::dropIfExists('variation_items');
         Schema::dropIfExists('variations');
+        Schema::table('vendors', function (Blueprint $table) {
+            $table->dropColumn('discount');
+        });
     }
 };

@@ -128,7 +128,7 @@ class BrandController extends Controller
             return to_route('brands.index')->with('success', 'Vendor eliminado');
         }
 
-        return back()->with('error', 'No es posible eliminar la marca por que tiene vendors asociados');
+        return to_route('brands.edit', $brand)->with('error', 'No es posible eliminar la marca por que tiene vendors asociados');
 
 
         // $brand->delete();
