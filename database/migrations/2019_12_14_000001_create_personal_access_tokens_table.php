@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('banner')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('slug');
             $table->string('delivery_days')->default(0);
             $table->integer('discount')->default(0);
