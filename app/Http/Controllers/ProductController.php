@@ -164,7 +164,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-     
+        //FIXME preguntar si el slug ya existe en otro producto
         $validate = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
