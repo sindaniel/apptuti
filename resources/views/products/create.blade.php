@@ -27,6 +27,8 @@
 
                 {{ Aire::input('quantity_min', "Cantidad mínima")->groupClass('col-span-3') }}
                 {{ Aire::input('quantity_max', "Cantidad maxima")->helpText('Si esta en cero no hay límite')->groupClass('col-span-3') }}
+
+                {{Aire::select($variations, 'variation_id', "Variación")->groupClass('col-span-3')}}
                 
                 {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', 0))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
 
@@ -94,12 +96,7 @@
 @section('scripts')
 <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  	
 <script>
-new FroalaEditor('#description', {
-    height: 200
-});		
-
-new FroalaEditor('#sort_description', {
-    height: 200
-});		
+    new FroalaEditor('#description', {height: 200});		
+    new FroalaEditor('#sort_description', {height: 200});		
 </script>	
 @endsection

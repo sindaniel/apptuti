@@ -10,5 +10,11 @@ class VariationItem extends Model
     use HasFactory;
 
     protected $fillable = [ 'name'];
+
+    public function variation(){
+        return $this->belongsTo(Variation::class);
+    }
+
+    
     
 }

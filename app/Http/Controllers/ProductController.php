@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Label;
 use App\Models\Product;
 use App\Models\Tax;
+use App\Models\Variation;
+use App\Models\VariationItem;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str as Str;
@@ -42,10 +44,16 @@ class ProductController extends Controller
     {
         $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
         $brands->prepend('Seleccione', null);
+
+        $variations = Variation::orderBy('name')->get()->pluck('name', 'id');
+        $variations->prepend('Seleccione', null);
+
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
         $labels = Label::orderBy('name')->get();
+
         $categories = Category::with('children')->whereNull('parent_id')->orderBy('name')->get();
-        $context = compact('brands', 'taxes', 'labels', 'categories');
+
+        $context = compact('brands', 'taxes', 'labels', 'categories', 'variations');
         return view('products.create', $context);
     }
 
@@ -79,11 +87,14 @@ class ProductController extends Controller
             'step' => 'required|numeric',
             'tax_id' => 'required',
             'brand_id' => 'required',
+            'variation_id'=>'nullable',
 
 
         ]);
 
-        $brands = $request->brands;
+        
+  
+        
         $categories = $request->categories;
         $labels = $request->labels;
 
@@ -93,9 +104,19 @@ class ProductController extends Controller
         $product = Product::create($validate);
        
         $product->labels()->attach($labels);
-        $product->categories()->attach($categories);
+        $product->categories()->attach($categories, );
 
-        return redirect()->route('products.index')->with('success', 'Producto creado');
+
+        if($request->variation_id){
+            $variations = VariationItem::whereVariationId($request->variation_id)->get();
+            $product->items()->attach($variations, [
+                'price'=> $validate['price'],
+                'enabled'=>true
+            ]);  
+        }
+       
+
+        return redirect()->route('products.edit', $product)->with('success', 'Producto creado');
     }
 
     /**
@@ -110,16 +131,29 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product->load(['brand', 'related']); // eager loading
+        $product->load([
+            'brand', 
+            'related', 
+            'items' => ['variation'],
+            'variation'
+        ]); // eager loading
 
+
+     //   $items = $product->items->keyBy('pivot.variation_item_id');
+
+    //     dd($items->contains(1, 'id'));
+    
         $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
         $brands->prepend('Seleccione', null);
+
+        $variations = Variation::orderBy('name')->get()->pluck('name', 'id');
+        $variations->prepend('Seleccione', null);
 
         $categories = Category::with('children')->whereNull('parent_id')->orderBy('name')->get();
         $labels = Label::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
 
-        $context = compact('brands', 'taxes', 'product', 'categories', 'labels');
+        $context = compact('brands', 'taxes', 'product', 'categories', 'labels', 'variations');
 
 
         return view('products.edit', $context);
@@ -130,7 +164,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-    
+     
         $validate = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
@@ -145,6 +179,7 @@ class ProductController extends Controller
             'step' => 'required|numeric',
             'tax_id' => 'required',
             'brand_id' => 'required',
+            'variation_id'=>'nullable',
             'slug' => [
                 'required',
                 function (string $attribute, $value, Closure $fail) use ($product) {
@@ -161,6 +196,8 @@ class ProductController extends Controller
 
         $product->labels()->sync($request->labels);
         $product->categories()->sync($request->categories);
+
+        $product->items()->sync($request->variations);
 
         $product->update($validate);
         # return back()->with('success', 'Producto actualizado');

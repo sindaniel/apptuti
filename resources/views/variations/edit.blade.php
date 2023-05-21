@@ -106,10 +106,15 @@
    
 </div>
 
-<div id="drawer-js-example"  class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white" tabindex="-1" aria-labelledby="drawer-js-label">
-    <h5 id="drawer-js-label" class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"><svg class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Info</h5>
-    <button id="drawer-hide-button" type="button" aria-controls="drawer-example" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" >
-       <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+<div id="drawer-edit-item"  
+class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white"
+tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true" >
+    <h5 id="drawer-js-label"  class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 "><svg class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>Actualizar</h5>
+    <button id="closeDrawer" type="button" aria-controls="drawer-example" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center" >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          
        <span class="sr-only">Close menu</span>
     </button>
     <form action="" method="POST" id='editVariationItemForm' class="mb-6">
@@ -128,6 +133,7 @@
 
 
 
+
 <x-remove-drawer title="Variación" route='variations.destroy' :item='$variation' />
 
 
@@ -140,33 +146,23 @@
  <script>
  
 
-    const $targetEl = document.getElementById('drawer-js-example');
+    const $targetEl = document.getElementById('drawer-edit-item');
 
-    // options with default values
-    const options = {
-    placement: 'right',
-    backdrop: true,
-    bodyScrolling: false,
-    edge: false,
-    edgeOffset: '',
-    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30',
+    const drawer = new Drawer($targetEl, { placement: 'right'});
 
-    };
-
-    const drawer = new Drawer($targetEl, options);
-
-    $('.editItem').click(function(){
-
+    $('.editItem').click(function(e){
+        e.preventDefault();
         const urlForm = $(this).attr('href')
         const value = $(this).data('value')
         $('#editVariationItemForm').attr('action', urlForm)
         $('#editVariationItem').val(value)
-        
-
         drawer.show();
-        
-        return false
     })
+
+    $('#closeDrawer').click(function(e){
+        drawer.hide();
+    })
+    
  </script>
 
 @endsection

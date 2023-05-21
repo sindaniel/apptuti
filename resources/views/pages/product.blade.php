@@ -10,12 +10,32 @@
 @section('content')
     
 
-<h1 class="text-4xl font-bold">{{ $product->name }}</h1>
+<h1 class="text-4xl font-bold w-full flex justify-between mb-5">
+   <span> {{ $product->name }}</span>
+
+   <small id='productPrice'>
+        {{ price($product->items->first()->pivot->price, $product->discount) }}
+   </small>
+
+
+</h1>
 <div class="w-full">
-    <p>
+    <p class="mb-5">
         {!! $product->short_description !!}
     </p>
 
+
+    @if ($product->variation)
+        {{ $product->variation->name }}
+        <select name="" id="price">
+            @foreach ($product->items->where('pivot.enabled', 1) as $item) 
+                <option data-price="{{ price($item->pivot->price, $product->discount) }}" value="{{ $item->pivot->variation_item_id }}">{{ $item->name }}</option>
+            @endforeach
+        </select>
+
+    @else
+            price
+    @endif
 
     <div class="mt-5">
         @foreach ($product->labels as $label)
@@ -45,7 +65,7 @@
 
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-                <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+                {{-- <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" /> --}}
             </a>
             <div class="p-5">
                 
@@ -57,21 +77,23 @@
 
                 <p class="mb-5  text-gray-700 text-2xl ">
                     @if ($product->discount)
+
                         <div class="flex flex-col">
                             <span>
-                               <strong> ${{ number_format($product->price * (1 - $product->discount/100),2) }}</strong>
+                               <strong> {{ price($product->price, $product->discount) }}</strong>
                                 <small class="text-gray-500">({{ $product->discount }}%)</small>
                             </span>
-                            <small class="line-through">${{ number_format($product->price,2) }}</small>
+                            <small class="line-through">{{ price($product->price) }}</small>
                         </div>
                         
-                        @else
+                    @else
+
                         <div class="flex flex-col">
                             <span>
-                               <strong> ${{ number_format($product->price * (1 - $product->discount/100),2) }}</strong>
-                            </span>
-                           
+                               <strong> {{ price($product->price) }}</strong>
+                            </span> 
                         </div>
+                        
                     @endif
                 </p>
             
@@ -82,6 +104,24 @@
 </div>
 
 @endif
+
+
+@endsection
+
+
+@section('scripts')
+     
+    <script>
+        $(function(){
+            
+        
+            $('#price').on('change', function(){
+                let price = $(this).find(':selected').data('price')
+                $('#productPrice').html(price)
+            })
+        })
+
+    </script>
 
 
 @endsection

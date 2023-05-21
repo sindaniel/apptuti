@@ -104,9 +104,7 @@
         </div>
         
 
-
-        
-
+        <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 
         @yield('scripts')

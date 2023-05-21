@@ -13,7 +13,18 @@
 {{ Aire::open()->route('products.update', $product)->bind($product)->enctype('multipart/form-data')}}
 <div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
     <div class="mb-4 col-span-full xl:mb-2">
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Actualizar Producto</h1>
+        <div class=" flex justify-between items-center ">
+            <h1 class=" font-semibold text-xl text-gray-900 sm:text-2xl">{{ $product->name }}</h1>
+
+            <a class="flex items-center space-x-2 hover:text-blue-500" target="_blank" href="{{ route('product', $product->slug) }}">
+                <span>Ver</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                  
+                
+            </a>
+        </div>
     </div>
 
   
@@ -34,11 +45,14 @@
 
                 {{ Aire::input('quantity_min', "Cantidad mínima")->groupClass('col-span-3') }}
                 {{ Aire::input('quantity_max', "Cantidad maxima")->helpText('Si esta en cero no hay límite')->groupClass('col-span-3') }}
-                
-                {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', 0))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
 
-                {{  Aire::range('step', 'Steps')->data('sufix', '')->id('step')->value(old('step', 0))->min(0)->max(100)->step(1)->groupClass('col-span-6')->helpText('Salto de cantidad para el precio')}}
-              
+                {{Aire::select($variations, 'variation_id', "Variación")->groupClass('col-span-3')}}
+                
+                {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', $product->discount))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
+
+                {{  Aire::range('step', 'Steps')->data('sufix', '')->id('step')->value(old('step', $product->step))->min(0)->max(100)->step(1)->groupClass('col-span-6')->helpText('Salto de cantidad para el precio')}}
+                
+                
 
                 {{ Aire::textarea('description', "Descripción")->id('description')->rows(5)->groupClass('col-span-6') }}
                 {{ Aire::textarea('short_description', "Descripción corta")->id('sort_description')->rows(5)->groupClass('col-span-6') }}
@@ -54,18 +68,7 @@
                     </label>
                 </div>
 
-                <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">
-
-                    <p class="flex space-x-2 items-center">
-                        {{ Aire::submit('Actualizar')->variant()->submit() }}
-                        <a href="{{ route('products.index') }}">Cancelar</a>
-                    </p>
-
-
-                    
-                    <x-remove-button />  
-                   
-                </div>
+              
             </div>
 
 
@@ -74,12 +77,12 @@
 
     <div class="col-span-1">
 
-       
+{{--        
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Marca</h3>
             <div id='app'></div>
           
-        </div>
+        </div> --}}
 
 
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
@@ -103,7 +106,7 @@
 
 
 
-{{-- 
+
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Productos relacionados</h3>
             <div class="grid grid-cols-1 gap-3">
@@ -116,15 +119,18 @@
             
                     
             </div>
-        </div> --}}
+        </div>
 
 
 
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
-            <p class="flex space-x-2 justify-between items-center">
-                {{ Aire::submit('Actualizar')->variant()->submit() }}
-                <x-remove-button />  
-            </p>
+            <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">
+                <p class="flex space-x-2 items-center">
+                    {{ Aire::submit('Actualizar')->variant()->submit() }}
+                    <a href="{{ route('products.index') }}">Cancelar</a>
+                </p>
+                <x-remove-button />     
+            </div>
         </div>
 
 
@@ -135,7 +141,90 @@
 
    
 </div>
+
+
+
+@if( $product->variation)
+<div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
+    <div class="mb-4 col-span-full xl:mb-2">
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Variaciones - {{ $product->variation->name }}</h1>
+    </div>
+
+    <div class="col-span-2">
+        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+         
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-4 py-3"></th>
+                            <th scope="col" class="px-4 py-3">Nombre</th>
+                            <th scope="col" class="px-4 py-3 ">Precio</th>
+                            <th scope="col" class="px-4 py-3">Imagen</th>
+                  
+                            <th scope="col" class="px-4 py-3">
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($product->items as $item)
+                        <tr class="border-b">
+                            <td class="w-4 px-4 py-3 ">
+                                <div class="flex items-center">
+                                    {{ Aire::hidden("variations[".$item->pivot->variation_item_id."][enabled]")->value(0)}}
+                                    <input
+                                        @checked($item->pivot->enabled) name='{{ "variations[".$item->pivot->variation_item_id."][enabled]" }}' type="checkbox" value='1'  class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
+                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
+                            <td scope="row" class="px-4 py-3 font-medium text-gray-900">
+                                {{ $item->name }}   
+                            </td>
+                            <td class="px-4 py-3 max-w-[5rem]">
+                                {{ Aire::input("variations[".$item->pivot->variation_item_id."][price]")
+                                    ->value(old("variations[".$item->pivot->variation_item_id."][price]", $item->pivot->price))
+                                    ->groupClass('mb-0')
+                                }}
+                            </td>
+
+                          
+                        </tr>
+                        @endforeach
+                        
+                    </tbody>
+                </table>
+            </div>
+        
+        </div>
+    </div> 
+</div>
+@endif
+
+
+
+<div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
+    <div class="col-span-2">
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <div class="col-span-2 justify-between  items-center space-x-2 flex">
+                <p class="flex space-x-2 items-center">
+                    {{ Aire::submit('Actualizar')->variant()->submit() }}
+                    <a href="{{ route('categories.index') }}">Cancelar</a>
+                </p>
+                <x-remove-button />  
+               
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+
+
+
 {{ Aire::close() }}
+
+
 
 
 <x-remove-drawer title="Producto" route='products.destroy' :item='$product' />

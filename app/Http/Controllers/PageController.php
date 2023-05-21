@@ -55,10 +55,14 @@ class PageController extends Controller
     public function product($slug)
     {
         $product = Product::query()
-        ->with(['related'])->with(['labels' => function($query) {
+        ->with(['related', 'items', 'variation'])->with(['labels' => function($query) {
             $query->where('active', 1); 
         }])
         ->where('slug', $slug)->firstOrFail();
+
+      
+        
+
         $context = compact('product');
         return view('pages.product',  $context);
     }

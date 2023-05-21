@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+
+class Product extends  Model
 {
     use HasFactory;
 
@@ -23,7 +24,8 @@ class Product extends Model
         'quantity_max',
         'step',
         'tax_id',
-        'brand_id'
+        'brand_id',
+        'variation_id',
     ];
 
     public function brand(){
@@ -46,4 +48,14 @@ class Product extends Model
     public function tax(){
         return $this->belongsTo(Tax::class);
     }
+
+    public function variation(){
+        return $this->belongsTo(Variation::class);
+    }
+
+
+    public function items(){
+        return $this->belongsToMany(VariationItem::class, 'product_item_variation', 'product_id', 'variation_item_id')->withPivot(["price", "enabled"]);
+    }
+
 }
