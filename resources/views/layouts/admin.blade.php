@@ -25,20 +25,20 @@
 
         <div id="main-content" class="relative h-screen w-full overflow-y-auto  lg:ml-64">
             <main class="pt-[4.5rem]">
-            
+               
                 <x-alert />
                
-                
+         
                 @yield('content')
-              
+                     
             </main>
             @include('elements.admin.footer')
 
         </div>
 
     </div>
-
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
     @yield('scripts')

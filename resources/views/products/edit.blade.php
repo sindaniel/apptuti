@@ -9,6 +9,7 @@
 
 
 @section('content')
+
 {{ Aire::open()->route('products.update', $product)->bind($product)->enctype('multipart/form-data')}}
 <div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
     <div class="mb-4 col-span-full xl:mb-2">

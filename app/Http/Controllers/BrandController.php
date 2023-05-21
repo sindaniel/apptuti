@@ -14,6 +14,10 @@ class BrandController extends Controller
      */
     public function index(Request $request)
     {
+
+        
+
+
         $brands = Brand::query()
         ->when($request->q, function($query, $q){
             $query->where('name', 'like', "%{$q}%");

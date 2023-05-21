@@ -108,7 +108,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-    
+        
+
+    //    $d =  Storage::cloud()->put("tuti", $request->image_file);
+    //    dd($d);
+
         $validate = $request->validate([
             'name' => [
                 'required', 

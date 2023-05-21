@@ -1,34 +1,27 @@
 <template>
     
     <div>
-        <VueMultiselect
-  v-model="taggingSelected"
-  :options="taggingOptions"
-  :multiple="true"
-  :taggable="true"
-  @tag="addTag"
-  tag-placeholder="Add this as new tag"
-  placeholder="Type to search or add tag"
-  label="name"
-  track-by="code"
-/>
-  </div>
+      app
+    </div>
     
-  </template>
+</template>
   
-  <script>
-   import VueMultiselect from 'vue-multiselect'
+<script>
 
+   
 
   export default {
-   components: { VueMultiselect },
+
     data () {
         return {
-        selected: null,
+      
         options: ['list', 'of', 'options']
         }
-    }
+    },
+    components: {
+   
+    },
   }
   </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+

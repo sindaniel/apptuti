@@ -9,6 +9,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaxController;
+use App\Http\Controllers\VariationController;
+use App\Http\Controllers\VariationItemController;
 use App\Http\Controllers\VendorController;
 
 use Illuminate\Support\Facades\Route;
@@ -57,6 +59,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('labels', LabelController::class);
     Route::resource('vendors', VendorController::class);
+
+    Route::resource('variations', VariationController::class);
+    Route::resource('variations.items', VariationItemController::class);
 
 
 

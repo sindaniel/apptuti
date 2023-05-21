@@ -7,35 +7,47 @@ window.Alpine = Alpine;
 Alpine.start(); 
 
 
-// import { createApp } from 'vue'
-
-// import App from './vue/App.vue'
-// const app = createApp(App)
-// app.mount('#app')
 
 
-// import Example from './vue/ExampleComponent.vue'
-// const example = createApp(Example)
-// example.mount('#example')
+import { createApp } from 'vue'
+import Welcome from './vue/ExampleComponent.vue'
+
+const app = createApp({})
+
+app.component('welcome', Welcome)
+
+app.mount('#app')
 
 
-// import Vue from 'vue';
-
-// //register component
-// Vue.component('example',require('./vue/ExampleComponent.vue').default);
+// import { createApp } from 'vue';
 
 
+// import Test from './vue/ExampleComponent.vue';
+// import App from './vue/App.vue';
+// const app = createApp({})
+// app.mount('#app');
+
+// app.component('app', App);
 
 
-// import Vue from 'vue';
-// import MyComponent from './vue/ExampleComponent.vue';
-// Vue.component('my-component', MyComponent);
+//
 
+// // // const app = createApp({});
+// // // app.component('mi-componente', MiComponente);
+// // // app.mount('#app');
 
-
-// const app = new Vue({
-//     el: '#app'
+// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
+//     console.log(path.split('/').pop().replace(/\.\w+$/, ''))
+//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
 // });
+
+
+
+
+
+
+
+
 
 
 

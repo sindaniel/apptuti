@@ -24,6 +24,7 @@
                         'vendors'=>'Vendors', 
                         'categories'=>'Categorías', 
                         'labels'=>'Etiquetas', 
+                        'variations'=>'Variaciones', 
                         ]" />
 
                     <x-dropdown title='Configuraciones'
