@@ -48,10 +48,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     })->name('dashboard');
 
 
-    Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
-    Route::post('/products/{product}/related', [ProductController::class, 'addRelated'])->name('products.addRelated');
-    Route::post('/products/{product}/related/remove', [ProductController::class, 'removeRelated'])->name('products.removeRelated');
-  
+    // Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+    Route::post('/products/{product}/images', [ProductController::class, 'images'])->name('products.images');
+    Route::delete('/products/{product}/images/{image}', [ProductController::class, 'images_delete'])->name('products.images_delete');
+    
     Route::resource('brands', BrandController::class);
     Route::resource('taxes', TaxController::class);
     Route::resource('holidays', HolidayController::class);

@@ -1,15 +1,17 @@
 <?php
 if (! function_exists('asset_url')) {
-    function asset_url($image, $size=null)
+    function asset_url($image)
     {   
         
-        $asset_url =  config('app.asset_url');
+        $asset_url =   env('DO_ASSET_URL');
 
-        if($size == null){
-            return "{$asset_url}/{$image}.jpg";
-        }
+        // if($size == null){
+        //     return "{$asset_url}/{$image}.jpg";
+        // }
 
-        return "{$asset_url}/{$image}-{$size}x{$size}.jpg";
+        return "{$asset_url}/{$image}";
+
+        return ;
             
 
         

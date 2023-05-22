@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Label;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Tax;
 use App\Models\Variation;
 use App\Models\VariationItem;
@@ -117,7 +118,7 @@ class ProductController extends Controller
         }
        
 
-        return redirect()->route('products.edit', $product)->with('success', 'Producto creado');
+        return to_route('products.edit', $product)->with('success', 'Producto creado');
     }
 
     /**
@@ -137,14 +138,10 @@ class ProductController extends Controller
             'combinations',
             'related', 
             'items' => ['variation'],
-            'variation'
+            'variation',
+            'images'
         ]); // eager loading
 
-
-     //   $items = $product->items->keyBy('pivot.variation_item_id');
-
-    //     dd($items->contains(1, 'id'));
-    
         $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
         $brands->prepend('Seleccione', null);
 
@@ -217,44 +214,30 @@ class ProductController extends Controller
     }
 
 
+    public function images(Request $request, Product $product){
 
-    public function search(Request $request)
-    {
-        $products = Product::query()
-            ->select('name as text', 'id')
-            ->when($request->product_id, function ($query, $p) {
-                $product = Product::find($p);
-                $query
-                    ->whereNot('id', $p)
-                    ->whereNotIn('id', $product->related->pluck('id'));
-            })
-            ->when($request->q, function ($query, $q) {
-                $query->whereNot(function ($query) use ($q) {
-                    $query->where('name', 'like', "%{$q}%")
-                        ->where('sku', 'like', "%{$q}%")
-                        ->where('description', 'like', "%{$q}%")
-                        ->where('short_description', 'like', "%{$q}%");
-                });
-            })
+        $validate = $request->validate([
+            'image' => 'required|image|max:4096',
+        ]);
 
-            ->orderBy('name')
-            ->limit(10)
-            ->get();
+        $image = $request->image->store('products', 'do');
+      
 
-        return $products;
+        $product->images()->create([
+            'path' => $image
+        ]);
+
+        return back()->with('success', 'Imagen cargada');
+
+    }
+
+    public function images_delete(Request $request, Product $product, ProductImage $image){
+
+        $image->delete();
+
+        return back()->with('success', 'Imagen eliminada');
+
     }
 
 
-    public function addRelated(Request $request, Product $product)
-    {
-        $product->related()->attach($request->related_id);
-        return;
-    }
-
-    public function removeRelated(Request $request, Product $product)
-    {
-
-        $product->related()->detach($request->related_id);
-        return;
-    }
 }
