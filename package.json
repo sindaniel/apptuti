@@ -17,6 +17,7 @@
         "vue-loader": "^17.0.1"
     },
     "dependencies": {
+        "@defstudio/vite-livewire-plugin": "^1.1.0",
         "@vitejs/plugin-vue": "^4.2.3",
         "flowbite": "^1.6.5",
         "install": "^0.13.0",

@@ -26,7 +26,12 @@ class Product extends  Model
         'tax_id',
         'brand_id',
         'variation_id',
+        'is_combined',
+        'parent_id'
     ];
+
+    
+
 
     public function brand(){
         return $this->belongsTo(Brand::class);
@@ -41,7 +46,7 @@ class Product extends  Model
     }
 
     public function related(){
-        return $this->belongsToMany(Product::class, 'product_related', 'product_id', 'product_related_id');
+        return $this->belongsToMany(Product::class, 'product_related', 'product_id', 'product_related_id')->orderBy('name');
     }
 
     
@@ -51,6 +56,11 @@ class Product extends  Model
 
     public function variation(){
         return $this->belongsTo(Variation::class);
+    }
+
+
+    public function combinations(){
+        return $this->belongsToMany(Product::class, 'product_combination', 'product_id', 'parent_id')->orderBy('name');
     }
 
 

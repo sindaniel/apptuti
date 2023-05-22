@@ -62,7 +62,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
+     
         $validate = $request->validate([
             'name' => [
                 'required',
@@ -88,6 +88,7 @@ class ProductController extends Controller
             'tax_id' => 'required',
             'brand_id' => 'required',
             'variation_id'=>'nullable',
+            'is_combined' => 'nullable|boolean',
 
 
         ]);
@@ -133,6 +134,7 @@ class ProductController extends Controller
     {
         $product->load([
             'brand', 
+            'combinations',
             'related', 
             'items' => ['variation'],
             'variation'
@@ -164,6 +166,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        
         //FIXME preguntar si el slug ya existe en otro producto
         $validate = $request->validate([
             'name' => 'required|max:255',

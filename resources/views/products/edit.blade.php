@@ -44,11 +44,16 @@
                 {{ Aire::input('quantity_min', "Cantidad mínima")->groupClass('col-span-3') }}
                 {{ Aire::input('quantity_max', "Cantidad maxima")->helpText('Si esta en cero no hay límite')->groupClass('col-span-3') }}
 
-                {{Aire::select($variations, 'variation_id', "Variación")->groupClass('col-span-3')}}
-                
+
+                @if(!$product->is_combined)
+                    {{Aire::select($variations, 'variation_id', "Variación")->groupClass('col-span-3')}}
+                @endif
+
                 {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', $product->discount))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
 
                 {{  Aire::range('step', 'Steps')->data('sufix', '')->id('step')->value(old('step', $product->step))->min(0)->max(100)->step(1)->groupClass('col-span-6')->helpText('Salto de cantidad para el precio')}}
+                
+
                 
                 
 
@@ -75,12 +80,19 @@
 
     <div class="col-span-1">
 
-{{--        
+        @if($product->is_combined)
+            <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+                <h3 class="mb-4 text-xl font-semibold ">Producto Combinados</h3>
+                <livewire:search-combined-product :product="$product" :combinations='$product->combinations' /> 
+            </div>
+        @endif
+
+
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
-            <h3 class="mb-4 text-xl font-semibold ">Marca</h3>
-            <div id='app'></div>
-          
-        </div> --}}
+            <h3 class="mb-4 text-xl font-semibold ">Productos Relacionados</h3>
+            <livewire:search-related-product :product="$product" :related='$product->related' /> 
+           
+        </div>
 
 
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
@@ -105,7 +117,7 @@
 
 
 
-        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+        {{-- <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Productos relacionados</h3>
             <div class="grid grid-cols-1 gap-3">
                 
@@ -117,7 +129,7 @@
             
                     
             </div>
-        </div>
+        </div> --}}
 
 
 

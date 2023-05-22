@@ -9,14 +9,14 @@ Alpine.start();
 
 
 
-import { createApp } from 'vue'
-import Welcome from './vue/ExampleComponent.vue'
+// import { createApp } from 'vue'
+// import Welcome from './vue/ExampleComponent.vue'
 
-const app = createApp({})
+// const app = createApp({})
 
-app.component('welcome', Welcome)
+// app.component('welcome', Welcome)
 
-app.mount('#app')
+// app.mount('#app')
 
 
 // import { createApp } from 'vue';

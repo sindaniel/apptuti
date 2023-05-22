@@ -14,7 +14,11 @@
    <span> {{ $product->name }}</span>
 
    <small id='productPrice'>
+        @if($product->items->count())
         {{ price($product->items->first()->pivot->price, $product->discount) }}
+        @else
+        {{ price($product->price, $product->discount) }}
+        @endif
    </small>
 
 
@@ -25,7 +29,7 @@
     </p>
 
 
-    @if ($product->variation)
+    @if ($product->variation && $product->items->count())
         {{ $product->variation->name }}
         <select name="" id="price">
             @foreach ($product->items->where('pivot.enabled', 1) as $item) 

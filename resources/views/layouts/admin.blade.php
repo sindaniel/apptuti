@@ -10,6 +10,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 
     @yield('head')
 </head>
@@ -37,11 +38,13 @@
         </div>
 
     </div>
-    
+  
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
     @yield('scripts')
+    @livewireScripts
+   
 </body>
 
 
