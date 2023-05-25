@@ -24,7 +24,7 @@ class PageController extends Controller
         if($slug2){
 
             $category = Category::with('parent')->where('slug', $slug2)->firstOrFail();
-            $products = $category->products()->paginate(1);
+            $products = $category->products()->paginate();
 
         }else{
 
