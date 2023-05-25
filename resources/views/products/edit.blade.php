@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
-@section('head')
-    <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
-@endsection
+
 
 
 @section('content')
@@ -290,8 +288,4 @@
 @section('scripts')
 
 
-    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  	
-    <script>
-    new FroalaEditor('#description', {height: 200});		
-    </script>	
 @endsection
