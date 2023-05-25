@@ -1,6 +1,6 @@
 <?php
 if (! function_exists('asset_url')) {
-    function asset_url($image)
+    function asset_url($image, $path)
     {   
         
         $asset_url =   env('DO_ASSET_URL');
@@ -9,7 +9,7 @@ if (! function_exists('asset_url')) {
         //     return "{$asset_url}/{$image}.jpg";
         // }
 
-        return "{$asset_url}/{$image}";
+        return "{$asset_url}/{$path}/{$image}";
 
         return ;
             

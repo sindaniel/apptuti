@@ -22,6 +22,8 @@ class VariationItemController extends Controller
             'name'=>$request->item_name
         ]);
 
+        //TODO: Al crear una nueva validar que productos lo tienen para ponerla tambien
+
         return to_route('variations.edit', $variation)->with('success', 'el item se ha creado correctamente');
 
     }

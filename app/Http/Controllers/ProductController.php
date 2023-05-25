@@ -11,7 +11,8 @@ use App\Models\Tax;
 use App\Models\Variation;
 use App\Models\VariationItem;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Image;
 use Illuminate\Support\Str as Str;
 use Closure;
 
@@ -164,7 +165,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         
-        //FIXME preguntar si el slug ya existe en otro producto
+        //FIXME preguntar si el slug ya existe en otro product
         $validate = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
@@ -220,11 +221,30 @@ class ProductController extends Controller
             'image' => 'required|image|max:4096',
         ]);
 
-        $image = $request->image->store('products', 'do');
-      
 
-        $product->images()->create([
-            'path' => $image
+
+        $imgFile = $request->image;
+        $random = Str::random(40);
+        $hasName = "$random.jpg";
+        
+        //$request->image->store('products', 'do');
+
+        $imgFile = Image::make($imgFile->getRealPath());
+        
+        $imgFile->resize(1000, 1000, function ($constraint) {$constraint->aspectRatio();});
+        Storage::disk('do')->put("products/1000/$hasName", $imgFile->encode('jpg', 75)->stream());
+
+
+        $imgFile->resize(500, 500, function ($constraint) {$constraint->aspectRatio();});
+        Storage::disk('do')->put("products/500/$hasName", $imgFile->encode('jpg', 75)->stream());
+
+
+        $imgFile->resize(100, 100, function ($constraint) {$constraint->aspectRatio();});
+        Storage::disk('do')->put("products/50/$hasName", $imgFile->encode('jpg', 50)->stream());
+    
+
+        $product->images()->create([    
+            'path' => $hasName
         ]);
 
         return back()->with('success', 'Imagen cargada');

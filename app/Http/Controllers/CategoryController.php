@@ -146,10 +146,7 @@ class CategoryController extends Controller
      
         // Storage::disk('do')->put("{$name}.jpg", $imgFile->stream());
         
-        // $imgFile->resize(1000, 1000, function ($constraint) {$constraint->aspectRatio();});
-        // Storage::disk('do')->put("{$name}-1000x1000.jpg", $imgFile->encode('jpg', 75)->stream());
-
-
+    
         // $imgFile->resize(500, 500, function ($constraint) {$constraint->aspectRatio();});
         // Storage::disk('do')->put("{$name}-500x500.jpg", $imgFile->encode('jpg', 75)->stream());
 

@@ -131,11 +131,7 @@
 
                             <td class="p-4 space-x-2 whitespace-nowrap text-end">
 
-                                <a href="button" class="inline-flex   items-center space-x-2 text-green-400 hover:text-white border border-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 text-center mr-2 mb-2 ">
-                                    <x-heroicon-o-pencil-square class="h-4 w-4"/>
-                                    <span>Imagenes</span>
-                                </a>
-
+                              
                                 <a href="{{ route('products.edit', $product) }}"
                                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 border border-blue-700  space-x-2">
                                     <x-heroicon-o-pencil-square class="h-4 w-4"/>
