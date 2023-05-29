@@ -8,3 +8,11 @@
 
  php artisan make:livewire selectCombinedProduct
   php artisan make:livewire selectRelatedProduct
+
+
+
+
+  Descuento mas alto entre
+  vendor
+  marcar
+  producto
