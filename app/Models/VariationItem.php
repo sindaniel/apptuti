@@ -9,10 +9,16 @@ class VariationItem extends Model
 {
     use HasFactory;
 
+    protected $appends = ['price_label'];
+
     protected $fillable = [ 'name'];
 
     public function variation(){
         return $this->belongsTo(Variation::class);
+    }
+
+    public function getPriceLabelAttribute(){
+        return $this->variation->name.': '.$this->name.' -  $'.number_format($this->pivot->price);
     }
 
     

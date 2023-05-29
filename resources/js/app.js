@@ -1,5 +1,9 @@
 import './bootstrap';
 
+
+
+
+
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
@@ -7,14 +11,26 @@ window.Alpine = Alpine;
 Alpine.start(); 
 
 
+import { createApp } from 'vue'
+import combinedProducts from './vue/combinedProducts.vue';
+
+const app = createApp(combinedProducts);
+app.mount('#combinedProducts');
+
+
+// app.component('test-component', testcomponent);
+
+// app.mount('#app');
 
 
 // import { createApp } from 'vue'
-// import Welcome from './vue/ExampleComponent.vue'
+// import combinedProducts from './vue/combinedProducts.vue'
 
-// const app = createApp({})
 
-// app.component('welcome', Welcome)
+// const app = createApp(root)
+// app.component('combinedProducts', combinedProducts)
+// app.mount('#combinedProducts')
+// app
 
 // app.mount('#app')
 

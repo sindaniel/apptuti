@@ -30,8 +30,6 @@ class Product extends  Model
         'parent_id'
     ];
 
-    
-
 
     public function brand(){
         return $this->belongsTo(Brand::class);
@@ -60,12 +58,15 @@ class Product extends  Model
 
 
     public function combinations(){
-        return $this->belongsToMany(Product::class, 'product_combination', 'product_id', 'parent_id')->orderBy('name');
+        return $this->belongsToMany(Product::class, 'product_combination', 'parent_id', 'product_id')
+            ->orderBy('name')
+            ->withPivot(["price", "variation_item_id"]);
     }
 
 
     public function items(){
-        return $this->belongsToMany(VariationItem::class, 'product_item_variation', 'product_id', 'variation_item_id')->withPivot(["price", "enabled"]);
+        return $this->belongsToMany(VariationItem::class, 'product_item_variation', 'product_id', 'variation_item_id')
+            ->withPivot(["price", "enabled"]);
     }
 
 

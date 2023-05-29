@@ -1,6 +1,6 @@
 <template>
     <div>
-        I'm an example component.
+        I'm an example component
     </div>
 </template>
 

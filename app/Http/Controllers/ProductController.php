@@ -65,6 +65,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
      
+    
+        
+
         $validate = $request->validate([
             'name' => [
                 'required',
@@ -149,11 +152,24 @@ class ProductController extends Controller
         $variations = Variation::orderBy('name')->get()->pluck('name', 'id');
         $variations->prepend('Seleccione', null);
 
+        $ids = $product->combinations()->get()->pluck('id')->toArray();
+        $id = $product->id;
+        $products = Product::query()
+            ->with('variation', 'items')
+            ->whereNot('id', $id)
+            ->whereNotIn('id', $ids)
+            ->whereActive(1)
+            ->whereIsCombined(0)
+            ->select(['name', 'id'])
+            ->orderBy('name', 'asc')
+            ->get()->pluck('name', 'id');
+        $products->prepend('Seleccione', null);
+
         $categories = Category::with('children')->whereNull('parent_id')->orderBy('name')->get();
         $labels = Label::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
 
-        $context = compact('brands', 'taxes', 'product', 'categories', 'labels', 'variations');
+        $context = compact('brands', 'taxes', 'product', 'categories', 'labels', 'variations', 'products');
 
 
         return view('products.edit', $context);
@@ -165,7 +181,9 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         
-        //FIXME preguntar si el slug ya existe en otro product
+
+       
+
         $validate = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
@@ -258,6 +276,9 @@ class ProductController extends Controller
         return back()->with('success', 'Imagen eliminada');
 
     }
+
+
+ 
 
 
 }
