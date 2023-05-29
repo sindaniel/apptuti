@@ -5,7 +5,7 @@
 
 @section('content')
 
-<input type="number" id="quantity_6473ec3e25480" class="input-text qty text" step="10" min="20" max="" name="quantity" value="20" title="Qty" size="4" inputmode="numeric">
+
 {{ Aire::open()->route('products.update', $product)->bind($product)->enctype('multipart/form-data')}}
 <div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
     <div class="mb-4 col-span-full xl:mb-2">
