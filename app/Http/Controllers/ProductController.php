@@ -143,8 +143,11 @@ class ProductController extends Controller
             'related', 
             'items' => ['variation'],
             'variation',
-            'images'
+            'images',
+            'bonification'
         ]); // eager loading
+
+        dd($product->bonification);
 
         $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
         $brands->prepend('Seleccione', null);

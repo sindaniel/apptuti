@@ -25,6 +25,7 @@
                         'categories'=>'Categorías', 
                         'labels'=>'Etiquetas', 
                         'variations'=>'Variaciones', 
+                        'bonifications'=>'Bonificaciones',
                         ]" />
 
                     <x-dropdown title='Configuraciones'

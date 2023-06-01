@@ -2,10 +2,10 @@
 
 
 @section('content')
-{{ Aire::open()->route('bonifications.store')->enctype('multipart/form-data')}}
+{{ Aire::open()->route('holidays.store')->enctype('multipart/form-data')}}
 <div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
     <div class="mb-4 col-span-full xl:mb-2">
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Crear bonificación</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Crear festivo</h1>
     </div>
 
     <div class="col-span-2">
@@ -17,15 +17,13 @@
 
                 {{ Aire::input('name', "Nombre")->groupClass('col-span-6') }}
 
-                {{ Aire::input('buy', "Cantidad comprada")->groupClass('col-span-3') }}
+                {{ Aire::input('date', "Festivo")->readonly()->groupClass('col-span-6')->setAttribute('datepicker', true)->setAttribute('datepicker-autohide', true)->setAttribute('datepicker-format', 'yyyy-mm-dd') }}
+                
 
-                {{ Aire::input('get', "Cantidad gratis")->groupClass('col-span-3') }}
-
-               
                 <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">
                     <p class="flex space-x-2 items-center">
                         {{ Aire::submit('Crear')->variant()->submit() }}
-                        <a href="{{ route('bonifications.index') }}">Cancelar</a>
+                        <a href="{{ route('holidays.index') }}">Cancelar</a>
                     </p>
                 </div>
             </div>

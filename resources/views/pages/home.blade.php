@@ -80,5 +80,13 @@
     </div>
 </div> --}}
 
+<script>
+    //   for (let index = 0; index < 100; index++) {
+       
+    //         const n = index + 500;
+    //         window.open(`http://localhost:5173/?userid=${n}&username=Daniel${n}`, '_blank');
+            
+    //     }
 
+</script>
 @endsection

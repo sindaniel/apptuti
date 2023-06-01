@@ -7,15 +7,15 @@
 <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
     <div class="w-full mb-1">
         <div class="mb-4">
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl ">Festivos</h1>
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl ">Bonificaciones</h1>
         </div>
         <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 ">
             <div class="flex items-center mb-4 sm:mb-0">
-               <x-search :home="route('holidays.index')" />
+               <x-search :home="route('bonifications.index')" />
             </div>
             <a href="{{ route('holidays.create') }}"
                 class="text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 ">
-                Nuevo festivo
+                Nuevo Bonificación
             </a>
         </div>
     </div>
@@ -31,8 +31,8 @@
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Nombre
                             </th>
-                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
-                                Fecha
+                            <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase ">
+                                Productos
                             </th>
                           
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase "></th>
@@ -41,24 +41,22 @@
                     <tbody class="bg-white divide-y divide-gray-200 ">
 
                         <tr class="hover:bg-gray-100">
-                            @foreach ($holidays as $holiday)
+                            @foreach ($bonifications as $bonification)
                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                <a class="flex flex-col text-gray-900  hover:text-blue-500" href="{{ route('holidays.edit', $holiday) }}">
+                                <a class="flex flex-col text-gray-900  hover:text-blue-500" href="{{ route('bonifications.edit', $bonification) }}">
                                     <span class="text-base font-semibold ">
-                                        {{ $holiday->name }}
+                                        {{ $bonification->name }}
                                     </span>
                                 </a>
                             </td>
-                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
-                                <div class="flex flex-col">
-                                    <span>{{ $holiday->date->toDateString() }}</span>
-                                    <small class='text-gray-500'> {{ $holiday->date->format('l') }}</small>
-                                </div>
+
+                            <td class="p-4 text-sm font-normal text-center text-gray-500 whitespace-nowrap">
+                                {{ $bonification->products->count() }}
                             </td>
                           
 
                             <td class="p-4 space-x-2 whitespace-nowrap text-end">
-                                <a href="{{ route('holidays.edit', $holiday) }}"
+                                <a href="{{ route('bonifications.edit', $bonification) }}"
                                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 ">
                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +85,7 @@
 </div>
 
 
-{{ $holidays->links() }} 
+{{ $bonifications->links() }} 
 
 
 

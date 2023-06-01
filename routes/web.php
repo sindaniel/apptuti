@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BonificationController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HolidayController;
@@ -67,6 +68,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('labels', LabelController::class);
     Route::resource('vendors', VendorController::class);
+    Route::resource('bonifications', BonificationController::class);
 
     Route::resource('variations', VariationController::class);
     Route::resource('variations.items', VariationItemController::class);
