@@ -17,6 +17,7 @@ class VariationItem extends Model
         return $this->belongsTo(Variation::class);
     }
 
+
     public function getPriceLabelAttribute(){
         return $this->variation->name.': '.$this->name.' -  $'.number_format($this->pivot->price);
     }

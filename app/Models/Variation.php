@@ -16,4 +16,9 @@ class Variation extends Model
         return $this->hasMany(VariationItem::class)->orderBy('name');
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

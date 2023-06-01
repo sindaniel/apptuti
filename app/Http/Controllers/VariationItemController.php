@@ -17,13 +17,20 @@ class VariationItemController extends Controller
         $request->validate([
             'item_name' =>'required|max:255',
         ]);
-        
-        $variation->items()->create([
+      
+        $item = $variation->items()->create([
             'name'=>$request->item_name
         ]);
 
-        //TODO: Al crear una nueva validar que productos lo tienen para ponerla tambien
-
+        //si la variacion tiene items, se los agrego a este item
+        foreach($variation->products as $product){
+                
+            $product->items()->attach($item->id,[
+                'price'=> $product->price,
+                'enabled'=>false
+            ]);  
+        }
+        
         return to_route('variations.edit', $variation)->with('success', 'el item se ha creado correctamente');
 
     }

@@ -144,10 +144,10 @@ class ProductController extends Controller
             'items' => ['variation'],
             'variation',
             'images',
-            'bonification'
+            'bonifications'
         ]); // eager loading
 
-        dd($product->bonification);
+  
 
         $brands = Brand::orderBy('name')->get()->pluck('name', 'id');
         $brands->prepend('Seleccione', null);
