@@ -57,7 +57,7 @@
 {{ Aire::close() }}
 
 
-<x-remove-drawer title="Festivo" route='bonifications.destroy' :item='$bonification' />
+<x-remove-drawer title="Bonificación" route='bonifications.destroy' :item='$bonification' />
 
 
 

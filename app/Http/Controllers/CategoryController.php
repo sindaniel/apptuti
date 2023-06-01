@@ -109,8 +109,8 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         
-        $d =  Storage::disk('s3')->put("tuti", $request->image_file);
-        dd($d);
+        // $d =  Storage::disk('s3')->put("tuti", $request->image_file);
+        // dd($d);
 
         $validate = $request->validate([
             'name' => [

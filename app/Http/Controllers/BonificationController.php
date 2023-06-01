@@ -36,7 +36,7 @@ class BonificationController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'buy' => 'required|integer',
-            'get' => 'required|integer|lt:buy',
+            'get' => 'required|integer|lte:buy',
         ]);
         
 
@@ -51,7 +51,7 @@ class BonificationController extends Controller
      */
     public function edit(Bonification $bonification)
     {
-
+      
         $ids = $bonification->products()->pluck('product_id')->toArray();
        
         $products = Product::query()
@@ -74,12 +74,25 @@ class BonificationController extends Controller
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'buy' => 'required|integer',
-            'get' => 'required|integer|lt:buy',
+            'get' => 'required|integer|lte:buy',
         ]);
 
         $bonification->update($validate);
 
         return to_route('bonifications.index')->with('success', 'Bonificación actualizada');
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Bonification $bonification)
+    {
+       
+
+        $bonification->products()->delete();
+        $bonification->delete();
+        return to_route('bonifications.index')->with('success', 'La bonificacion se ha eliminado correctamente');
+
     }
 
 
