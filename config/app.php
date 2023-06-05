@@ -167,12 +167,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        Spatie\Permission\PermissionServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-
     ])->toArray(),
 
     /*
@@ -188,7 +183,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'Image' => 'Intervention\Image\Facades\Image'
     ])->toArray(),
 
 ];
