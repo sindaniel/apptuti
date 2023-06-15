@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
+use App\Models\Bonification;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Label;
@@ -53,9 +55,13 @@ class ProductController extends Controller
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
         $labels = Label::orderBy('name')->get();
 
+
+        $bonifications = Bonification::orderBy('name')->get()->pluck('name', 'id');
+        $bonifications->prepend('Seleccione', null);
+
         $categories = Category::with('children')->whereNull('parent_id')->orderBy('name')->get();
 
-        $context = compact('brands', 'taxes', 'labels', 'categories', 'variations');
+        $context = compact('brands', 'taxes', 'labels', 'categories', 'variations', 'bonifications');
         return view('products.create', $context);
     }
 
@@ -65,8 +71,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
      
-    
-        
 
         $validate = $request->validate([
             'name' => [
@@ -94,8 +98,6 @@ class ProductController extends Controller
             'brand_id' => 'required',
             'variation_id'=>'nullable',
             'is_combined' => 'nullable|boolean',
-
-
         ]);
 
         
@@ -155,6 +157,9 @@ class ProductController extends Controller
         $variations = Variation::orderBy('name')->get()->pluck('name', 'id');
         $variations->prepend('Seleccione', null);
 
+        $bonifications = Bonification::orderBy('name')->get()->pluck('name', 'id');
+        $bonifications->prepend('Seleccione', null);
+
         $ids = $product->combinations()->get()->pluck('id')->toArray();
         $id = $product->id;
         $products = Product::query()
@@ -172,7 +177,7 @@ class ProductController extends Controller
         $labels = Label::orderBy('name')->get();
         $taxes = Tax::orderBy('name')->get()->pluck('name', 'id');
 
-        $context = compact('brands', 'taxes', 'product', 'categories', 'labels', 'variations', 'products');
+        $context = compact('brands', 'taxes', 'product', 'categories', 'labels', 'variations', 'products', 'bonifications');
 
 
         return view('products.edit', $context);
@@ -183,9 +188,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        
-
-       
+      
+      
+      
 
         $validate = $request->validate([
             'name' => 'required|max:255',
@@ -223,6 +228,12 @@ class ProductController extends Controller
 
         $product->update($validate);
         # return back()->with('success', 'Producto actualizado');
+        if($request->bonification_id){
+            $bonification = Bonification::find($request->bonification_id);
+            $product->bonifications()->detach();
+            $bonification->products()->attach($product->id);
+        }
+      
 
         return to_route('products.index')->with('success', "Producto actualizado");
     }

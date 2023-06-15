@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
-use App\Models\Tax;
+use App\Models\Holiday;
 use Illuminate\Http\Request;
 
-class TaxController extends Controller
+class HolidayController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $taxes = Tax::query()
+        $holidays = Holiday::query()
         ->when($request->q, function($query, $q){
             $query->where('name', 'like', "%{$q}%");
         })
-        ->orderBy('name')
+        ->orderBy('date')
         ->paginate();
        
-        $context = compact('taxes'); 
+        $context = compact('holidays'); 
         
-        return view('taxes.index', $context);
+        return view('holidays.index', $context);
     }
 
     /**
@@ -29,7 +30,7 @@ class TaxController extends Controller
      */
     public function create()
     {
-        return  view('taxes.create');
+        return view('holidays.create');
     }
 
     /**
@@ -39,18 +40,19 @@ class TaxController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required|string|max:255',
-            'tax'=> 'required|numeric|min:0|max:100',
+            'date'=> 'required|date',
         ]);
+        
 
-        Tax::create($validate);
+        Holiday::create($validate);
 
-        return to_route('taxes.index')->with('success', 'Impuesto creado');
+        return to_route('holidays.index')->with('success', 'Festivo creado');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Tax $tax)
+    public function show(Holiday $holiday)
     {
         //
     }
@@ -58,33 +60,34 @@ class TaxController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tax $tax)
+    public function edit(Holiday $holiday)
     {
-        $context = compact('tax');
-        return view('taxes.edit', $context);
+        $context = compact('holiday');
+        return view('holidays.edit', $context);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tax $tax)
+    public function update(Request $request, Holiday $holiday)
     {
         $validate = $request->validate([
             'name' => 'required|string|max:255',
-            'tax'=> 'required|numeric|min:0|max:100',
+            'date'=> 'required|date',
         ]);
 
-        $tax->update($validate);
+        $holiday->update($validate);
 
-        return to_route('taxes.index')->with('success', 'Impuesto actualizado');
+        return to_route('holidays.index')->with('success', 'Festivo actualizado');
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tax $tax)
+    public function destroy(Holiday $holiday)
     {
-        //TODO validar que no tenga productos asociados
+        $holiday->delete();
+
+        return to_route('holidays.index')->with('success', 'Festivo eliminado');
     }
 }
