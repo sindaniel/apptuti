@@ -16,12 +16,15 @@ class Brand extends Model
         'description',
         'slug',
         'delivery_days',
-        'active'
+        'active',
+        'discount'
     ];
 
     public function vendors(){
         return $this->belongsToMany(Vendor::class);
     }
+
+
 
     public function products(){
         return $this->hasMany(Product::class);

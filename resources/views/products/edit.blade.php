@@ -37,13 +37,14 @@
                 {{ Aire::input('slug', "Slug")->groupClass('col-span-3') }}
                  {{ Aire::input('sku', "SKU")->groupClass('col-span-3') }}
 
-                @if($product->is_combined)
-                
-                    {{ Aire::input('price', "Precio")->groupClass('col-span-3')->readonly()->value($product->combinations->sum('pivot.price')) }}
-                @else
-                    {{ Aire::input('price', "Precio")->groupClass('col-span-3') }}
-                @endif
+                 @php
+                    $discount_on =  $product->finalPrice['discount_on'];
+                    $discount =  $product->finalPrice['discount'];
 
+                 @endphp
+                {{ Aire::input('price', "Precio")->groupClass('col-span-3')->helpText(
+                    $discount_on ? "Descuento del {$discount}% aplicado en {$discount_on}" : "Sin descuento"
+                    ) }}
 
                 {{ Aire::input('delivery_days', "Tiempo de entrega")->helpText('Días')->groupClass('col-span-3') }}
 

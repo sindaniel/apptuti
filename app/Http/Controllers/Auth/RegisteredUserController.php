@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\State;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +22,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+
+        $states = State::orderBy('name')->get()->pluck('name', 'id');
+        $cities = City::whereStateId(1)->orderBy('name')->get()->pluck('name', 'id');
+        $context = compact('states', 'cities');
+        return view('auth.register', $context);
     }
 
     /**

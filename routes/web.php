@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BonificationController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LabelController;
@@ -41,6 +42,11 @@ Route::get('/etiqueta-producto/{slug}', [PageController::class, 'label'])->name(
 Route::get('/proveedores', [PageController::class, 'brands'])->name('brands');
 Route::get('/proveedores/{brand}', [PageController::class, 'brand'])->name('brand');
 
+
+Route::post('/cart/add/guest', [CartController::class, 'add_guest'])->name('cart.add_guest');
+Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::get('/carrito', [CartController::class, 'cart'])->name('cart');
 
 
 

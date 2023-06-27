@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -39,8 +38,6 @@ class ProductCombinationsController extends Controller
     public function update(Request $request, Product $product, $combination){
 
         $product->combinations()->detach();
-
-        
       
         foreach ($request->combined as $key => $combined) {
             
@@ -53,12 +50,6 @@ class ProductCombinationsController extends Controller
                 ]
             );
         }
-
-        $total = collect($request->combined)->sum('price');
-
-        $product->update([
-            'price'=>$total
-        ]);
 
         return to_route('products.edit', $product)->withFragment('combined')->with('success', 'Productos actualizados');
       
