@@ -13,7 +13,7 @@
             <div class="flex items-center mb-4 sm:mb-0">
                <x-search :home="route('bonifications.index')" />
             </div>
-            <a href="{{ route('holidays.create') }}"
+            <a href="{{ route('bonifications.create') }}"
                 class="text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 ">
                 Nuevo Bonificación
             </a>
@@ -31,8 +31,11 @@
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Nombre
                             </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Producto bonificado
+                            </th>
                             <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase ">
-                                Productos
+                                Productos asociados
                             </th>
                           
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase "></th>
@@ -50,8 +53,12 @@
                                 </a>
                             </td>
 
+                            <td class="p-4 text-sm font-normal  text-gray-500 whitespace-nowrap">
+                                {{ $bonification->product?->name }}
+                            </td>
+
                             <td class="p-4 text-sm font-normal text-center text-gray-500 whitespace-nowrap">
-                                {{ $bonification->products->count() }}
+                                {{ $bonification->products_count }}
                             </td>
                           
 

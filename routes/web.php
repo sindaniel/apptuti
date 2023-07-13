@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BonificationController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LabelController;
@@ -42,42 +43,14 @@ Route::get('/proveedores', [PageController::class, 'brands'])->name('brands');
 Route::get('/proveedores/{brand}', [PageController::class, 'brand'])->name('brand');
 
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::post('/cart/add/guest', [CartController::class, 'add_guest'])->name('cart.add_guest');
+Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::get('/carrito', [CartController::class, 'cart'])->name('cart');
 
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::post('/carrito', [CartController::class, 'processOrder'])->name('cart.process');
 
 
-    // Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
-    Route::post('/products/{product}/images', [ProductController::class, 'images'])->name('products.images');
-    Route::delete('/products/{product}/images/{image}', [ProductController::class, 'images_delete'])->name('products.images_delete');
-
-    Route::delete('/products/{product}/add_combined', [ProductController::class, 'add_combined'])->name('products.add_combined');
-    Route::delete('/products/{product}/sync_combined', [ProductController::class, 'sync_combined'])->name('products.sync_combined');
-   
-    Route::get('/products/{product}/combinations{combination}', [ProductCombinationsController::class, 'remove_combination'])->name('products.remove_combination');
-    
-    
-    Route::resource('brands', BrandController::class);
-    Route::resource('taxes', TaxController::class);
-    Route::resource('holidays', HolidayController::class);
-    Route::resource('products', ProductController::class);
-    Route::resource('products.combinations', ProductCombinationsController::class)->only([ 'store', 'update']);
-    Route::resource('categories', CategoryController::class);
-    Route::resource('labels', LabelController::class);
-    Route::resource('vendors', VendorController::class);
-    Route::resource('bonifications', BonificationController::class);
-
-    Route::resource('variations', VariationController::class);
-    Route::resource('variations.items', VariationItemController::class);
-
-
-
-    
-    Route::get('/profile', [VendorController::class, 'index'])->name('profile.update');
-   # Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';

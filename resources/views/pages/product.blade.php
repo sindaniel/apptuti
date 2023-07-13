@@ -13,17 +13,27 @@
 <h1 class="text-4xl font-bold w-full flex justify-between mb-5">
    <span> {{ $product->name }}</span>
 
-   <small id='productPrice'>
+   {{-- <small id='productPrice'>
         @if($product->items->count())
         {{ price($product->items->first()->pivot->price, $product->discount) }}
         @else
         {{ price($product->price, $product->discount) }}
         @endif
-   </small>
+    </small> --}}
+
+   <x-price :product='$product'  />
 
 
 </h1>
-<div class="w-full">
+@auth
+<form action="{{ route('cart.add_guest') }}" method="POST" class='mt-5' class="w-full">
+@else
+<form action="{{ route('cart.add_guest') }}" method="POST" class='mt-5' class="w-full">
+@endauth
+
+    @csrf
+    <input type="hidden" name='product_id' value="{{ $product->id }}">
+
     <p class="mb-5">
         {!! $product->short_description !!}
     </p>
@@ -31,14 +41,11 @@
 
     @if ($product->variation && $product->items->count())
         {{ $product->variation->name }}
-        <select name="" id="price">
+        <select name="variation_id" id="selectPrice">
             @foreach ($product->items->where('pivot.enabled', 1) as $item) 
-                <option data-price="{{ price($item->pivot->price, $product->discount) }}" value="{{ $item->pivot->variation_item_id }}">{{ $item->name }}</option>
+                <option data-price="{{ $item->pivot->price }}" value="{{ $item->pivot->variation_item_id }}">{{ $item->name }}</option>
             @endforeach
         </select>
-
-    @else
-            price
     @endif
 
     <div class="mt-5">
@@ -52,7 +59,16 @@
     <div class="mt-5">
         Marca: <a href="{{ route('brand', $product->brand->slug) }}" class="text-blue-500">{{ $product->brand->name }}</a>
     </div>
-</div>
+
+
+
+
+    <input type="number" name='quantity' value='1'>
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Agregar</button>
+
+      
+   
+</form>
 
 
 
@@ -118,10 +134,18 @@
     <script>
         $(function(){
             
-        
-            $('#price').on('change', function(){
+            const discount =  '{{$product->finalPrice['discount']}}'
+           
+            $('#selectPrice').on('change', function(){
+             
                 let price = $(this).find(':selected').data('price')
-                $('#productPrice').html(price)
+                
+                if(discount){
+                    $('#oldprice').html(currency(parseInt(price)))
+                    price = price - (price * (discount/100))
+                }
+                console.log(currency(price));
+                $('#price').html(currency(price))
             })
         })
 

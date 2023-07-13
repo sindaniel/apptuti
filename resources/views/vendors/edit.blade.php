@@ -21,7 +21,7 @@
                     {{ Aire::input('name', "Nombre")->placeholder('Nombre')->groupClass('col-span-6 sm:col-span-3') }}
                     {{ Aire::input('slug', "Slug")->placeholder('Slug')->groupClass('col-span-6 sm:col-span-3') }}
                     {{ Aire::number('minimum_purchase', "Compra mínima")->placeholder('Compra mínima')->groupClass('col-span-6') }}
-                    {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', $vendor->discount))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
+                    {{ Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', $vendor->discount))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
 
                     <div>
                         {{ Aire::hidden('active')->value(0)}}
@@ -80,19 +80,7 @@
      
     </div>
     
-    <div class="col-span-full xl:col-auto">
-
-        <x-product-attributes relation='brands' :product="$vendor" :items="$brands" title="Marcas" />
-
-        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
-            <p class="flex space-x-2 justify-between items-center">
-                {{ Aire::submit('Actualizar')->variant()->submit() }}
-                <x-remove-button />  
-            </p>
-        </div>
-
-       
-    </div>
+   
 </div>
 {{ Aire::close() }}
 

@@ -79,4 +79,49 @@ class Product extends  Model
         return $this->belongsToMany(Bonification::class);
     }
 
+    public function getFinalPriceAttribute(){
+       
+
+        $discount = $this->discount;
+        $discount_on  = 'Producto';
+
+
+        if($this->brand){
+            if($this->brand->discount > $discount){
+                $discount = $this->brand->discount;
+                $discount_on  = 'Marca';
+            }
+        }
+ 
+        if($this->brand->vendors){
+            if($this->brand->vendors->discount > $discount){
+                $discount = $this->brand->vendors->discount;
+                $discount_on  = 'Vendor';
+            }
+        }   
+
+        
+
+        if($this->bonifications->count()){
+            $discount_on  = false;
+            $discount = 0;
+        }
+
+        $price = $this->price;
+
+        $variation = $this->items?->first();
+        if($this->items?->first()){
+           $price = $variation->pivot->price;
+        }
+
+
+        return [
+            'old'=>$price,
+            'price'=>($price - ($price * $discount / 100)),
+            'totalDiscount'=>($price * $discount / 100),
+            'discount'=>$discount,
+            'discount_on'=>$discount_on,
+        ];
+    }
+
 }

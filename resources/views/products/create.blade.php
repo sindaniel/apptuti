@@ -87,6 +87,13 @@
             </div>
         </div>
 
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <h3 class="mb-4 text-xl font-semibold ">Bonificacion</h3>
+            <div class="grid grid-cols-1 gap-3">
+                {{Aire::select($bonifications, 'bonification_id')}}
+            </div>
+        </div>
+
     </div>
 
    

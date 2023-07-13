@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+
 
 use App\Models\Bonification;
 use App\Models\Product;
@@ -11,10 +14,11 @@ class BonificationController extends Controller
     public function index(Request $request){
 
         $bonifications = Bonification::query()
+        ->with('product')
+        ->withCount('products')
         ->when($request->q, function($query, $q){
             $query->where('name', 'like', "%{$q}%");
         })
-        ->withCount('products')
         ->orderBy('name')
         ->paginate();
        
@@ -27,8 +31,10 @@ class BonificationController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('bonifications.create');
+    {   
+        $products = Product::pluck('name', 'id');
+        $context = compact('products');
+        return view('bonifications.create', $context);
     }
 
     public function store(Request $request)
@@ -37,6 +43,7 @@ class BonificationController extends Controller
             'name' => 'required|string|max:255',
             'buy' => 'required|integer',
             'get' => 'required|integer|lte:buy',
+            'product_id'=>'required|exists:products,id'
         ]);
         
 
@@ -61,8 +68,8 @@ class BonificationController extends Controller
             ->orderBy('name', 'asc')
             ->get();
     
-
-        $context = compact('bonification', 'products');
+        $products_free = Product::pluck('name', 'id');
+        $context = compact('bonification', 'products', 'products_free');
         return view('bonifications.edit', $context);
     }
 
@@ -71,10 +78,12 @@ class BonificationController extends Controller
      */
     public function update(Request $request, Bonification $bonification )
     {
+        
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'buy' => 'required|integer',
             'get' => 'required|integer|lte:buy',
+            'product_id'=>'required|exists:products,id'
         ]);
 
         $bonification->update($validate);

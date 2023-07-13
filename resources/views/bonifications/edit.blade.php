@@ -21,6 +21,8 @@
 
                 {{ Aire::input('get', "Cantidad gratis")->groupClass('col-span-3') }}
                 
+                {{ Aire::select($products_free, 'product_id', 'Producto')->groupClass('col-span-6 sm:col-span-3') }}
+                
             
 
                 <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">

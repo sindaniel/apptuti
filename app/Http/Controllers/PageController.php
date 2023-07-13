@@ -38,7 +38,7 @@ class PageController extends Controller
             
             $products = Product::whereHas('categories', function($query) use ($ids){
                 $query->whereIn('category_id', $ids);
-            })->paginate(1);
+            })->paginate();
 
           
         

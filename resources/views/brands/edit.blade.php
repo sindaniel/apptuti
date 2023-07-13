@@ -20,6 +20,10 @@
                 {{ Aire::input('slug', "Slug")->groupClass('col-span-6 sm:col-span-3') }}
                 {{ Aire::input('delivery_days', "Dias de entrega")->groupClass('col-span-6 sm:col-span-3') }}
 
+                {{ Aire::select($vendors, 'vendor_id', 'Vendor')->groupClass('col-span-6 sm:col-span-3') }}
+
+                {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', $brand->discount))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
+
 
                 
 

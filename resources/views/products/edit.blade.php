@@ -37,13 +37,14 @@
                 {{ Aire::input('slug', "Slug")->groupClass('col-span-3') }}
                  {{ Aire::input('sku', "SKU")->groupClass('col-span-3') }}
 
-                @if($product->is_combined)
-                
-                    {{ Aire::input('price', "Precio")->groupClass('col-span-3')->readonly()->value($product->combinations->sum('pivot.price')) }}
-                @else
-                    {{ Aire::input('price', "Precio")->groupClass('col-span-3') }}
-                @endif
+                 @php
+                    $discount_on =  $product->finalPrice['discount_on'];
+                    $discount =  $product->finalPrice['discount'];
 
+                 @endphp
+                {{ Aire::input('price', "Precio")->groupClass('col-span-3')->helpText(
+                    $discount_on ? "Descuento del {$discount}% aplicado en {$discount_on}" : "Sin descuento"
+                    ) }}
 
                 {{ Aire::input('delivery_days', "Tiempo de entrega")->helpText('Días')->groupClass('col-span-3') }}
 
@@ -134,6 +135,13 @@
             <h3 class="mb-4 text-xl font-semibold ">Impuesto</h3>
             <div class="grid grid-cols-1 gap-3">
                 {{Aire::select($taxes, 'tax_id')}}
+            </div>
+        </div>
+        
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
+            <h3 class="mb-4 text-xl font-semibold ">Bonificacion</h3>
+            <div class="grid grid-cols-1 gap-3">
+                {{Aire::select($bonifications, 'bonification_id')->value(old('bonification_id', $product->bonifications->first()?->id))}}
             </div>
         </div>
 

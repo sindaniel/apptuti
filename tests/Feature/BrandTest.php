@@ -55,6 +55,7 @@ it('user logged can create brand', function(){
         'name'=> 'Brand Item',
         'description'=> 'Brand Item',
         'slug'=> 'slug-brand',
+        'discount'=> 20,
         'active'=> 1,   
         'delivery_days'=>123
     
@@ -75,6 +76,7 @@ it('user logged can access to edit brand page', function(){
         'description'=> 'Brand Item',
         'slug'=> 'slug-brand',
         'active'=> 1,   
+        'discount'=> 20,
         'delivery_days'=>123
     ]);
 
@@ -85,7 +87,7 @@ it('user logged can access to edit brand page', function(){
 });
 
 
-it('user logged can access to edit vendor', function(){
+it('user logged can access to edit brand', function(){
 
     $user = User::first();
 
@@ -94,6 +96,7 @@ it('user logged can access to edit vendor', function(){
         'description'=> 'Brand Item',
         'slug'=> 'slug-brand',
         'active'=> 1,   
+        'discount'=>10,
         'delivery_days'=>123
     ]);
 
@@ -104,6 +107,7 @@ it('user logged can access to edit vendor', function(){
             'description'=> 'Brand Item1',
             'slug'=> 'slug-brand1',
             'active'=> 1,   
+            'discount'=> 4,   
             'delivery_days'=>123
             ])
         ->assertRedirect('/brands')
