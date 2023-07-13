@@ -2,12 +2,7 @@ import './bootstrap';
 
 
 
-import c from  'currency.js';
 
-window.currency = function(value){
-    console.log(value)
-    return c(value, { symbol: '$', precision: 0, separator: '.' }).format();
-};
 
 import Alpine from 'alpinejs';
 

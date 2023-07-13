@@ -11,18 +11,8 @@
 
 
 
-- Productos combinados
 
-- Descuento mas alto entre
-    vendor
-    marcar
-    producto
-
-- Carrito
-
-- Validacion vendor
-
-- Registro de usuarios
-
-
-  
+  Descuento mas alto entre
+  vendor
+  marcar
+  producto

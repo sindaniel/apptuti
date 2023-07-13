@@ -25,7 +25,7 @@
               <img src="{{ asset('img/tuti.png') }}" class="mr-4 h-20" alt="">
           </a>
           <!-- Card -->
-          <div class="w-full max-w-4xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
+          <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
 
 
             <x-alert />
@@ -38,9 +38,6 @@
       </main>
       
 
-
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 
     @yield('scripts')
 </body>

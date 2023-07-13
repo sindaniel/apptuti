@@ -19,7 +19,6 @@
     "dependencies": {
         "@defstudio/vite-livewire-plugin": "^1.1.0",
         "@vitejs/plugin-vue": "^4.2.3",
-        "currency.js": "^2.0.4",
         "flowbite": "^1.6.5",
         "install": "^0.13.0",
         "vue": "^3.2.36",

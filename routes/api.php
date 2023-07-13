@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\CityController;
 use App\Jobs\ProcessImage;
 use App\Models\Article;
 use App\Models\Tax;
@@ -23,4 +22,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/cities', [CityController::class, 'index'])->name('cities.index');

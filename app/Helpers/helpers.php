@@ -30,12 +30,16 @@ if (! function_exists('public_asset')) {
 
 
 
-if (! function_exists('currency')) {
-    function currency($price)
+if (! function_exists('price')) {
+    function price($price, $discount= 0)
     {   
-    
+      
+        if($discount){
+            $price = $price * (1 - $discount/100);
+        }
         $price = number_format($price, 0, ',', '.');
-        return $price;
+
+        return "$ ".$price;
         
     }
 }

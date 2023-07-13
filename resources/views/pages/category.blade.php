@@ -34,7 +34,23 @@
 
 
                 <p class="mb-5  text-gray-700 text-2xl ">
-                    <x-price :product='$product'  />
+                    @if ($product->discount)
+                        <div class="flex flex-col">
+                            <span>
+                               <strong> ${{ number_format($product->price * (1 - $product->discount/100),2) }}</strong>
+                                <small class="text-gray-500">({{ $product->discount }}%)</small>
+                            </span>
+                            <small class="line-through">${{ number_format($product->price,2) }}</small>
+                        </div>
+                        
+                        @else
+                        <div class="flex flex-col">
+                            <span>
+                               <strong> ${{ number_format($product->price * (1 - $product->discount/100),2) }}</strong>
+                            </span>
+                           
+                        </div>
+                    @endif
                 </p>
             
             </div>
