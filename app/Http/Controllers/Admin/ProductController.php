@@ -232,6 +232,8 @@ class ProductController extends Controller
             $bonification = Bonification::find($request->bonification_id);
             $product->bonifications()->detach();
             $bonification->products()->attach($product->id);
+        }else{
+            $product->bonifications()->detach();
         }
       
 

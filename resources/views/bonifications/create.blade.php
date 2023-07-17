@@ -22,6 +22,8 @@
                 {{ Aire::input('get', "Cantidad gratis")->groupClass('col-span-3') }}
                 
                 {{ Aire::select($products, 'product_id', 'Producto')->groupClass('col-span-6 sm:col-span-3') }}
+
+                {{ Aire::input('max', "Cantidad maxima bonificada")->value(old('max',1))->groupClass('col-span-3')->helpText('Cantidad de veces que se da la bonificación') }}
                 
             
 

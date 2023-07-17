@@ -34,8 +34,17 @@
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Producto bonificado
                             </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Cantidad comprada
+                            </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Cantidad bonificada
+                            </th>
                             <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase ">
                                 Productos asociados
+                            </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-center text-gray-500 uppercase ">
+                                Cantidad maxima bonificada
                             </th>
                           
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase "></th>
@@ -57,8 +66,21 @@
                                 {{ $bonification->product?->name }}
                             </td>
 
+                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
+                                {{ $bonification->buy }}  
+                            </td>
+
+                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
+                                {{ $bonification->get }}  
+                            </td>
+
+
                             <td class="p-4 text-sm font-normal text-center text-gray-500 whitespace-nowrap">
                                 {{ $bonification->products_count }}
+                            </td>
+
+                            <td class="p-4 text-sm font-normal text-center text-gray-500 whitespace-nowrap">
+                                {{ $bonification->max }}
                             </td>
                           
 

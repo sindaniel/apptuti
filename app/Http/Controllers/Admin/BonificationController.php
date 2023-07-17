@@ -43,6 +43,7 @@ class BonificationController extends Controller
             'name' => 'required|string|max:255',
             'buy' => 'required|integer',
             'get' => 'required|integer|lte:buy',
+            'max'=>   'required|integer|min:1',
             'product_id'=>'required|exists:products,id'
         ]);
         
@@ -83,6 +84,7 @@ class BonificationController extends Controller
             'name' => 'required|string|max:255',
             'buy' => 'required|integer',
             'get' => 'required|integer|lte:buy',
+            'max'=>   'required|integer|min:1',
             'product_id'=>'required|exists:products,id'
         ]);
 

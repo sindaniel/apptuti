@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductCombinationsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TaxController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VariationController;
 use App\Http\Controllers\Admin\VariationItemController;
 use App\Http\Controllers\Admin\VendorController;
@@ -30,7 +31,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/products/{product}/combinations{combination}', [ProductCombinationsController::class, 'remove_combination'])->name('products.remove_combination');
 
-
+    Route::resource('users', UserController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('taxes', TaxController::class);
     Route::resource('holidays', HolidayController::class);

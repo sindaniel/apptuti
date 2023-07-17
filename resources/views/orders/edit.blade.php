@@ -24,10 +24,7 @@
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Producto
                             </th>
-                            <th scope="col"
-                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
-                                Bonificación
-                            </th>
+                          
                             <th scope="col"
                                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Combinaciones
@@ -73,15 +70,7 @@
                                 </div>
                             </td>
 
-                            <td class="px-4 py-2 text-xs font-normal text-gray-500 whitespace-nowrap">
-                                @if ($product->bonifications->count())
-                                   <div class='flex flex-col '>
-                                    <span>Producto: {{ $product->bonifications[0]->product->name }}</span>
-                                    <span>Cantidad: {{ floor($product->pivot->quantity/$product->bonifications[0]->buy)}}</span>
-                                   </div>
-                                @endif
-                            </td>
-
+                          
 
 
                             <td class="px-4 py-2 text-xs font-normal text-gray-500 whitespace-nowrap">
@@ -94,10 +83,6 @@
                                 @endif
                             </td>
 
-
-                            
-
-                        
 
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
                                 ${{ number_format($product->pivot->price, 2) }}
@@ -125,19 +110,82 @@
             
 
                         <tr>
-                            <td colspan="5">
+                            <td colspan="4">
 
                             </td>
                             <td class='p-4 text-base font-medium text-gray-900 whitespace-nowrap text-right'>Descuento</td>
                             <td class='p-4 text-base font-bold text-gray-900 whitespace-nowrap text-left'>${{ number_format($order->discount, 2) }}</td>
                         </tr>
                         <tr>
-                            <td colspan="5">
+                            <td colspan="4">
 
                             </td>
                             <td class='p-4 text-base font-medium text-gray-900 whitespace-nowrap text-right'>Total</td>
                             <td class='p-4 text-base font-bold text-gray-900 whitespace-nowrap text-left'>${{ number_format($order->total, 2) }}</td>
                         </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
+    <div class="w-full">
+        <div class="">
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl ">Compra bonificaciones</h1>
+        </div>
+    </div>
+</div>
+<div class="flex flex-col">
+    <div class="overflow-x-auto">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden shadow">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100">
+                        <tr>
+                           
+                            <th scope="col"
+                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Producto
+                            </th>
+                          
+                            <th scope="col"
+                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Cantidad
+                            </th>                        
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white ">
+                        @foreach ($order->products as $product)
+                        @if ($product->bonifications->first())
+                            <tr class="hover:bg-gray-100 ">
+                                
+                            
+
+                                <td class="px-4 py-2  font-normal text-gray-500 whitespace-nowrap">
+                                    {{ $product->bonifications->first()->product->name }}
+                                </td>
+
+
+
+                                <td class="px-4 py-2  font-normal text-gray-500 whitespace-nowrap">
+                                            {{ floor($product->pivot->quantity/$product->bonifications->first()->buy)}}
+                                </td>
+
+
+
+
+                            </tr>
+
+                            @endif
+                        
+                        @endforeach
+            
 
 
                     </tbody>

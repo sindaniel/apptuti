@@ -12,7 +12,7 @@ class OrderController extends Controller
 
     public function index(){
 
-        $orders = Order::with(['user', 'products'])->paginate();
+        $orders = Order::with(['user', 'products'])->orderByDesc('id')->paginate();
         $context = compact('orders');
 
         return view('orders.index', $context );

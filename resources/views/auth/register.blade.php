@@ -2,7 +2,7 @@
 
 
 @section('content')
-<div class="flex flex-col  mx-auto pt:mt-0 ">
+
     <div class="w-full max-w-8xl ">
         <h1 class='text-xl font-bold mb-10'>Registro</h1>
         <form method="POST" action="{{ route('register') }}">
@@ -11,8 +11,8 @@
             <!-- Name -->
 
             <div class='grid grid-cols-1 gap-5'>
-                {{ Aire::input('first_name', 'Nombre')->groupClass('mb-0') }}
-                {{ Aire::input('last_name', 'Apellidos')->groupClass('mb-0') }}
+                {{ Aire::input('name', 'Nombre')->groupClass('mb-0') }}
+                {{ Aire::email('email', 'Correo electrónico')->groupClass('mb-0') }}
                 
 {{-- 
                 {{ Aire::input('document', 'Documento')->groupClass('mb-0') }}
@@ -20,7 +20,7 @@
 
 
                 {{ Aire::input('company', 'Nombre de la empresa')->groupClass('mb-0') }}
-                {{ Aire::input('correo', 'Correo electronico')->groupClass('mb-0') }}
+              
 
                 {{ Aire::select($states, 'state_id', 'Departamento')->value(1)->id('states')->groupClass('mb-0') }}
                 {{ Aire::select($cities, 'city_id', 'Ciudad')->value(1)->id('cities')->groupClass('mb-0') }}
@@ -49,7 +49,7 @@
                 </x-primary-button>
             </div>
         </form>
-    </div>
+    
 </div>
 @endsection
 

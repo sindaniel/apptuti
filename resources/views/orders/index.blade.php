@@ -76,9 +76,16 @@
                             </td>
 
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
-                                <span class='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-yellow-100 text-yellow-800'>
-                                    Pendiente
+
+                                @if ($order->user->can_buy)
+                                    <span class='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-green-100 text-green-800'>
+                                        Procesada
                                 </span>
+                                @else
+                                    <span class='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-yellow-100 text-yellow-800'>
+                                        Pendiente
+                                    </span>
+                                @endif
                             </td>
 
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">

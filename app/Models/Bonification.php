@@ -13,7 +13,8 @@ class Bonification extends Model
         'name',
         'buy',
         'get',
-        'product_id'
+        'product_id',
+        'max'
     ];
 
 

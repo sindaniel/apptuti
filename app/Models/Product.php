@@ -27,7 +27,8 @@ class Product extends  Model
         'brand_id',
         'variation_id',
         'is_combined',
-        'parent_id'
+        'parent_id',
+        
     ];
 
 
