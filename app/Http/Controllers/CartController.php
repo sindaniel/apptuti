@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessOrder;
+use App\Mail\NewOrderEmail;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Vendor;
@@ -165,8 +167,11 @@ class CartController extends Controller
        
 
         $order->products()->attach($cart);
+
+        dispatch(new ProcessOrder($order));
+        new NewOrderEmail($order);
         
-        return redirect()->back()->with('success', 'Compra procesada con exito!');
+        return to_route('home')->with('success', 'Compra procesada con exito!');
 
     }
 
