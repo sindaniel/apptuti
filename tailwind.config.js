@@ -3,21 +3,32 @@ import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: 'class',
+    darkMode: "class",
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        "./node_modules/flowbite/**/*.js"
+        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+        "./storage/framework/views/*.php",
+        "./resources/views/**/*.blade.php",
+        "./node_modules/flowbite/**/*.js",
     ],
-    safelist: ['resize-none'],
+    safelist: ["resize-none"],
     theme: {
         fontFamily: {
-          inter: ['Inter', 'sans-serif'],
+            inter: ["Inter", "sans-serif"],
+            dm: ["DM Sans", "sans-serif"],
+        },
+        extend: {
+            colors: {
+                gray2: "#D9D9D9",
+                gray3: "#f3f2f1",
+                gray4: "#e7e6e4",
+                blue1: "#4a84ed",
+                blue2: "#c1d9f9",
+                blue3: "#edf2f9",
+                offert: "#e69e46",
+                primary: "#180F09",
+            },
         },
     },
 
-    plugins: [
-        require('flowbite/plugin')
-    ],
+    plugins: [require("flowbite/plugin")],
 };

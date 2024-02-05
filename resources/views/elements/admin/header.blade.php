@@ -18,7 +18,7 @@
                     </svg>
                 </button>
                 <a href="{{ route('home') }}" class="flex ml-2 md:mr-24">
-                    <img src="{{ asset('img/tuti.png') }}" class="w-20 mr-3" alt="Tuti" />
+                <img src="{{ asset('img/tuti.png') }}" class="w-20 mr-3" alt="Tuti" />
                 </a>
             
             </div>
