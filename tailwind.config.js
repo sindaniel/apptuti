@@ -26,6 +26,7 @@ export default {
                 blue3: "#edf2f9",
                 offert: "#e69e46",
                 primary: "#180F09",
+                secondary: "#EE4E34",
             },
         },
     },

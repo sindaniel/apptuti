@@ -10,121 +10,136 @@
 @section('content')
     
 
-<h1 class="text-4xl font-bold w-full flex justify-between mb-5">
-   <span> {{ $product->name }}</span>
 
-   {{-- <small id='productPrice'>
-        @if($product->items->count())
-        {{ price($product->items->first()->pivot->price, $product->discount) }}
-        @else
-        {{ price($product->price, $product->discount) }}
-        @endif
-    </small> --}}
+<div class="grid grid-cols-12 w-full gap-y-5 gap-x-5">
 
-   <x-price :product='$product'  />
-
-
-</h1>
-@auth
-<form action="{{ route('cart.add_guest') }}" method="POST" class='mt-5' class="w-full">
-@else
-<form action="{{ route('cart.add_guest') }}" method="POST" class='mt-5' class="w-full">
-@endauth
-
-    @csrf
-    <input type="hidden" name='product_id' value="{{ $product->id }}">
-
-    <p class="mb-5">
-        {!! $product->short_description !!}
-    </p>
-
-
-    @if ($product->variation && $product->items->count())
-        {{ $product->variation->name }}
-        <select name="variation_id" id="selectPrice">
-            @foreach ($product->items->where('pivot.enabled', 1) as $item) 
-                <option data-price="{{ $item->pivot->price }}" value="{{ $item->pivot->variation_item_id }}">{{ $item->name }}</option>
-            @endforeach
-        </select>
-    @endif
-
-    <div class="mt-5">
-        @foreach ($product->labels as $label)
-            
-            <a href="{{ route('label', $label->slug) }}" class="inline-block bg-blue-500 hover:bg-blue-700 rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">{{ $label->name }}</a>
-
-        @endforeach
+    <div class="col-span-12">
+        <ul class="flex  space-x-2 text-gray-500">
+            <li><a href="">Home</a></li>
+            <li><a href="">Productos</a></li>
+            <li><a href="">Iluminación</a></li>
+        </ul>
     </div>
 
-    <div class="mt-5">
-        Marca: <a href="{{ route('brand', $product->brand->slug) }}" class="text-blue-500">{{ $product->brand->name }}</a>
-    </div>
-
-
-
-
-    <input type="number" name='quantity' value='1'>
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Agregar</button>
-
-      
-   
-</form>
-
-
-
-
-
-
-@if($product->related->count() )
-<hr class="borde-b border-blue-500 my-10 w-full">
-<div class="w-full">
-    <h2 class="font-bold text-xl mb-5">Productos relacionados</h2>
-</div>
-<div class="grid grid-cols-5 gap-4">
-    @foreach ($product->related as $product)
-
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                {{-- <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" /> --}}
-            </a>
-            <div class="p-5">
+    <div class="xl:col-span-6 col-span-12">
+        <div class="grid grid-cols-12 gap-5">
+            <div class="xl:col-span-3 col-span-12 xl:order-1 order-2">
+                <ul class="grid xl:grid-cols-1 grid-cols-4 gap-2">
+                    <li class="border p-2">
+                        <a href="">
+                            <img src="{{asset('img/product1.jpeg')}}" alt="">
+                        </a>
+                    </li>
+                    <li class="border p-2">
+                        <a href="">
+                            <img src="{{asset('img/product2.png')}}" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="xl:col-span-9 col-span-12 xl:order-2 order-1">
+                <div class="border p-2">
+                    <img src="{{asset('img/product1.jpeg')}}" alt="">
+                </div>
                 
-                <a href="{{route('product', $product->slug)}}" class="text-gray-900  hover:text-blue-500">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight">{{ $product->name }}</h5>
-                </a>
-              
-
-
-                <p class="mb-5  text-gray-700 text-2xl ">
-                    @if ($product->discount)
-
-                        <div class="flex flex-col">
-                            <span>
-                               <strong> {{ price($product->price, $product->discount) }}</strong>
-                                <small class="text-gray-500">({{ $product->discount }}%)</small>
-                            </span>
-                            <small class="line-through">{{ price($product->price) }}</small>
-                        </div>
-                        
-                    @else
-
-                        <div class="flex flex-col">
-                            <span>
-                               <strong> {{ price($product->price) }}</strong>
-                            </span> 
-                        </div>
-                        
-                    @endif
-                </p>
-            
             </div>
         </div>
+    </div>  
+
+    <div class="xl:col-span-6 col-span-12 space-y-4">
+        <h1 class="text-2xl">Bombillo LED 7W Santablanca 10.000H</h1>
+
+        <div class="flex justify-start items-center space-x-2">
+            <strong class="text-xl">$12.000</strong>
+            <span class="line-through text-xs">$11.000</span>
+        </div>
+
+        <p>
+            Vorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Vorem ipsum dolor sit 
+        </p>
+
+        <ul class="list-disc pl-5">
+            <li>Bombillo led A60 7W</li>
+            <li>Multivoltaje</li>
+            <li>10.000 horas de duración</li>
+            <li>Luz Fría</li>
+        </ul>
+
+        <div class="flex flex-col space-y-2">
+            <strong>Presentación</strong>
+            <ul class="flex  space-x-2 font-bold">
+                <li class="border rounded px-2 py-1">12und</li>
+                <li class="border rounded px-2 py-1">12und</li>
+                <li class="border rounded px-2 py-1">12und</li>
+            </ul>
+        </div>
+
+        <div class="bg-blue3 flex items-center justify-center">
+            <button class="text-blue1 text-5xl">-</button>
+            <input type="text" class="w-20 text-center bg-transparent border-0 text-xl px-4" disabled value="1">
+            <button class="text-blue1 text-5xl">+</button>
+        </div>
+
+        <div>
+            <button class="bg-secondary w-full flex items-end justify-center text-xl space-x-2 py-2 rounded hover:bg-opacity-90 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+                <span>
+                    Añadir al Carrito
+                </span>
+                
+            </button>
+        </div>
+
         
-    @endforeach
+
+    </div>
+
+   <div class="xl:col-span-6 col-span-12 py-5">
+        <h3 class="font-bold text-xl mb-2">Detalles del producto</h3>
+        <p>
+            Horem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. 
+        </p>
+    </div>
+
+
+    <div class="col-span-12 py-5">
+        <h3 class="font-bold text-xl mb-2">Productos Relacionados</h3>
+        <div class="grid grid-cols-2 xl:grid-cols-6 gap-5 ">
+           
+            @for ($i = 0; $i < 6; $i++)
+                <div class="border border-gray-100 rounded">
+                    <div class="flex w-full items-center justify-center py-5 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>
+                    </div>
+                    <div class="flex px-2 py-2 justify-between">
+                        <a href="" class="bg-blue1 rounded-full w-6 h-6 block p-1 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </a>
+                        <a href="{{route('product', 'leonard-chaney')}}" class="bg-gray3 hover:bg-gray2 flex px-4 text-sm rounded-full items-center justify-center">
+                            <span>Ver</span>
+                        </a>
+                    </div>
+                    <div class="bg-gray3 p-2 space-y-2">
+                        <strong class="text-sm">$ 12.000</strong>
+                        <p class="text-xs text-[#180F09]">Bombillo LED 7W Santablanca 10.000H</p>
+                        <p class="text-xs text-[#180F09]">Presentación</p>
+                    </div>
+                </div>
+            @endfor
+        
+        </div>
+    </div>
+
+
+
+
 </div>
-
-@endif
-
 
 @endsection
 

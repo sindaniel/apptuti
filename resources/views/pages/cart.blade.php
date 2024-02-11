@@ -13,207 +13,122 @@
 @section('content')
     
 
-<div class="w-full">
-    <h1 class="text-3xl mb-5">Carrito</h1>
-</div>
 
 
+<div class="grid grid-cols-12 w-full gap-y-5 gap-x-5">
 
+    <div class="xl:col-span-8 col-span-12  ">
+        <div class="border rounded py-5 xl:px-8 px-4 xl:space-y-0 space-y-5">
+            
+            <div class="flex space-x-2 items-center">
+                <div class="w-6  h-6 p-2 text-xs  rounded-full bg-blue3 text-blue1  flex items-center justify-center">
+                    <span>1</span>
+                </div>
+                <strong>Datos de facturación</strong>
+            </div>
+            <div class="grid xl:grid-cols-2 grid-cols-1">
+                <div class="px-10 xl:py-7 py-3 leading-7">
+                    <p>Ana María Correa</p>
+                    <p>3017293901</p>
+                    <p>c.c 1234567890</p>
+                </div>
 
-<div class="relative overflow-hidden bg-white shadow-md  sm:rounded-lg w-full">
-    
-    <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                <tr>       
-                    <th scope="col" class="px-4 py-3 w-10"></th>
-                    <th scope="col" class="px-4 py-3">Producto</th>
-                    <th scope="col" class="px-4 py-3">Precio</th>
-                    <th scope="col" class="px-4 py-3 w-48">Cantidad</th>
-                    <th scope="col" class="px-4 py-3 text-right">Subtotal</th>
+                <div class="px-10 xl:py-7 py-3 leading-7">
+                    <p>ana.correa@dazzet.co</p>
+                    <p>Calle 56 Sur #28 - 112</p>
+                    <p>Sabaneta</p>
+                </div>
                 
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $totalDiscount = 0;
-                    $total = 0
-                @endphp
-                @foreach ($products as $product)
-                
-                    @php
-                        $totalDiscount += $product->finalPrice['totalDiscount']* $product->quantity;
-                        $total += $product->finalPrice['price']* $product->quantity;
-                    @endphp
-                    
-                    <tr class="border-b ">
-                    
 
-                        <td  class=" px-4 py-2 ">
-
-                            <form action="{{ route('cart.remove') }}" method="post">
-
-                                @method('DELETE')
-                                @csrf
-                                <input type="hidden" name='product_id' value="{{ $product->id }}">
-                                <button  class='hover:text-red-500'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                    </svg>                              
-                                </button>
-                            </form>
-
-                            
-                        </td>
+            </div>
 
 
-                        <td scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                            <a class="flex items-center" href="{{route('product', $product->slug)}}">
-                                <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png" class="w-auto h-8 mr-3">
-                            <span>{{ $product->name }}</span>
+            <div class="flex space-x-2 items-center">
+                <div class="w-6  h-6 p-2 text-xs  rounded-full bg-blue3 text-blue1  flex items-center justify-center">
+                    <span>2</span>
+                </div>
+                <strong> Dirección de entrega</strong>
+            </div>
+            <div class="grid xl:grid-cols-2 grid-cols-1 gap-5 px-10 py-5">
+
+                @for ($i = 0; $i < 2; $i++)
+                    <div class="border rounded py-2 px-4 ">
+                        <div class="flex items-center space-x-2">
+                            <input type="radio">
+                            <strong>Tienda 1</strong>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="px-6 py-1 leading-5">
+                                <p>Calle 56 Sur #28 - 112</p>
+                                <p class="text-gray-500 text-sm">Sabaneta</p>
+                            </div>
+                            <a href="#" class="bg-blue3 w-7 h-7 rounded-full center">
+                                <svg class="w-4 h-4 text-blue1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                </svg>
                             </a>
-                        </td>
-                        <td class="px-4 py-2">
-                            <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded">
-                                {{-- <small class='line-through' >${{ $product->finalPrice['old'] }}</small>
-                                <span>${{ $product->finalPrice['price'] }}</span> --}}
-                                <x-price :product='$product' />
-                            </span>
-                        </td>
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-
-                            <form action="{{ route('cart.update') }}" method="POST">
-                                <input type="hidden" name='product_id' value="{{ $product->id }}">
-                                @method('PATCH')
-                                @csrf
-                                <div class="flex items-center space-x-3">
-                                    <button class="inline-flex items-center justify-center p-1 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-                                        <span class="sr-only">Quantity button</span>
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"></path>
-                                        </svg>
-                                    </button>
-                                    <div>
-                                        <input type="text" value='{{ $product->quantity }}' name='quantity' id="first_product" class="bg-gray-50 w-20 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1" placeholder="1" required="">
-                                    </div>
-                                    <button class="inline-flex items-center justify-center h-6 w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-                                        <span class="sr-only">Quantity button</span>
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </form>
-
-                            {{-- <form action="{{ route('cart.update') }}" method="POST">
-                                @method('PATCH')
-                                @csrf
-                                <input type="hidden" name='product_id' value="{{ $product->id }}">
-                                {{ Aire::input('quantity')->value($product->quantity) }}
-                            </form> --}}
-                        </td>
-
-                        <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap text-right">
-                            <strong id='price'>${{ currency($product->finalPrice['price'] * $product->quantity, 0)}}</strong>   
-                        </td>
-
-                        
-
-
-                    
-                        
-                    </tr>
-                @endforeach
-                
-            </tbody>
-
-            <tfoot>
-                <tr>
-                    <td colspan="4" class='px-4 py-2 text-xl'>
-                        
-                        <div class='text-right '>
-                            Ahorro total
                         </div>
+                    </div>
+                @endfor
 
-                    </td>
-                    <td  class='px-4 py-2 text-xl text-right'>
-                        ${{ currency($totalDiscount)  }}
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="4" class='px-4 py-2 text-xl'>
-                        
-                        <div class='text-right '>
-                            Subtotal
+                <div class="border rounded ">
+                        <div class="flex items-center text-blue1">
+                           
+                            <a href="#" class="flex space-x-4  py-8 px-4">
+                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                                <span>Añadir dirección</span>
+                            </a>
                         </div>
+                       
+                    </div>
 
-                    </td>
-                    <td  class='px-4 py-2 text-xl text-right'>
-                        ${{ currency($total)  }}
-                    </td>
-                </tr>
+            </div>
 
-                <tr class='text-black font-bold'>
-                    <td colspan="4" class='px-4 py-2 text-xl' >
-                        
-                        <div class='text-right '>
-                            Total
-                        </div>
-
-                    </td>
-                    <td  class='px-4 py-2 text-xl text-right'>
-                        ${{ currency($total)  }}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5" class='px-4 py-2 text-xl' >
-
-
-                        @forelse ($alertVendors as $vendor)
-
-                            <div class='text-red-500'>
-                                
-                                El vendor   {{ $vendor->name }} require de un pedido mínimo de ${{ currency($vendor->minimum_purchase) }}, se compraron: ${{ currency($vendor->current) }}
-                            </div>
-                                
-                        @empty
-                        
-
-                            <div class="flex justify-end">
-                                @auth
-
-
-                                {{ Aire::open()->route('cart.process')}}
-                                    <button type="submit" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Comprar</button> 
-                                {{ Aire::close() }}
-
-
-                                
-
-
-
-                                @else
-                                <a href="{{ route('register') }}" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 ">Registrarme y Comprar</a>
-                                @endauth
-                                
-
-
-                            </div>
-
-                        @endforelse
-                        
-                      
-                    </td>
-                
-                </tr>
-            </tfoot>
-        </table>
+           
+        </div>
     </div>
 
+     <div class="xl:col-span-4 col-span-12  ">
+        <div class="border rounded p-5">
+            <div class="flex space-x-2 items-center">
+                <div class="w-6  h-6 p-2 text-xs  rounded-full bg-blue3 text-blue1  flex items-center justify-center">
+                    <span>3</span>
+                </div>
+                <strong>Tu pedido</strong>
+            </div>
+
+            <div class="">
+                <h3 class="my-4">Productos</h3>
+
+                <div class=" text-xs">
+                    @for ($i = 0; $i < 5; $i++)
+                       <div class="grid grid-cols-12 items-center gap-x-2">
+                            <a href="" class="col-span-2">
+                                <img src="{{asset('img/product1.jpeg')}}" alt="">
+                            </a>
+                            <span class="col-span-8 px-3">
+                                Bombillo LED 7W Santablanca 10.000H
+                            </span>
+                            <strong>$40.000</strong>
+                       </div>
+                    @endfor
+           
+                </div>
+                    
+
+            </div>
+    
+           
+        </div>
+    </div>
+
+ 
+
+
+
 </div>
-
-
 
 
 

@@ -8,9 +8,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&display=swap" rel="stylesheet">
-
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -148,7 +147,7 @@
             </div>
 
             <div class="justify-end space-x-2 xl:flex hidden">
-                <a class="bg-gray3 py-1 px-2 text-gray-700" href="#">Carrito</a>
+                <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('cart')}}">Carrito</a>
                 <a class="bg-gray3 py-1 px-2 text-gray-700" href="#">Acceder</a>
                 <a class="bg-gray3 py-1 px-2 text-gray-700"  href="#">Registrarme</a>
             </div>
