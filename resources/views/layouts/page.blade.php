@@ -50,7 +50,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                     </svg>    
                 </a> --}}
-                <a href="#" class="flex items-center">
+                <a href="{{route('home')}}" class="flex items-center">
                     <img src="{{ public_asset('img/tuti.png') }}" class="h-14 mr-3" alt="Flowbite Logo" />
                 </a>
                 {{-- <button data-collapse-toggle="navbar-multi-level" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-multi-level" aria-expanded="false">
