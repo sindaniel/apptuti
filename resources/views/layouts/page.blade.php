@@ -22,6 +22,8 @@
 
 <body class="antialdiased font-dm text-primary">
 
+    @include('elements.mobile-menu')
+
 
     @php
         $categories  = App\Models\Category::active()->whereNull('parent_id')->with('children')->orderBy('name')->get();
@@ -37,17 +39,17 @@
     <nav class="bg-white border-gray-200 border-b  ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-1 px-4">
 
-            <a href="" class="text-orange-500 flex xl:hidden">
+            <button id='openMobileMenu' class="text-orange-500 flex xl:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                 </svg>    
-            </a>
+            </button>
             <div class="flex items-center space-x-4">
-                <a href="" class="text-orange-500 hidden xl:flex">
+                {{-- <a href="" class="text-orange-500 hidden xl:flex">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                     </svg>    
-                </a>
+                </a> --}}
                 <a href="#" class="flex items-center">
                     <img src="{{ public_asset('img/tuti.png') }}" class="h-14 mr-3" alt="Flowbite Logo" />
                 </a>
@@ -185,6 +187,15 @@
 
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+        <script>
+            $('#closeMobileMenu').click(function(){
+                $('#mobileMenu').hide();
+            });
+
+            $('#openMobileMenu').click(function(){
+                $('#mobileMenu').show();
+            });
+        </script>
 
         @yield('scripts')
     </body>

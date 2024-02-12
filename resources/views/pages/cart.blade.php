@@ -116,6 +116,29 @@
                     @endfor
            
                 </div>
+
+               <div class="text-sm">
+                 <hr class="my-4">
+
+           
+                    <div class="flex justify-between">
+                        <span>Subtotal</span>
+                        <strong>$200.000</strong>
+                    </div>
+                   
+                    <div class="flex justify-between">
+                        <span>Descuento</span>
+                        <strong>-$20.000</strong>
+                    </div>
+                    <hr class="my-4">
+                    <div class="flex justify-between">
+                        <span>Total</span>
+                        <strong>$180.000</strong>
+                    </div>
+
+                    <a href="#" class="bg-orange-600 text-white rounded py-3 px-5 mt-5 block text-center hover:bg-orange-900">Realizar Pedido</a>
+               </div>
+            
                     
 
             </div>
