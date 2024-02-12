@@ -58,7 +58,7 @@ class PageController extends Controller
         ->with(['related', 'items', 'variation'])->with(['labels' => function($query) {
             $query->where('active', 1); 
         }])
-        ->where('slug', $slug)->firstOrFail();
+        ->where('slug', $slug)->first();
 
       
         
