@@ -145,7 +145,7 @@
 
 
 @section('scripts')
-     
+{{--      
     <script>
         $(function(){
             
@@ -164,7 +164,7 @@
             })
         })
 
-    </script>
+    </script> --}}
 
 
 @endsection
