@@ -1,10 +1,10 @@
 @extends('layouts.page')
 
 @section('head')
-    @include('elements.seo', [
+    {{-- @include('elements.seo', [
         'title'=>$product->name, 
         'description'=> $product->sort_description
-        ])
+        ]) --}}
 @endsection
 
 @section('content')
