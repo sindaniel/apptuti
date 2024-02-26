@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/site.js'])
 
 
     @yield('head')
@@ -20,7 +20,7 @@
 
 
 
-<body class="antialdiased font-dm text-primary">
+<body class="antialdiased font-dm text-primary" >
 
     @include('elements.mobile-menu')
 
