@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductCombinationsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\PageController as SellerPageController;
+use App\Http\Controllers\Shopper\PageController as ShopperPageController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\VariationController;
 use App\Http\Controllers\VariationItemController;
@@ -61,5 +62,21 @@ Route::name('sellers.')->prefix('vendedor')->group(function () {
     Route::get('/faq', [SellerPageController::class, 'faq'])->name('faq');
     Route::get('/contact', [SellerPageController::class, 'contact'])->name('contact');
 });
+
+
+Route::name('shoppers.')->prefix('tendero')->group(function () {
+    Route::get('/', [ShopperPageController::class, 'home'])->name('home');
+    Route::get('/products', [ShopperPageController::class, 'products'])->name('products');
+    Route::get('/cart', [ShopperPageController::class, 'cart'])->name('cart');
+
+    Route::get('/orders', [ShopperPageController::class, 'orders'])->name('orders');
+    Route::get('/orders/{id}', [ShopperPageController::class, 'order'])->name('order');
+
+
+    Route::get('/contact', [ShopperPageController::class, 'contact'])->name('contact');
+    Route::get('/reports', [ShopperPageController::class, 'reports'])->name('reports');
+  
+});
+
 
 require __DIR__.'/auth.php';
