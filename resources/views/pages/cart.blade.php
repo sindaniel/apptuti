@@ -170,7 +170,7 @@
                     </div>
                     <hr class="my-4">
                     <div class="flex justify-between">
-                        <span>Total</span>
+                        <strong>Total</strong>
                         <strong>$180.000</strong>
                     </div>
 

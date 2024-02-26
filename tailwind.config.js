@@ -27,6 +27,7 @@ export default {
                 offert: "#e69e46",
                 primary: "#180F09",
                 secondary: "#EE4E34",
+                info: "#4a84ed",
             },
         },
     },
