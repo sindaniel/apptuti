@@ -141,37 +141,64 @@
                 <h3 class="my-4">Productos</h3>
 
                 <div class=" text-xs">
-                    @for ($i = 0; $i < 5; $i++)
-                       <div class="grid grid-cols-12 items-center gap-x-2">
-                            <a href="" class="col-span-2">
-                                <img src="{{asset('img/product1.jpeg')}}" alt="">
+
+                    @foreach ($products as $product)
+
+                     <div class="grid grid-cols-12 items-top gap-x-2">
+                            <a href="{{route('product', $product->slug)}}" class="col-span-2">
+                                <img src="{{asset('storage/'.$product->image)}}" alt="">  
                             </a>
-                            <span class="col-span-8 px-3">
-                                Bombillo LED 7W Santablanca 10.000H
-                            </span>
-                            <strong>$40.000</strong>
+                            <div class="col-span-8 px-3 flex flex-col">
+                                <a href='{{route('product', $product->slug)}}'>{{$product->name}} ({{$product->quantity}})</a>
+                                <small class="text-slate-700">{{currency($product->final_price['old'])}}</small>
+                            </div>
+                            <div class="col-span-2 text-right">
+                                <strong class="">${{currency($product->final_price['price'] * $product->quantity)}}</strong>
+                                @if($product->final_price['has_discount'])
+                                    <small class="line-through">${{currency($product->final_price['old'] * $product->quantity)}}</small>
+                                @endif
+                            </div>    
                        </div>
-                    @endfor
+                        
+                    @endforeach
+
+               
            
                 </div>
 
                <div class="text-sm">
                  <hr class="my-4">
 
+                    @php
+                        $subtotal = $products->sum(function($product){
+                            return $product->final_price['old'] * $product->quantity;
+                        });
+
+
+                        $discount = $products->sum(function($product){
+                            return $product->final_price['totalDiscount'] * $product->quantity;
+                        });
+                      
+                    @endphp
+
            
                     <div class="flex justify-between">
                         <span>Subtotal</span>
-                        <strong>$200.000</strong>
+                        <strong>
+                           ${{currency($subtotal)}}
+                        </strong>
                     </div>
                    
                     <div class="flex justify-between">
                         <span>Descuento</span>
-                        <strong>-$20.000</strong>
+                        <strong>
+                            -${{currency($discount)}}
+                        </strong>
                     </div>
                     <hr class="my-4">
                     <div class="flex justify-between">
                         <strong>Total</strong>
-                        <strong>$180.000</strong>
+                        <strong>${{currency($subtotal-$discount)}}</strong>
                     </div>
 
                     <a href="#" class="bg-orange-600 text-white rounded py-3 px-5 mt-5 block text-center hover:bg-orange-900">Realizar Pedido</a>

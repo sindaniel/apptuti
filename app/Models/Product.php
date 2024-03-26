@@ -80,6 +80,10 @@ class Product extends  Model
         return $this->belongsToMany(Bonification::class);
     }
 
+    public function getImageAttribute(){
+        return $this->images->first()?->path;
+    }
+
     public function getFinalPriceAttribute(){
        
 

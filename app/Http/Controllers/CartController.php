@@ -13,9 +13,9 @@ class CartController extends Controller
 {
     public function cart(){
 
-        return view('pages.cart');
+        
         $cart = session()->get('cart');
-
+        
         if(!$cart){
             return redirect()->route('home');
         }
@@ -28,6 +28,9 @@ class CartController extends Controller
             $product->vendor_id = $product->brand->vendor->id;
             $products[] = $product;
         }
+        $products = collect($products);
+
+        
 
 
         //compra minima por vendor
@@ -47,7 +50,7 @@ class CartController extends Controller
         }
 
       
-
+        
         $context = compact('products', 'alertVendors'); 
         
         return view('pages.cart', $context);
@@ -58,17 +61,21 @@ class CartController extends Controller
 
     public function add(Request $request, Product $product){
        
+        //clear session cart
+        
+
+
         $request->validate([
             'variation_id'=> 'nullable|numeric',
             'quantity' => 'required|numeric',
         ]);
 
         $cart = session()->get('cart');
-    
+        
         if(!$cart){
             $cart = [
                 $product->id => [
-                    "product_id" => $request->product_id,
+                    "product_id" => $product->id,
                     "quantity" => $request->quantity,
                     "variation_id" => $request->variation_id,
                 ]
@@ -77,13 +84,17 @@ class CartController extends Controller
             return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
         }
 
+
+
         if(isset($cart[$product->id])) {
             $cart[$product->id]['quantity'] = $request->quantity;
             session()->put('cart', $cart);
             return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
-        }
+        }else{
 
-        $cart[$cart[$product->id]] = [
+        }
+            
+        $cart[$product->id] = [
             "product_id" => $product->id,
             "quantity" => $request->quantity,
             "variation_id" => $request->variation_id,
