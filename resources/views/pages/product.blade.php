@@ -76,9 +76,9 @@
         </div> --}}
 
         <div class="bg-blue3 flex items-center justify-center">
-            <button type="button" class="text-blue1 text-5xl">-</button>
-            <input type="numeric"  name='quantity' class="w-20 text-center bg-transparent border-0 text-xl px-4"  value="1">
-            <button type="button" class="text-blue1 text-5xl">+</button>
+            <button type="button" id='increment' class="text-blue1 text-5xl">-</button>
+            <input type="numeric" id='quantity'  name='quantity' class="w-20 text-center bg-transparent border-0 text-xl px-4 focus:ring-0 focus:outline-none"  readonly value="{{$product->step}}">
+            <button type="button" id='decrement' class="text-blue1 text-5xl">+</button>
         </div>
 
         <div>
@@ -89,15 +89,14 @@
                 </svg>
                 <span>
                     Añadir al Carrito
-                </span>
-                
+                </span> 
             </button>
             
         </div>
 
         
 
-    </div>
+    </form>
 
    <div class="xl:col-span-6 col-span-12 py-5">
         <h3 class="font-bold text-xl mb-2">Detalles del producto</h3>
@@ -106,16 +105,19 @@
         </p>
     </div>
 
+
+
     @if($product->related->count())
         <div class="col-span-12 py-5">
             <h3 class="font-bold text-xl mb-2">Productos Relacionados</h3>
             <div class="grid grid-cols-2 xl:grid-cols-6 gap-5 ">
-                @foreach ($product->related as $product)
-                    <x-product :product="$product"/>
+                @foreach ($product->related as $p)
+                    <x-product :product="$p"/>
                 @endforeach
             </div>
         </div>
     @endif
+
 
 
 
@@ -125,27 +127,52 @@
 @endsection
 
 
+
+
 @section('scripts')
-{{--      
+     
     <script>
         $(function(){
-            
-            const discount =  '{{$product->finalPrice['discount']}}'
-           
-            $('#selectPrice').on('change', function(){
-             
-                let price = $(this).find(':selected').data('price')
-                
-                if(discount){
-                    $('#oldprice').html(currency(parseInt(price)))
-                    price = price - (price * (discount/100))
+
+
+
+            const step = {{$product->step}};
+
+            $('#increment').on('click', function(){
+                let quantity = parseInt($('#quantity').val())
+                quantity = quantity - step
+                if(quantity < step){
+                    quantity = step
                 }
-                console.log(currency(price));
-                $('#price').html(currency(price))
+                $('#quantity').val(quantity)
             })
+
+            $('#decrement').on('click', function(){
+                let quantity = parseInt($('#quantity').val())
+                quantity = quantity + step
+                $('#quantity').val(quantity)
+            })
+
+            // const discount =  '{{$product->finalPrice['discount']}}'
+           
+            // $('#selectPrice').on('change', function(){
+             
+            //     let price = $(this).find(':selected').data('price')
+                
+            //     if(discount){
+            //         $('#oldprice').html(currency(parseInt(price)))
+            //         price = price - (price * (discount/100))
+            //     }
+            //     console.log(currency(price));
+            //     $('#price').html(currency(price))
+            // })
+
+
+
+
         })
 
-    </script> --}}
+    </script>
 
 
 @endsection

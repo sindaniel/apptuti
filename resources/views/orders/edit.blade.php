@@ -133,7 +133,7 @@
 </div>
 
 
-
+@if(false)
 <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200">
     <div class="w-full">
         <div class="">
@@ -194,7 +194,7 @@
         </div>
     </div>
 </div>
-
+@endif
 
 
 

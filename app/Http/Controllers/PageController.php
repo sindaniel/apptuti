@@ -48,7 +48,7 @@ class PageController extends Controller
 
             $ids = array_merge($ids, [$category->id]);
             
-            $products = Product::whereHas('categories', function($query) use ($ids){
+            $products = Product::active()->whereHas('categories', function($query) use ($ids){
                 $query->whereIn('category_id', $ids);
             })->paginate();
 

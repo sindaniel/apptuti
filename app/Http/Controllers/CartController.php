@@ -30,9 +30,6 @@ class CartController extends Controller
         }
         $products = collect($products);
 
-        
-
-
         //compra minima por vendor
         $byVendors = collect($products)->groupBy('vendor_id');
         $alertVendors = [];
@@ -61,9 +58,6 @@ class CartController extends Controller
 
     public function add(Request $request, Product $product){
        
-        //clear session cart
-        
-
 
         $request->validate([
             'variation_id'=> 'nullable|numeric',
@@ -143,8 +137,6 @@ class CartController extends Controller
 
         $cart = session()->get('cart');
 
-
-
         $total = 0;
         $discount = 0;
         foreach ($cart as $key => $product) {
@@ -160,9 +152,6 @@ class CartController extends Controller
 
             $total = $total + ($p->finalPrice['price'] * $product['quantity']);
             $discount = $discount + ($p->finalPrice['totalDiscount'] * $product['quantity']);
-
-
-
 
         }
 

@@ -170,10 +170,10 @@
             @yield('content')
         </div>
 
-        <section class="bg-gray4 py-10 mt-10">
+        <section class="bg-footer py-10 mt-10">
             <div class="container mx-auto max-w-screen-xl" >
              
-                <div class="w-full flex justify-center flex-col items-center text-gray-500">
+                <div class="w-full flex justify-center flex-col items-center text-white">
                     <p>Banner invitando a registrarse</p>
                     <p>O hablando del proceso de pedido</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 ">
