@@ -8,13 +8,8 @@
         'description'=>'Description del home'
         ])
 
-            <link rel="stylesheet" href="{{asset('assets/owl.carousel.min.css')}}">
-            <link rel="stylesheet" href="{{asset('assets/owl.theme.default.min.css')}}">
-
-
-
-
-
+        <link rel="stylesheet" href="{{asset('assets/owl.carousel.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/owl.theme.default.min.css')}}">
 @endsection
 
 
@@ -23,15 +18,11 @@
 <section class="w-full">
     
     <div class="owl-carousel text-gray-400">
-        <div class="h-60 w-full bg-[#eae9e7] rounded flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-            </svg>
+        <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
+            <img src="https://tuti.com.co/wp-content/uploads/sites/55/2023/05/Surte-tu-tienda-Tuti.jpg" alt="">
         </div>
-        <div class="h-60 w-full bg-[#eae9e7] rounded flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-            </svg>
+        <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
+            <img src="https://tuti.com.co/wp-content/uploads/sites/55/2023/05/Cientos-de-productos-Tuti.jpg" alt="">
         </div>
     
     </div>
@@ -39,21 +30,16 @@
 
 
 <section class="w-full grid grid-cols-12 gap-x-10 xl:gap-y-0 gap-y-10">
-
-
-
-
-    
     <div class="col-span-3 hidden xl:block" id="accordion-collapse" data-accordion="collapse" data-active-classes='text-gray-700'>
-       
+        
+        @foreach ($categories as $category)
 
-        @for ($i = 0; $i < 10; $i++)
-                
-            <h2 id="accordion-collapse-heading-c{{$i}}">
-                <button type="button" class="bg-blue2 flex items-center justify-between w-full py-2 px-4 font-medium rtl:text-right text-gray-500  focus:ring-0 focus:ring-gray-200  gap-3 @if($i == 0) rounded-t-xl @endif @if($i == 10) rounded-b-xl @endif" data-accordion-target="#accordion-collapse-body-c{{$i}}" aria-expanded="true" aria-controls="accordion-collapse-body-c{{$i}}">
+            <h2 id="accordion-collapse-heading-c{{$category->id}}">
+                 {{-- @if($i == 0) rounded-t-xl @endif @if($i == 10) rounded-b-xl @endif --}}
+                <button type="button" class="bg-blue2 flex items-center justify-between w-full py-2 px-4 font-medium rtl:text-right text-gray-500  focus:ring-0 focus:ring-gray-200  gap-3" data-accordion-target="#accordion-collapse-body-c{{$category->id}}" aria-expanded="true" aria-controls="accordion-collapse-body-c{{$category->id}}">
                 <div class="flex items-center space-x-2">
                     <span class="icon-energy"></span>
-                    <span> Categoría {{$i+1}}</span>
+                    <span>{{$category->name}}</span>
                 </div>
 
                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -61,48 +47,56 @@
                 </svg>
                 </button>
             </h2>
-            <div id="accordion-collapse-body-c{{$i}}" class="hidden bg-blue3" aria-labelledby="accordion-collapse-heading-c{{$i}}">
+            <div id="accordion-collapse-body-c{{$category->id}}" class="hidden bg-blue3" aria-labelledby="accordion-collapse-heading-c{{$category->id}}">
                 <div class="px-3 py-3">
                     <ul class="pl-7 text-sm space-y-2">
-                        <li><a class="text-gray-600" href="">Subcategoría 1</a></li>
-                        <li><a class="text-gray-600" href="">Subcategoría 1</a></li>
-                        <li><a class="text-gray-600" href="">Subcategoría 1</a></li>
+                        <li><a class="text-gray-600" href="{{route('category', $category->slug)}}">{{$category->name}}</a></li>
+                        @foreach ($category->children as $subcategory)
+                            <li><a class="text-gray-600" href="{{route('category2', $subcategory->slug)}}">{{$subcategory->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
+            
+        @endforeach
 
-        @endfor
-       
+      
       
     </div>
-
     <div class="xl:col-span-6 col-span-12 ">
         <div class="grid grid-cols-2 xl:grid-cols-3 gap-5 ">
-           
-                @for ($i = 0; $i < 12; $i++)
-                    <div class="border border-gray-100 rounded">
-                        <div class="flex w-full items-center justify-center py-5 text-gray-400">
-                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                            </svg>
-                        </div>
-                        <div class="flex px-2 py-2 justify-between">
-                            <a href="" class="bg-blue1 rounded-full w-6 h-6 block p-1 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                </svg>
+            @foreach ($products as $product)
+                <div class="border border-gray-100 rounded">
+                    <div class="flex w-full items-center justify-center py-2 text-gray-400">
+                        @if($product->images->first())
+                            <a href="{{route('product', $product->slug)}}"  class="h-40 block w-full bg-cover bg-center" style="background-image: url({{asset('storage/'.$product->images->first()->path)}});">
                             </a>
-                            <a href="{{route('product', 'leonard-chaney')}}" class="bg-gray3 hover:bg-gray2 flex px-4 text-sm rounded-full items-center justify-center">
-                                <span>Ver</span>
-                            </a>
-                        </div>
-                        <div class="bg-gray3 p-2 space-y-2">
-                            <strong class="text-sm">$ 12.000</strong>
-                            <p class="text-xs text-[#180F09]">Bombillo LED 7W Santablanca 10.000H</p>
-                            <p class="text-xs text-[#180F09]">Presentación</p>
-                        </div>
+                        @else
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>
+                        @endif
+
+                        
                     </div>
-                @endfor
+                    <div class="flex px-2 py-2 justify-between">
+                        <a href="{{route('product', $product->slug)}}" class="bg-blue1 rounded-full w-6 h-6 block p-1 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </a>
+                        <a href="{{route('product', $product->slug)}}" class="bg-gray3 hover:bg-gray2 flex px-4 text-sm rounded-full items-center justify-center">
+                            <span>Ver</span>
+                        </a>
+                    </div>
+                    
+                    <div class="bg-gray3 p-2 space-y-2 flex flex-col">
+                        <strong class="text-sm">$ {{$product->final_price['price']}}</strong>
+                        <a href="{{route('product', $product->slug)}}" class="text-xs text-[#180F09]">{{$product->name}}</a>
+                        <p class="text-xs text-[#180F09]">{{$product->categories->first()->name}}</p>
+                    </div>
+                </div>
+            @endforeach
            
         </div>
     </div>

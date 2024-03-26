@@ -1,22 +1,11 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\BonificationController;
-use App\Http\Controllers\BrandController;
+
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\HolidayController;
-use App\Http\Controllers\LabelController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProductCombinationsController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\PageController as SellerPageController;
 use App\Http\Controllers\Shopper\PageController as ShopperPageController;
-use App\Http\Controllers\TaxController;
-use App\Http\Controllers\VariationController;
-use App\Http\Controllers\VariationItemController;
-use App\Http\Controllers\VendorController;
+
 
 use Illuminate\Support\Facades\Route;
 

@@ -31,11 +31,10 @@
 
                     <p class="flex space-x-2 items-center">
                         {{ Aire::submit('Crear')->variant()->submit() }}
-                        <a href="{{ route('bonifications.index') }}">Cancelar</a>
+                      
                     </p>
 
-                    <x-remove-button />  
-                    
+                    <a href="{{ route('bonifications.index') }}">Cancelar</a>
                     
                
                    

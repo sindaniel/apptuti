@@ -255,30 +255,10 @@ class ProductController extends Controller
             'image' => 'required|image|max:4096',
         ]);
 
-
-
-        $imgFile = $request->image;
-        $random = Str::random(40);
-        $hasName = "$random.jpg";
-        
-        //$request->image->store('products', 'do');
-
-        $imgFile = Image::make($imgFile->getRealPath());
-        
-        $imgFile->resize(1000, 1000, function ($constraint) {$constraint->aspectRatio();});
-        Storage::disk('do')->put("products/1000/$hasName", $imgFile->encode('jpg', 75)->stream());
-
-
-        $imgFile->resize(500, 500, function ($constraint) {$constraint->aspectRatio();});
-        Storage::disk('do')->put("products/500/$hasName", $imgFile->encode('jpg', 75)->stream());
-
-
-        $imgFile->resize(100, 100, function ($constraint) {$constraint->aspectRatio();});
-        Storage::disk('do')->put("products/50/$hasName", $imgFile->encode('jpg', 50)->stream());
-    
+        $path = $validate['image']->store('products', 'public');
 
         $product->images()->create([    
-            'path' => $hasName
+            'path' => $path
         ]);
 
         return back()->with('success', 'Imagen cargada');

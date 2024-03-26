@@ -12,8 +12,11 @@ class PageController extends Controller
 {   
     public function home()
     {
-       
-        return view('pages.home');
+        $products = Product::active()->with('images')->orderBy('created_at', 'desc')->paginate();
+        $categories = Category::with('children')->whereNull('parent_id')->get();
+      
+        $context = compact('products', 'categories');
+        return view('pages.home', $context);
     }
 
     public function category($slug, $slug2=null)
