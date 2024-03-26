@@ -34,7 +34,7 @@ Route::get('/proveedores', [PageController::class, 'brands'])->name('brands');
 Route::get('/proveedores/{brand}', [PageController::class, 'brand'])->name('brand');
 
 
-Route::post('/cart/add/guest', [CartController::class, 'add_guest'])->name('cart.add_guest');
+Route::post('/carrito/agregrar/{product}', [CartController::class, 'add'])->name('cart.add');
 Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::get('/carrito', [CartController::class, 'cart'])->name('cart');

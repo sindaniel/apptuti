@@ -41,7 +41,7 @@ class Product extends  Model
     }
 
     public function labels(){
-        return $this->belongsToMany(Label::class);
+        return $this->belongsToMany(Label::class)->whereActive(1);
     }
 
     public function related(){
@@ -115,6 +115,11 @@ class Product extends  Model
            $price = $variation->pivot->price;
         }
 
+        $has_discount = false;
+        if($discount > 0){
+            $has_discount = true;
+        }
+
 
         return [
             'old'=>$price,
@@ -122,6 +127,7 @@ class Product extends  Model
             'totalDiscount'=>($price * $discount / 100),
             'discount'=>$discount,
             'discount_on'=>$discount_on,
+            'has_discount'=>$has_discount
         ];
     }
 

@@ -19,10 +19,19 @@ class PageController extends Controller
         return view('pages.home', $context);
     }
 
+    public function product($slug)
+    {
+        $product = Product::query()
+            ->with(['related.images', 'items', 'variation', 'labels'])
+            ->where('slug', $slug)->firstOrFail();
+
+        $context = compact('product');
+        
+        return view('pages.product',  $context);
+    }
+
     public function category($slug, $slug2=null)
     {
-
-     
       
         if($slug2){
 
@@ -55,20 +64,7 @@ class PageController extends Controller
        
     }
 
-    public function product($slug)
-    {
-        $product = Product::query()
-        ->with(['related', 'items', 'variation'])->with(['labels' => function($query) {
-            $query->where('active', 1); 
-        }])
-        ->where('slug', $slug)->first();
-
-      
-        
-
-        $context = compact('product');
-        return view('pages.product',  $context);
-    }
+   
 
 
     public function label($slug){

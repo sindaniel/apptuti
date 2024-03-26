@@ -26,10 +26,12 @@ class SearchRelatedProduct extends Component
 
     public function add(){
             
-        $this->product->related()->attach($this->selectedProduct);
-      
+        if($this->selectedProduct){
+            $this->product->related()->attach($this->selectedProduct);
+            $this->related = $this->product->related()->get();
 
-        $this->related = $this->product->related()->get();
+        }
+       
 
     }
 

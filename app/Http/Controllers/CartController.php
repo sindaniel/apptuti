@@ -56,10 +56,9 @@ class CartController extends Controller
       
     }
 
-    public function add_guest(Request $request){
+    public function add(Request $request, Product $product){
        
         $request->validate([
-            'product_id' => 'required|numeric',
             'variation_id'=> 'nullable|numeric',
             'quantity' => 'required|numeric',
         ]);
@@ -68,7 +67,7 @@ class CartController extends Controller
     
         if(!$cart){
             $cart = [
-                $request->product_id => [
+                $product->id => [
                     "product_id" => $request->product_id,
                     "quantity" => $request->quantity,
                     "variation_id" => $request->variation_id,
@@ -78,14 +77,14 @@ class CartController extends Controller
             return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
         }
 
-        if(isset($cart[$request->product_id])) {
-            $cart[$request->product_id]['quantity'] = $request->quantity;
+        if(isset($cart[$product->id])) {
+            $cart[$product->id]['quantity'] = $request->quantity;
             session()->put('cart', $cart);
             return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
         }
 
-        $cart[$request->product_id] = [
-            "product_id" => $request->product_id,
+        $cart[$cart[$product->id]] = [
+            "product_id" => $product->id,
             "quantity" => $request->quantity,
             "variation_id" => $request->variation_id,
         ];
