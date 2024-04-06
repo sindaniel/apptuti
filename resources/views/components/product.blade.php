@@ -24,7 +24,12 @@
     </div>
     
     <div class="bg-gray3 p-2 space-y-2 flex flex-col">
-        <strong class="text-sm">$ {{$product->final_price['price']}}</strong>
+        <div>
+            <strong class="text-sm">$ {{currency($product->final_price['price'])}}</strong>
+            @if($product->final_price['has_discount'])
+                <small class="line-through">${{currency($product->final_price['old'])}}</small>
+            @endif
+        </div>
         <a href="{{route('product', $product->slug)}}" class="text-xs text-[#180F09]">{{$product->name}}</a>
         <p class="text-xs text-[#180F09]">{{$product->categories->first()->name}}</p>
     </div>

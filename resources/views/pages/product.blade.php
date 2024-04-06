@@ -48,9 +48,9 @@
         <h1 class="text-2xl">{{$product->name}}</h1>
 
         <div class="flex justify-start items-center space-x-2">
-            <strong class="text-xl">${{$product->final_price['price']}}</strong>
+            <strong class="text-xl">${{currency($product->final_price['price'])}}</strong>
             @if ($product->final_price['has_discount'])
-                <span class="line-through text-xs">{{$product->final_price['old']}}</span>
+                <span class="line-through text-xs">${{currency($product->final_price['old'])}}</span>
             @endif
             
         </div>

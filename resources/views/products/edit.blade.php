@@ -58,7 +58,7 @@
 
                 {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', $product->discount))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
 
-                {{  Aire::range('step', 'Steps')->data('sufix', '')->id('step')->value(old('step', $product->step))->min(0)->max(100)->step(1)->groupClass('col-span-6')->helpText('Salto de cantidad para el precio')}}
+                {{  Aire::range('step', 'Steps')->data('sufix', '')->id('step')->value(old('step', $product->step))->min(1)->max(100)->step(1)->groupClass('col-span-6')->helpText('Salto de cantidad para el precio')}}
                 
 
                 

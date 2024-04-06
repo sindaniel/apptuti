@@ -29,6 +29,8 @@
     aside ul li a.active{
         @apply bg-gray-100;
     }
+
+    
 }
 
 @layer utilities {
