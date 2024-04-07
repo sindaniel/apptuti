@@ -149,9 +149,17 @@
             </div>
 
             <div class="justify-end space-x-2 xl:flex hidden">
-                <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('cart')}}">Carrito</a>
-                <a class="bg-gray3 py-1 px-2 text-gray-700" href="#">Acceder</a>
-                <a class="bg-gray3 py-1 px-2 text-gray-700"  href="#">Registrarme</a>
+              
+                @auth
+                    @php
+                        $cartCount = count(session()->get('cart') ?? []);
+                    @endphp
+                    <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('cart')}}">Carrito @if($cartCount)<small>({{ $cartCount }})</small>@endif</a>
+                    <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('cart')}}">Salir</a>
+                @else
+                    <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('login')}}">Acceder</a>
+                    <a class="bg-gray3 py-1 px-2 text-gray-700"  href="{{route('register')}}">Registrarme</a>
+                @endauth
             </div>
 
             <div class="justify-end space-x-2 xl:hidden flex">

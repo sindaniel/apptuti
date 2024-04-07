@@ -172,9 +172,8 @@
 
                         @forelse ($alertVendors as $vendor)
 
-                            <div class='text-red-500'>
-                                
-                                El vendor   {{ $vendor->name }} require de un pedido mínimo de ${{ currency($vendor->minimum_purchase) }}, se compraron: ${{ currency($vendor->current) }}
+                            <div class='text-red-500'> 
+                                El vendor {{ $vendor->name }} require de un pedido mínimo de ${{ currency($vendor->minimum_purchase) }}, se compraron: ${{ currency($vendor->current) }}
                             </div>
                                 
                         @empty

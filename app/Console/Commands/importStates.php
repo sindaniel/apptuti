@@ -31,17 +31,15 @@ class importStates extends Command
         if ($open = fopen($csv, 'r')) {
 
             while (($data = fgetcsv($open)) !== FALSE) {
-               
+
                 $state = State::firstOrCreate([
                     'name'=>$data[2]
                 ]);
 
                 $state->cities()->create([
                     'name'=>$data[4]
-                ]);
-
-          
-               
+                ]);   
+                
             }
 
             fclose($open);

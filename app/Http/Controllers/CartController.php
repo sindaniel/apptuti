@@ -48,7 +48,7 @@ class CartController extends Controller
             }
         }
 
-      
+        
         
         $context = compact('products', 'alertVendors'); 
         
