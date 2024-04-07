@@ -12,7 +12,8 @@ class OrderController extends Controller
 
     public function index(){
 
-        $orders = Order::with(['user', 'products'])->orderByDesc('id')->paginate();
+        $orders = Order::with('user')->withCount('products')->orderByDesc('id')->paginate();
+        
         $context = compact('orders');
 
         return view('orders.index', $context );
@@ -21,10 +22,14 @@ class OrderController extends Controller
     public function edit(Order $order){
         $order->load([
             'user',
+            'bonifications' => ['product', 'bonification'],
             'products'=>[
-                'variation', 
-                'bonifications.product'
-                ] ]);
+                'product'=>[
+                    'variation', 
+                    'bonifications.product'
+                    ]   
+                ]
+            ]);        
         $context = compact('order');
         return view('orders.edit', $context);
     }

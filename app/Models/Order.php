@@ -22,7 +22,14 @@ class Order extends Model
     }
 
     public function products(){
-        return $this->belongsToMany(Product::class)->withPivot(["quantity","price", "discount", "variation_id"]);
+        return $this->hasMany(OrderProduct::class);
+       // return $this->belongsToMany(Product::class)->withPivot(["quantity","price", "discount", "variation_id", 'is_bonification']);
+    }
+
+
+    public function bonifications()
+    {
+        return $this->hasMany(OrderProductBonification::class);
     }
 
 

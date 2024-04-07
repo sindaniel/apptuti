@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Jobs\ProcessOrder;
 use App\Mail\NewOrderEmail;
 use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\OrderProductBonification;
 use App\Models\Product;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -137,36 +139,68 @@ class CartController extends Controller
 
         $cart = session()->get('cart');
 
+      
+
         $total = 0;
         $discount = 0;
+
+
+        $order = Order::create([
+            'user_id' => auth()->user()->id,
+            'total' => $total,
+            'discount' => $discount,
+        ]);
+
+
+
         foreach ($cart as $key => $product) {
             
             $id = $product['product_id'];
 
             $p = Product::find($id);
 
-            $cart[$key]['discount'] = $p->finalPrice['totalDiscount'];
-            $cart[$key]['price'] = $p->finalPrice['price'];
+            $orderProduct = OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $id,
+                'quantity' => $product['quantity'],
+                'price' => $p->finalPrice['price'],
+                'discount' => $p->finalPrice['totalDiscount'],
+                'variation_id' => $product['variation_id'] ?? null,
+            ]);
 
-            $cart[$key]['variation_id'] = $product['variation_id'] ?? null;
+
+            $bonification = $p->bonifications->first();
+            if($bonification){
+                //  floor($product->pivot->quantity / $product->bonifications->first()->buy)
+                $bonification_quantity = floor($product['quantity'] / $bonification->buy);
+                if($bonification_quantity > $bonification->max){
+                    $bonification_quantity = $bonification->max;
+                }
+
+                OrderProductBonification::create([
+                    'bonification_id' => $bonification->id,
+                    'order_product_id' => $orderProduct->id,
+                    'product_id' => $bonification->product_id,
+                    'quantity' => $bonification_quantity,
+                    'order_id' => $order->id,
+                ]);
+                   
+            }
+
 
             $total = $total + ($p->finalPrice['price'] * $product['quantity']);
-            $discount = $discount + ($p->finalPrice['totalDiscount'] * $product['quantity']);
+            $discount = $discount + ($p->finalPrice['totalDiscount'] * $product['quantity']);      
 
         }
 
-     
 
-        $order = Order::create([
-            'user_id' => auth()->user()->id,
-            'total' => 0,
-            'total'=>$total,
-            'discount'=>$discount,
+        $order->update([
+            'total' => $total,
+            'discount' => $discount,
         ]);
 
-       
+        dd($order);
 
-        $order->products()->attach($cart);
 
         dispatch(new ProcessOrder($order));
         new NewOrderEmail($order);

@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('bonification', function (Blueprint $table) {
-            //
+            
+            $table->dropColumn('max');
         });
     }
 };

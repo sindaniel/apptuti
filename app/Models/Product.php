@@ -75,7 +75,6 @@ class Product extends  Model
         return $this->hasMany(ProductImage::class);
     }
 
-
     public function bonifications(){
         return $this->belongsToMany(Bonification::class);
     }
