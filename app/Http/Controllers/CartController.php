@@ -15,6 +15,7 @@ class CartController extends Controller
 {
     public function cart(){
 
+       
         
         $cart = session()->get('cart');
         
@@ -59,6 +60,12 @@ class CartController extends Controller
     }
 
     public function add(Request $request, Product $product){
+
+        $user = auth()->user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
        
 
         $request->validate([
@@ -85,7 +92,7 @@ class CartController extends Controller
         if(isset($cart[$product->id])) {
             $cart[$product->id]['quantity'] = $request->quantity;
             session()->put('cart', $cart);
-            return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
+            return to_route('cart')->with('success', 'Producto agregado al carrito exitosamente!');
         }else{
 
         }
@@ -138,19 +145,15 @@ class CartController extends Controller
 
 
         $cart = session()->get('cart');
-
-      
-
+    
         $total = 0;
         $discount = 0;
-
 
         $order = Order::create([
             'user_id' => auth()->user()->id,
             'total' => $total,
             'discount' => $discount,
         ]);
-
 
 
         foreach ($cart as $key => $product) {
@@ -199,7 +202,7 @@ class CartController extends Controller
             'discount' => $discount,
         ]);
 
-        dd($order);
+        
 
 
         dispatch(new ProcessOrder($order));

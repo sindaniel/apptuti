@@ -14,9 +14,18 @@
     
 
 
-<div class="grid grid-cols-12 w-full gap-y-5 gap-x-5"  x-data="{'isModalOpen': false}" x-on:keydown.escape="isModalOpen=false">
+<div class="grid grid-cols-1 w-full gap-y-5 gap-x-5 xl:px-96"  x-data="{'isModalOpen': false}" x-on:keydown.escape="isModalOpen=false">
 
-    <div class="xl:col-span-5 col-span-12  ">
+    <div class="">
+
+        @foreach ($alertVendors as $alert)
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-10 rounded relative" role="alert">
+                El vendor <strong>{{$alert->name}}</strong> requiere una compra mínima de <strong>${{currency($alert->minimum_purchase)}}</strong> para realizar el pedido compra <strong>${{currency($alert->minimum_purchase - $alert->current)}}</strong> completar esta compra.
+            </div>
+        @endforeach     
+  
+
+
         <div class="border rounded p-5">
             <div>
                 <h3 class="mb-4">Productos</h3>
@@ -100,15 +109,6 @@
         </div>
     </div>
 
-    <div class="xl:col-span-7 col-span-12  space-y-4 ">
-    
-        @foreach ($alertVendors as $alert)
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                El vendor <strong>{{$alert->name}}</strong> requiere una compra mínima de <strong>${{currency($alert->minimum_purchase)}}</strong> para realizar el pedido compra <strong>${{currency($alert->minimum_purchase - $alert->current)}}</strong> completar esta compra.
-            </div>
-        @endforeach     
-  
-    </div>
 
 </div>
 

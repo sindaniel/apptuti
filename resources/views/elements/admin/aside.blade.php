@@ -44,7 +44,7 @@
                         <li>
                             <a href="{{ route('users.index') }}">
                                 @svg('heroicon-o-user-group', 'w-6 h-6 text-gray-500')
-                                <span class="ml-3" sidebar-toggle-item>Usuarios</span>
+                                <span class="ml-3" sidebar-toggle-item>Clientes</span>
                             </a>
                         </li>
                 

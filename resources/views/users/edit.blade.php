@@ -34,8 +34,6 @@
             </li>
         </ul>
         </div>
-
-
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 ">
             <h3 class="mb-4 text-xl font-semibold ">Integración</h3>
             @if(!$user->code)

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    
 
     protected $fillable = [
         'user_id',
@@ -16,7 +17,10 @@ class Order extends Model
     ];
 
 
-
+    const STATUS_PENDING = 0;
+    const STATUS_PROCESED = 1;
+    const STATUS_ERROR = 2;
+    
     public function user(){
         return $this->belongsTo(User::class);
     }

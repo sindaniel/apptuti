@@ -170,7 +170,7 @@
 
 
   
-    <div class="mx-auto max-w-5xl container xl:px-0 px-5 py-5">
+    <div class="mx-auto max-w-7xl container xl:px-0 px-5 py-5">
         <x-alert />
         @yield('content')
     </div>
