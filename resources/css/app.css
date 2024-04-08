@@ -31,8 +31,11 @@
     }
 
     .radio-group>div>div{
-      @apply flex  
+      @apply flex   items-center
     }
+        .radio-group>div>div label {
+          @apply flex items-center
+        }
 
  
     .check-group>div label{

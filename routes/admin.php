@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\VariationController;
 use App\Http\Controllers\Admin\VariationItemController;
 use App\Http\Controllers\Admin\VendorController;
 
+use Illuminate\Support\Facades\Route;
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
@@ -31,6 +33,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/products/{product}/combinations{combination}', [ProductCombinationsController::class, 'remove_combination'])->name('products.remove_combination');
 
+    Route::post('/users/{user}/code', [UserController::class, 'code'])->name('users.code');
+    Route::post('/users/{user}/password', [UserController::class, 'password'])->name('users.password');
     Route::resource('users', UserController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('taxes', TaxController::class);

@@ -45,9 +45,9 @@ class User extends Authenticatable
         'visit_by_tronex',
         'terms',
         'status_id',
-
-
-        
+        'route',
+        'zone',
+        'day'
 
     ];
 

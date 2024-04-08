@@ -65,7 +65,7 @@
                             </td>
 
                             <td class="p-4 text-base  text-gray-900 whitespace-nowra">
-                                {{$user->can_buy ? 'Si' : 'No'}}
+                                {{$user->code ? 'Si' : 'No'}}
                             </td>
                            
                            

@@ -61,6 +61,10 @@ return new class extends Migration
             $table->boolean('visit_by_tronex')->default(false);
             $table->foreignId('state_id')->nullable()->constrained('states');
             $table->foreignId('city_id')->nullable()->constrained('cities');
+
+            $table->string('route')->nullable();
+            $table->string('zone')->nullable();
+            $table->string('day')->nullable();
         });
     }
 
