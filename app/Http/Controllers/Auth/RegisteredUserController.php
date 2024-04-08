@@ -36,17 +36,34 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $validate = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'state_id' => ['required', 'exists:'.State::class.',id'],
+            'city_id' => ['required', 'exists:'.City::class.',id'],
+
+            'document' => ['required', 'string', 'max:255'],
+            'company' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'area' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'mobile' => ['required', 'string', 'max:255'],
+            'document_front' => ['required', 'file', 'max:255'],
+            'document_back' => ['required', 'file', 'max:255'],
+            'company_document' => ['required', 'file', 'max:255'],
+            'has_whatsapp' => ['required' ],
+            'visit_by_tronex' => ['required'],
         ]);
+        
+        $validate['password'] = Hash::make($validate['password']);
+
+        $validate['document_front'] = $request->document_front->store('documents', 'public');
+        $validate['document_back'] = $request->document_back->store('documents', 'public');
+        $validate['company_document'] = $request->company_document->store('documents', 'public');
+      
+        $user = User::create($validate);
 
         event(new Registered($user));
 

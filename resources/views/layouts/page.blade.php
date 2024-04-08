@@ -58,7 +58,7 @@
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                 </button> --}}
             </div>
-           
+        
             <div class="xl:flex hidden items-center space-x-10">
 
                 <form action="" class="relative">
@@ -66,9 +66,9 @@
                     <svg class=" absolute right-2 top-2 text-gray-500 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
-                      
+                    
                 </form>
-              
+            
 
                 {{-- <div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
                     <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -149,13 +149,13 @@
             </div>
 
             <div class="justify-end space-x-2 xl:flex hidden">
-              
+            
                 @auth
                     @php
                         $cartCount = count(session()->get('cart') ?? []);
                     @endphp
                     <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('cart')}}">Carrito @if($cartCount)<small>({{ $cartCount }})</small>@endif</a>
-                    <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('cart')}}">Salir</a>
+                    <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('logout')}}">Salir</a>
                 @else
                     <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('login')}}">Acceder</a>
                     <a class="bg-gray3 py-1 px-2 text-gray-700"  href="{{route('register')}}">Registrarme</a>
@@ -170,44 +170,41 @@
 
 
   
+    <div class="mx-auto max-w-5xl container xl:px-0 px-5 py-5">
+        <x-alert />
+        @yield('content')
+    </div>
+
+    <section class="bg-footer py-10 mt-10">
+        <div class="container mx-auto max-w-screen-xl" >
+            
+            <div class="w-full flex justify-center flex-col items-center text-white">
+                <p>Banner invitando a registrarse</p>
+                <p>O hablando del proceso de pedido</p>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 ">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+            </div>
+            
+            
+        </div>
+    </section>
     
 
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    <script>
+        $('#closeMobileMenu').click(function(){
+            $('#mobileMenu').hide();
+        });
 
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <x-alert />
-            @yield('content')
-        </div>
+        $('#openMobileMenu').click(function(){
+            $('#mobileMenu').show();
+        });
+    </script>
 
-        <section class="bg-footer py-10 mt-10">
-            <div class="container mx-auto max-w-screen-xl" >
-             
-                <div class="w-full flex justify-center flex-col items-center text-white">
-                    <p>Banner invitando a registrarse</p>
-                    <p>O hablando del proceso de pedido</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 ">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                    </svg>
-                </div>
-                
-              
-            </div>
-        </section>
-        
-
-        <script src="{{ asset('js/jquery.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-        <script>
-            $('#closeMobileMenu').click(function(){
-                $('#mobileMenu').hide();
-            });
-
-            $('#openMobileMenu').click(function(){
-                $('#mobileMenu').show();
-            });
-        </script>
-
-        @yield('scripts')
-    </body>
+    @yield('scripts')
+</body>
 
 
 </html>

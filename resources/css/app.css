@@ -30,6 +30,19 @@
         @apply bg-gray-100;
     }
 
+    .radio-group>div>div{
+      @apply flex  
+    }
+
+ 
+    .check-group>div label{
+      @apply flex items-center
+    }
+
+    .check-group>div label span{
+      @apply block  text-sm font-medium text-gray-900 
+    }
+
     
 }
 

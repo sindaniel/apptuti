@@ -43,6 +43,25 @@ return new class extends Migration
             $table->integer('quantity');
             $table->timestamps();
         });
+
+        //users
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('status_id')->default(0);
+            $table->string('code')->nullable();
+            $table->string('document')->nullable();
+            $table->string('company')->nullable();
+            $table->string('address')->nullable();
+            $table->string('area')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('document_front')->nullable();
+            $table->string('document_back')->nullable();
+            $table->string('company_document')->nullable();
+            $table->boolean('has_whatsapp')->default(false);
+            $table->boolean('visit_by_tronex')->default(false);
+            $table->foreignId('state_id')->nullable()->constrained('states');
+            $table->foreignId('city_id')->nullable()->constrained('cities');
+        });
     }
 
     /**

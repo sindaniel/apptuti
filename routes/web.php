@@ -22,12 +22,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [PageController::class, 'home'])->name('home');
+
 Route::get('/categoria-producto/{slug}', [PageController::class, 'category'])->name('category');
 Route::get('/categoria-producto/{slug}/{slug2?}', [PageController::class, 'category'])->name('category2');
 
 Route::get('/producto/{slug}', [PageController::class, 'product'])->name('product');
 
 Route::get('/etiqueta-producto/{slug}', [PageController::class, 'label'])->name('label');
+
+Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 
 
 Route::get('/proveedores', [PageController::class, 'brands'])->name('brands');
