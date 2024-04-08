@@ -60,13 +60,13 @@
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
                                     <div class='flex flex-col'>
                                         <span>{{ $product->product->name }}</span>
-                                        @if ( $product->product->variation)
+                                        {{-- @if ( $product->product->variation)
                                             <small>
                                                 {{ $product->product->variation->name }}:
                                                 {{ App\Models\VariationItem::find($product->pivot->variation_id)->name }}
                                             </small>
                                         @endif
-    
+     --}}
                                     </div>
                                 </td>
 
@@ -84,7 +84,7 @@
                                 </td>
 
                                 <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
-                                    ${{ number_format($product->price, 2) }}
+                                    ${{ number_format($product->price+$product->discount, 2) }}
                                 </td>
 
                                 <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">

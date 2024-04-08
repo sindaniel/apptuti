@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -20,6 +21,8 @@ class OrderController extends Controller
     }
 
     public function edit(Order $order){
+
+     
         $order->load([
             'user',
             'bonifications' => ['product', 'bonification'],

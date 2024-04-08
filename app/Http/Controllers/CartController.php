@@ -9,6 +9,7 @@ use App\Models\OrderProduct;
 use App\Models\OrderProductBonification;
 use App\Models\Product;
 use App\Models\Vendor;
+use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -202,13 +203,19 @@ class CartController extends Controller
             'discount' => $discount,
         ]);
 
+        $user  = auth()->user();
+        if($user->code){
+            OrderRepository::presalesOrder($order);
+            return to_route('home')->with('success', 'Compra procesada con exito!');
+        }
+
+        return to_route('home')->with('success', 'Es necesario tener un codigo de cliente para procesar la compra, contacta al administrador!');
         
 
-
-        dispatch(new ProcessOrder($order));
-        new NewOrderEmail($order);
+        // dispatch(new ProcessOrder($order));
+        // new NewOrderEmail($order);
         
-        return to_route('home')->with('success', 'Compra procesada con exito!');
+      
 
     }
 

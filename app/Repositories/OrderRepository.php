@@ -2,46 +2,93 @@
 
 namespace App\Repositories;
 
+use App\Models\Order;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
 
-class UserRepository
+class OrderRepository
 {
     public static function presalesOrder($order)
     {   
+      //  self::sendData(order: $order, products: $order->products, bonification: 0);
+        self::sendData(order: $order, products: $order->bonifications, bonification: 1);
+    }
+
+    private static function sendData($order, $products, $bonification = 0){
+       
+        $user  = $order->user;
+ 
+        $min_delivery = $products->min('product.delivery_days');
         
-        //901703447
+        $delivery_date = now()->addDays($min_delivery)->format('Y-m-d');
+        $day = $user->day;
+        $route = $user->route;
+        $zone = $user->zone;
+
+        $productList = '';
+
+        foreach ($products as $product) {
+            $unitPrice = $product->price + $product->discount;
+            if($bonification){
+                $unitPrice = $product->product->price;
+            }
+          
+            $productList .= '<dyn:listDetails>
+                            <dyn:discount>' . (int)$product->discount . '</dyn:discount>
+                            <dyn:itemId>' . $product->product->sku . '</dyn:itemId>
+                            <dyn:qty>' . $product->quantity . '</dyn:qty>
+                            <dyn:qtyCust>' . $product->quantity . '</dyn:qtyCust>
+                            <dyn:um>Unidad</dyn:um>
+                            <dyn:umCust>None</dyn:umCust>
+                            <dyn:unitPrice>' . (int)$unitPrice . '</dyn:unitPrice>
+                        </dyn:listDetails>';
+        }
+
+
+        $order_id = $order->id;
+        if ($bonification) {
+            $order_id = $order->id.'-1';
+        }
+
         $body = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://schemas.microsoft.com/dynamics/2013/01/datacontracts" xmlns:tem="http://tempuri.org" xmlns:dyn="http://schemas.datacontract.org/2004/07/Dynamics.AX.Application">
             <soapenv:Header>
                 <dat:CallContext>
-                    <!--Optional:-->
-                    <dat:Company>TRX</dat:Company>
-                    
-                    <!--Optional:-->
+                    <dat:Company>trx</dat:Company>
+                    <dat:Language/>
+                    <dat:MessageId/>
+                    <dat:PartitionKey/>
                 </dat:CallContext>
             </soapenv:Header>
             <soapenv:Body>
-                <tem:getRuteros>
-                    <!--Optional:-->
-                    <tem:_getRuteros>
-                        <!--Optional:-->
-                        <dyn:IdentificationNum>' . $document . '</dyn:IdentificationNum>
-                        <!--Optional:-->
-                        <dyn:ruteroId></dyn:ruteroId>
-                        <!--Optional:-->
-                        <dyn:zona></dyn:zona>
-                    </tem:_getRuteros>
-                </tem:getRuteros>
+                <tem:PreSaslesProcess>
+                    <tem:ArrayOfPreSalesOrder>
+                        <dyn:preSalesOrder>
+                            <dyn:TRO_E_obsequio>'. $bonification.'</dyn:TRO_E_obsequio> 
+                            <dyn:codCustomer>' . $user->code . '</dyn:codCustomer> 
+                            <dyn:deliveryDate>' . $delivery_date . '</dyn:deliveryDate>
+                            <dyn:diaRecorrido>' . $day . '</dyn:diaRecorrido>
+                            <dyn:listDetails>
+                                <!--Zero or more repetitions:-->
+                                ' . $productList . '
+                            </dyn:listDetails>
+                            <dyn:orderSales>' . $order_id . '</dyn:orderSales>
+                            <dyn:ruta>' . $route . '</dyn:ruta> 
+                            <dyn:salesCons>' . $order_id . '</dyn:salesCons> 
+                            <dyn:transactionDate>' . $order->created_at->format('Y-m-d') . '</dyn:transactionDate>
+                            <dyn:zona>' . $zone . '</dyn:zona> 
+                        </dyn:preSalesOrder>
+                    </tem:ArrayOfPreSalesOrder>
+                </tem:PreSaslesProcess>
             </soapenv:Body>
-            </soapenv:Envelope>';
+        </soapenv:Envelope>';
 
-
+       
 
         $token = Setting::getByKey('microsoft_token');
 
         $response = Http::withHeaders([
             'Content-Type' => 'text/xml;charset=UTF-8',
-            'SOAPAction' => 'http://tempuri.org/DWSSalesForce/getRuteros',
+            'SOAPAction' => 'http://tempuri.org/DWSSalesForce/PreSaslesProcess',
             'Authorization' => "Bearer {$token}"
         ])->send('POST', 'https://uattrx.sandbox.operations.dynamics.com/soap/services/DIITDWSSalesForceGroup?=null', [
             'body' => $body
@@ -50,25 +97,21 @@ class UserRepository
         $data = $response->body();
         $xmlString = preg_replace('/<(\/)?(s|a):/', '<$1$2', $data);
         $xml = simplexml_load_string($xmlString);
-
-        $aListRuteros = $xml->sBody->getRuterosResponse->result->agetRuterosResult->aListRuteros;
-
-        if ($aListRuteros->aRoute) {
-
-            $zone = $aListRuteros->aRoute->__toString();
-            $route = $aListRuteros->aZona->__toString();
-            $day = $aListRuteros->aDiaRecorrido->__toString();
-            $aCustRuteroID = $aListRuteros->aDetail->aListDetailsRuteros->aCustRuteroID->__toString();
-            $day = explode('- ', $day)[0];
-
-            return [
-                'zone' => $zone,
-                'route' => $route,
-                'code' => $aCustRuteroID,
-                'day' => $day
-            ];
-        } else {
-            return null;
+        
+        info($response);
+        try{
+            $response = $xml->sBody->PreSaslesProcessResponse->result->aPreSaslesProcessResult;
+            if($response == 'OK'){
+                $order->update(['status_id' => Order::STATUS_PROCESED]);
+            }else{
+                $order->update(['status_id' => Order::STATUS_ERROR]);
+            }
+        }catch(\Exception $e){
+            
         }
+
+
+      
+
     }
 }
