@@ -15,7 +15,7 @@ class OrderProduct extends Model
         'quantity',
         'price',
         'discount',
-        'variation_id',
+        'variation_item_id',
         'is_bonification'
     ];
 

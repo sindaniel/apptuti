@@ -37,10 +37,12 @@
 
                     <x-dropdown title='Configuraciones'
                         icon='heroicon-o-cog-6-tooth'
-                        :menu="['holidays'=>'Festivos']" />
+                        :menu="[
+                            'holidays'=>'Festivos',
+                            'settings'=>'Textos'
+                            ]" />
                         
                         
-
                         <li>
                             <a href="{{ route('users.index') }}">
                                 @svg('heroicon-o-user-group', 'w-6 h-6 text-gray-500')

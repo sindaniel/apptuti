@@ -10,12 +10,14 @@ use App\Models\OrderProductBonification;
 use App\Models\Product;
 use App\Models\Vendor;
 use App\Repositories\OrderRepository;
+use App\Settings\GeneralSettings;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     public function cart(){
-
+       
+        
        
         
         $cart = session()->get('cart');
@@ -28,12 +30,18 @@ class CartController extends Controller
         $products = [];
         
         foreach($cart as $item){
-            $product = Product::with('brand')->find($item['product_id']);
+            
+            $product = Product::with('brand', 'variation')->find($item['product_id']);
+            
+            $product->item = $product->items->where('id', $item['variation_id'])->first();
+                
             $product->quantity = $item['quantity'];
             $product->vendor_id = $product->brand->vendor->id;
             $products[] = $product;
         }
         $products = collect($products);
+
+        
 
         //compra minima por vendor
         $byVendors = collect($products)->groupBy('vendor_id');
@@ -170,7 +178,7 @@ class CartController extends Controller
                 'quantity' => $product['quantity'],
                 'price' => $p->finalPrice['price'],
                 'discount' => $p->finalPrice['totalDiscount'],
-                'variation_id' => $product['variation_id'] ?? null,
+                'variation_item_id' => $product['variation_id'] ?? null,
             ]);
 
 

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('variation_id')->nullable()->constrained('variations');
+            $table->foreignId('variation_item_id')->nullable()->constrained('variation_items');
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
             $table->decimal('discount', 10, 2);

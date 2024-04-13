@@ -22,11 +22,11 @@ class PageController extends Controller
     public function search(Request $request)
     {
         $q = $request->input('q');
-        $products = Product::active()->orWhere(function ($query) use ($q) {
+        $products = Product::active()->where(function ($query) use ($q) {
             $query->orWhere('name', 'ILIKE', '%' . $q . '%')
                 ->orWhere('description', 'ILIKE', '%' . $q . '%')
                 ->orWhere('short_description', 'ILIKE', '%' . $q . '%');
-        })->paginate(1);
+        })->paginate();
         
             
 

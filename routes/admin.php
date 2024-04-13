@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LabelController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductCombinationsController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VariationController;
@@ -48,6 +49,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::resource('variations', VariationController::class);
     Route::resource('variations.items', VariationItemController::class);
+
+    Route::resource('settings', SettingController::class);
 
 
     Route::resource('orders', OrderController::class);
