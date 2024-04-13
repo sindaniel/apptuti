@@ -37,7 +37,7 @@
         </div>
     </div>
     <nav class="bg-white border-gray-200 border-b  ">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-1 px-4">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-1 xl:px-0 px-5">
 
             <button id='openMobileMenu' class="text-orange-500 flex xl:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
@@ -61,8 +61,8 @@
         
             <div class="xl:flex hidden items-center space-x-10">
 
-                <form action="" class="relative">
-                    <input placeholder="Busqueda" type="text" class='bg-[#e8e7e5] border-0 rounded w-96'>
+                <form action="{{route('search')}}" class="relative">
+                    <input placeholder="Busqueda" value='{{request()->q}}' name='q' type="text" class='bg-[#e8e7e5] border-0 rounded w-96'>
                     <svg class=" absolute right-2 top-2 text-gray-500 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>

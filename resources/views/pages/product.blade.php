@@ -16,7 +16,9 @@
     <div class="col-span-12">
         <ul class="flex  space-x-2 text-gray-500">
             <li><a href="#">Inicio</a></li>
+            <li>></li>
             <li><a href="#">Productos</a></li>
+            <li>></li>
             <li><a href="{{route('category',$product->categories->first()->slug)}}">{{$product->categories->first()->name}}</a></li>
         </ul>
     </div>
@@ -51,20 +53,19 @@
             <strong class="text-xl">${{currency($product->final_price['price'])}}</strong>
             @if ($product->final_price['has_discount'])
                 <span class="line-through text-xs">${{currency($product->final_price['old'])}}</span>
-            @endif
-            
+            @endif   
         </div>
 
         <p>
-           {{$product->short_description}}
+           {{$product->description}}
         </p>
 
-        <ul class="list-disc pl-5">
+        {{-- <ul class="list-disc pl-5">
             <li>Bombillo led A60 7W</li>
             <li>Multivoltaje</li>
             <li>10.000 horas de duración</li>
             <li>Luz Fría</li>
-        </ul>
+        </ul> --}}
 
         {{-- <div class="flex flex-col space-y-2">
             <strong>Presentación</strong>
@@ -74,6 +75,16 @@
                 <li class="border rounded px-2 py-1">12und</li>
             </ul>
         </div> --}}
+
+
+        @if ($product->variation && $product->items->count())
+            <span class="text-xl">{{ $product->variation->name }}:</span>
+            <select name="variation_id" id="selectPrice">
+                @foreach ($product->items->where('pivot.enabled', 1) as $item) 
+                    <option data-price="{{ $item->pivot->price }}" value="{{ $item->pivot->variation_item_id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
+        @endif
 
         <div class="bg-blue3 flex items-center justify-center">
             <button type="button" id='increment' class="text-blue1 text-5xl">-</button>
@@ -98,20 +109,22 @@
 
     </form>
 
-   <div class="xl:col-span-6 col-span-12 py-5">
-        <h3 class="font-bold text-xl mb-2">Detalles del producto</h3>
-        <p>
-            {{$product->description}}
-        </p>
-    </div>
+    {{-- @if($product->description)
+    <div class="xl:col-span-6 col-span-12 py-5">
+            <h3 class="font-bold text-xl mb-2">Detalles del producto</h3>
+            <p>
+                {{$product->description}}
+            </p>
+        </div>
+    @endif --}}
 
 
 
-    @if($product->related->count())
+    @if($related->count())
         <div class="col-span-12 py-5">
             <h3 class="font-bold text-xl mb-2">Productos Relacionados</h3>
             <div class="grid grid-cols-2 xl:grid-cols-6 gap-5 ">
-                @foreach ($product->related as $p)
+                @foreach ($related as $p)
                     <x-product :product="$p"/>
                 @endforeach
             </div>

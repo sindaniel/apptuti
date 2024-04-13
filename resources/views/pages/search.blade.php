@@ -2,10 +2,12 @@
 
 
 @section('head')
+
     @include('elements.seo', [
-        'title'=>$category->name, 
-        'description'=>$category->description
-    ])
+        'title'=>'Resultados de busqueda', 
+        'description'=>'Resultados de busqueda'
+        ])
+
 @endsection
 
 
@@ -13,26 +15,18 @@
     
 
 
-<section class="w-full grid grid-cols-12 gap-x-10 xl:gap-y-0 gap-y-10">
 
-     <div class="col-span-12">
-        <ul class="flex  space-x-2 text-gray-500">
-            <li><a href="#">Inicio</a></li>
-            <li>></li>
-            <li><a href="#">{{$category->name}}</a></li>
-        </ul>
-    </div>
-
-
-    <h1 class="font-bold my-5 text-2xl">{{$category->name}}</h1>
-    <div class="col-span-12 ">
+<section class="w-full grid grid-cols-1 gap-x-10 xl:gap-y-0 gap-y-10">
+   <h1 class="text-2xl font-bold mt-5">Resultados de búsqueda: {{request()->q}}</h1>
+    <div class="my-10">
         <div class="grid grid-cols-2 xl:grid-cols-6 gap-5 ">
             @foreach ($products as $product)
                 <x-product :product="$product"/>
-            @endforeach
-           
+            @endforeach     
         </div>
     </div>
+
+    {{ $products->withQueryString()->links() }} 
 
   
 
@@ -118,3 +112,18 @@
 </script>
 @endsection
 
+
+@section('scripts')
+    <script src="{{asset('assets/owl.carousel.min.js')}}"></script>
+    
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:false,
+            items: 1,
+
+        })
+    </script>
+
+@endsection

@@ -23,6 +23,7 @@ class CartController extends Controller
         if(!$cart){
             return redirect()->route('home');
         }
+        
 
         $products = [];
         
@@ -67,6 +68,8 @@ class CartController extends Controller
             return redirect()->route('login');
         }
 
+        
+
        
 
         $request->validate([
@@ -75,7 +78,7 @@ class CartController extends Controller
         ]);
 
         $cart = session()->get('cart');
-        
+           
         if(!$cart){
             $cart = [
                 $product->id => [
@@ -94,10 +97,8 @@ class CartController extends Controller
             $cart[$product->id]['quantity'] = $request->quantity;
             session()->put('cart', $cart);
             return to_route('cart')->with('success', 'Producto agregado al carrito exitosamente!');
-        }else{
-
         }
-            
+           
         $cart[$product->id] = [
             "product_id" => $product->id,
             "quantity" => $request->quantity,

@@ -19,13 +19,33 @@ class PageController extends Controller
         return view('pages.home', $context);
     }
 
+    public function search(Request $request)
+    {
+        $q = $request->input('q');
+        $products = Product::active()->orWhere(function ($query) use ($q) {
+            $query->orWhere('name', 'ILIKE', '%' . $q . '%')
+                ->orWhere('description', 'ILIKE', '%' . $q . '%')
+                ->orWhere('short_description', 'ILIKE', '%' . $q . '%');
+        })->paginate(1);
+        
+            
+
+        $context = compact('products');
+        return view('pages.search', $context);
+    }
+
     public function product($slug)
     {
         $product = Product::query()
+            ->active()
             ->with(['related.images', 'items', 'variation', 'labels'])
             ->where('slug', $slug)->firstOrFail();
-
-        $context = compact('product');
+        $related = $product->related;
+        
+        if(!$related->count()){
+            $related = Product::active()->where('brand_id', $product->brand_id)->where('id', '!=', $product->id)->limit(4)->get();
+        }
+        $context = compact('product', 'related');
         
         return view('pages.product',  $context);
     }

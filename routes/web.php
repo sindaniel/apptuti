@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/busqueda', [PageController::class, 'search'])->name('search');
 
 Route::get('/categoria-producto/{slug}', [PageController::class, 'category'])->name('category');
 Route::get('/categoria-producto/{slug}/{slug2?}', [PageController::class, 'category'])->name('category2');

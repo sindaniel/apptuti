@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Order;
 use App\Models\State;
 use App\Models\User;
+use App\Repositories\OrderRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -92,7 +94,19 @@ class UserController extends Controller
         $response = UserRepository::getCustomRuteroId($code);
         
         if($response){
+
+            $orders = $user->orders()->where('status_id', Order::STATUS_PENDING)->get();
+            
+            foreach($orders as $order){
+                OrderRepository::presalesOrder($order);
+            }
+
+
             $user->update($response);
+
+            //pending order to processed
+           
+
             return back()->with('success', 'Código actualizado, ya este cliente puede comprar');
         }
 

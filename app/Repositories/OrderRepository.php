@@ -10,8 +10,11 @@ class OrderRepository
 {
     public static function presalesOrder($order)
     {   
-      //  self::sendData(order: $order, products: $order->products, bonification: 0);
-        self::sendData(order: $order, products: $order->bonifications, bonification: 1);
+        self::sendData(order: $order, products: $order->products, bonification: 0);
+        if($order->bonifications->count()){
+            self::sendData(order: $order, products: $order->bonifications, bonification: 1);
+        }
+      
     }
 
     private static function sendData($order, $products, $bonification = 0){

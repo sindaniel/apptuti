@@ -11,7 +11,7 @@
         </div>
         <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 ">
             <div class="flex items-center mb-4 sm:mb-0">
-               <x-search :home="route('taxes.index')" />
+               <x-search :home="route('orders.index')" />
             </div>
         
         </div>
@@ -76,16 +76,8 @@
                             </td>
 
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
-
-                                @if ($order->user->can_buy)
-                                    <span class='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-green-100 text-green-800'>
-                                        Procesada
-                                </span>
-                                @else
-                                    <span class='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-yellow-100 text-yellow-800'>
-                                        Pendiente
-                                    </span>
-                                @endif
+                                <x-order-status :status="$order->status_id" />
+                              
                             </td>
 
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
