@@ -16,16 +16,12 @@
 @section('content')
     
 <section class="w-full">
-    
     <div class="owl-carousel text-gray-400">
         @foreach ($banners as $banner)
             <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
                 <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
             </div>
         @endforeach
-        
-       
-    
     </div>
 </section>
 
@@ -96,9 +92,6 @@
            
         </div>
     </div>
-
-
-
 </section>
 
 
@@ -169,15 +162,7 @@
     </div>
 </div> --}}
 
-<script>
-    //   for (let index = 0; index < 100; index++) {
-       
-    //         const n = index + 500;
-    //         window.open(`http://localhost:5173/?userid=${n}&username=Daniel${n}`, '_blank');
-            
-    //     }
 
-</script>
 @endsection
 
 

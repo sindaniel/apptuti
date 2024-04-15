@@ -27,12 +27,14 @@
 
     @php
         $categories  = App\Models\Category::active()->whereNull('parent_id')->with('children')->orderBy('name')->get();
+        $phone = App\Models\Setting::where('key', 'phone')->first()->value;
+        $email = App\Models\Setting::where('key', 'email')->first()->value;
     @endphp
     <div class="bg-orange-500 py-2">
         <div class="container mx-auto">
             <div class="flex justify-center  space-x-5 text-white">
-                <span>tuti@tuti.com.co</span>
-                <span>3104450101</span>
+                <span>{{$email}}</span>
+                <span>{{$phone}}</span>
             </div>
         </div>
     </div>
@@ -175,10 +177,10 @@
         @yield('content')
     </div>
 
-    <section class="bg-footer py-10 mt-10">
+    <section class="bg-gray-400 py-10 mt-10">
         <div class="container mx-auto max-w-screen-xl" >
             
-            <div class="w-full flex justify-center flex-col items-center text-white">
+            <div class="w-full flex justify-center flex-col items-center text-dark">
                 <p>Banner invitando a registrarse</p>
                 <p>O hablando del proceso de pedido</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 ">
@@ -189,6 +191,8 @@
             
         </div>
     </section>
+
+    @include('elements.footer')
     
 
     <script src="{{ asset('js/jquery.js') }}"></script>

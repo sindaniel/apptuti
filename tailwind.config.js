@@ -29,6 +29,7 @@ export default {
                 secondary: "#EE4E34",
                 info: "#4a84ed",
                 footer: "#003E51",
+                footer2: "#09244B",
             },
         },
     },
