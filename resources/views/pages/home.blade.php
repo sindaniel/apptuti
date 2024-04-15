@@ -18,12 +18,13 @@
 <section class="w-full">
     
     <div class="owl-carousel text-gray-400">
-        <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
-            <img src="https://tuti.com.co/wp-content/uploads/sites/55/2023/05/Surte-tu-tienda-Tuti.jpg" alt="">
-        </div>
-        <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
-            <img src="https://tuti.com.co/wp-content/uploads/sites/55/2023/05/Cientos-de-productos-Tuti.jpg" alt="">
-        </div>
+        @foreach ($banners as $banner)
+            <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
+                <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
+            </div>
+        @endforeach
+        
+       
     
     </div>
 </section>

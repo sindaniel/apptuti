@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Label;
@@ -14,8 +15,9 @@ class PageController extends Controller
     {
         $products = Product::active()->with('images')->orderBy('created_at', 'desc')->paginate();
         $categories = Category::with('children')->whereNull('parent_id')->get();
+        $banners = Banner::orderBy('id')->get();
       
-        $context = compact('products', 'categories');
+        $context = compact('products', 'categories', 'banners');
         return view('pages.home', $context);
     }
 
