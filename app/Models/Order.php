@@ -14,13 +14,16 @@ class Order extends Model
         'user_id',
         'total',
         'discount',
-        'status_id'
+        'status_id',
+        'request',
+        'response',
     ];
 
 
     const STATUS_PENDING = 0;
     const STATUS_PROCESED = 1;
     const STATUS_ERROR = 2;
+    const STATUS_ERROR_WEBSERVICE = 3;
     
     public function user(){
         return $this->belongsTo(User::class);

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Order;
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class OrderRepository
@@ -35,16 +36,23 @@ class OrderRepository
             if($bonification){
                 $unitPrice = $product->product->price;
             }
+            $sku = $product->product->sku;
+            if($product->variationItem){
+                $sku = DB::table('product_item_variation')->where('id', $product->variation_item_id)->value('sku');
+            }
           
             $productList .= '<dyn:listDetails>
                             <dyn:discount>' . (int)$product->discount . '</dyn:discount>
-                            <dyn:itemId>' . $product->product->sku . '</dyn:itemId>
+                            <dyn:itemId>' . $sku . '</dyn:itemId>
                             <dyn:qty>' . $product->quantity . '</dyn:qty>
                             <dyn:qtyCust>' . $product->quantity . '</dyn:qtyCust>
                             <dyn:um>Unidad</dyn:um>
                             <dyn:umCust>None</dyn:umCust>
                             <dyn:unitPrice>' . (int)$unitPrice . '</dyn:unitPrice>
+                            
                         </dyn:listDetails>';
+
+            
         }
 
 
@@ -57,6 +65,7 @@ class OrderRepository
             <soapenv:Header>
                 <dat:CallContext>
                     <dat:Company>trx</dat:Company>
+                    
                     <dat:Language/>
                     <dat:MessageId/>
                     <dat:PartitionKey/>
@@ -85,7 +94,7 @@ class OrderRepository
             </soapenv:Body>
         </soapenv:Envelope>';
 
-       
+        info($body);
 
         $token = Setting::getByKey('microsoft_token');
 
@@ -105,12 +114,23 @@ class OrderRepository
         try{
             $response = $xml->sBody->PreSaslesProcessResponse->result->aPreSaslesProcessResult;
             if($response == 'OK'){
-                $order->update(['status_id' => Order::STATUS_PROCESED]);
+                $order->update([
+                    'status_id' => Order::STATUS_PROCESED,
+                    'request' => $body,
+                    'response' => $response
+                ]);
             }else{
-                $order->update(['status_id' => Order::STATUS_ERROR]);
+                $order->update([
+                    'status_id' => Order::STATUS_ERROR,
+                    'request' => $body,
+                    'response' => $response]);
             }
         }catch(\Exception $e){
-            
+            $order->update([
+                'status_id' => Order::STATUS_ERROR_WEBSERVICE,
+                'request' => $body,
+                'response' => $response
+            ]);
         }
 
 

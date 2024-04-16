@@ -21,9 +21,10 @@ class UserController extends Controller
     {
         
         $users = User::query()
-        ->whereNotIn('id', [1])
+        ->whereDoesntHave('roles')
         ->when(request('q'), function($query, $q){
-            $query->where('name', 'like', "%{$q}%");
+            $query->where('name', 'ilike', "%{$q}%")
+                ->orWhere('email', 'ilike', "%{$q}%");
         })
         ->orderBy('name')
         ->paginate();

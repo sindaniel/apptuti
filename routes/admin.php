@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BonificationController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -21,6 +22,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
     Route::get('/dashboard', function () {
+        return to_route('products.index');
         return view('dashboard');
     })->name('dashboard');
 
@@ -52,6 +54,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::resource('settings', SettingController::class);
     Route::resource('banners', BannerController::class);
+    Route::resource('admins', AdminController::class);
 
 
     Route::resource('orders', OrderController::class);

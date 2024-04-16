@@ -50,6 +50,13 @@
                                 <span class="ml-3" sidebar-toggle-item>Clientes</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admins.index') }}">
+                                @svg('heroicon-o-lock-closed', 'w-6 h-6 text-gray-500')
+                                <span class="ml-3" sidebar-toggle-item>Administradores</span>
+                            </a>
+                        </li>
+                
                 
                
                 </ul>

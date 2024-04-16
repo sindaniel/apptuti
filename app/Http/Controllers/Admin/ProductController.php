@@ -119,6 +119,7 @@ class ProductController extends Controller
             $variations = VariationItem::whereVariationId($request->variation_id)->get();
             $product->items()->attach($variations, [
                 'price'=> $validate['price'],
+                'sku'=> $validate['sku'],
                 'enabled'=>true
             ]);  
         }

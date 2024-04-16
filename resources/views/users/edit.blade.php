@@ -69,7 +69,7 @@
             <h3 class="mb-4 text-xl font-semibold ">Contraseña</h3>
           
             {{ Aire::open()->route('users.password', $user)}}
-                {{ Aire::password('test', 'Contraseña')->groupClass('mb-5') }}
+                {{ Aire::password('password', 'Contraseña')->groupClass('mb-5') }}
                 {{ Aire::password('password_confirmation', 'Confirme Contraseña')->groupClass('mb-5') }}
                 {{ Aire::submit('Actualizar')->variant()->submit() }}
             {{ Aire::close() }}

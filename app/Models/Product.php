@@ -67,7 +67,7 @@ class Product extends  Model
 
     public function items(){
         return $this->belongsToMany(VariationItem::class, 'product_item_variation', 'product_id', 'variation_item_id')
-            ->withPivot(["price", "enabled"]);
+            ->withPivot(["price", "enabled", 'sku']);
     }
 
 

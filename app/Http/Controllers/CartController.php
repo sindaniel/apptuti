@@ -212,11 +212,18 @@ class CartController extends Controller
             'discount' => $discount,
         ]);
 
+        //if env production
+        if(app()->environment('production')){
+            session()->forget('cart');
+        }
+       
         $user  = auth()->user();
         if($user->code){
             OrderRepository::presalesOrder($order);
             return to_route('home')->with('success', 'Compra procesada con exito!');
         }
+
+     
 
         return to_route('home')->with('success', 'Es necesario tener un codigo de cliente para procesar la compra, contacta al administrador!');
         
