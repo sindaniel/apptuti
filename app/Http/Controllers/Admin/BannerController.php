@@ -32,14 +32,21 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validate = [
             'file' => 'required|image',
-        ]);
+        ];
+
+        if ($request->filled('url')) {
+            $validate['url'] = 'url';
+        }
+
+        $request->validate($validate);
         
         $path = $request->file('file')->store('banners', 'public');
 
         Banner::create([
             'path' => $path,
+            'url' => $request->url,
         ]);
 
         return to_route('banners.index');
@@ -68,15 +75,25 @@ class BannerController extends Controller
      */
     public function update(Request $request, Banner $banner)
     {
-        $request->validate([
-            'file' => 'required|image',
-        ]);
-
-        $path = $request->file('file')->store('banners', 'public');
-
-        $banner->update([
-            'path' => $path,
-        ]);
+       //if url in filled validate the url
+   
+        if($request->filled('url')){
+            $request->validate([
+                'url' => 'url',
+            ]);
+        }
+       
+        $data = $request->only('url');
+        
+        if($request->hasFile('file')){
+            $request->validate([
+                'file' => 'required|image',
+            ]);
+            $data['path'] = $request->file('file')->store('banners', 'public');
+        }
+        
+        
+        $banner->update($data);
 
         return to_route('banners.index');
     }

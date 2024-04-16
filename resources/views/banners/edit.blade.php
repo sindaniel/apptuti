@@ -2,7 +2,7 @@
 
 
 @section('content')
-{{ Aire::open()->route('banners.update', $banner)->enctype('multipart/form-data')}}
+{{ Aire::open()->route('banners.update', $banner)->bind($banner)->enctype('multipart/form-data')}}
 <div class="grid grid-cols-1 p-4 xl:grid-cols-3 xl:gap-4 ">
     <div class="mb-4 col-span-full xl:mb-2">
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl">Crear banner</h1>
@@ -14,6 +14,7 @@
 
             <div class="grid grid-cols-6 gap-6">
 
+                {{ Aire::input('url', "Link")->groupClass('col-span-6') }}
                 {{ Aire::file('file', "Banner")->groupClass('col-span-6') }}
                
                 <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">

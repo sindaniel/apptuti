@@ -19,7 +19,9 @@
     <div class="owl-carousel text-gray-400">
         @foreach ($banners as $banner)
             <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
-                <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
+                <a href="{{$banner->url}}">
+                    <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
+                </a>
             </div>
         @endforeach
     </div>

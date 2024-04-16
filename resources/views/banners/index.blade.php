@@ -29,6 +29,9 @@
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Banner
                             </th>
+                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Url
+                            </th>
                             
                           
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase "></th>
@@ -42,6 +45,10 @@
                                 <a class="" href="{{ route('banners.edit', $banner) }}">
                                     <img src="{{asset('storage/'.$banner->path)}}" class="h-20">
                                 </a>
+                            </td>
+
+                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
+                                {{ $banner->url }}
                             </td>
                            
 
