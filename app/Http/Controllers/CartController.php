@@ -171,7 +171,7 @@ class CartController extends Controller
             $id = $product['product_id'];
 
             $p = Product::find($id);
-
+            
             $orderProduct = OrderProduct::create([
                 'order_id' => $order->id,
                 'product_id' => $id,
@@ -179,6 +179,7 @@ class CartController extends Controller
                 'price' => $p->finalPrice['price'],
                 'discount' => $p->finalPrice['totalDiscount'],
                 'variation_item_id' => $product['variation_id'] ?? null,
+                'percentage' => $p->finalPrice['discount'] ?? 0,
             ]);
 
 

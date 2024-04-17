@@ -43,14 +43,14 @@ class OrderRepository
             }
           
             $productList .= '<dyn:listDetails>
-                            <dyn:discount>' . (int)$product->discount . '</dyn:discount>
+                            <dyn:discount>' . (int)$product->percentage . '</dyn:discount>
                             <dyn:itemId>' . $sku . '</dyn:itemId>
                             <dyn:qty>' . $product->quantity . '</dyn:qty>
                             <dyn:qtyCust>' . $product->quantity . '</dyn:qtyCust>
                             <dyn:um>Unidad</dyn:um>
                             <dyn:umCust>None</dyn:umCust>
                             <dyn:unitPrice>' . (int)$unitPrice . '</dyn:unitPrice>
-                            
+                            <dyn:vendorType>F</dyn:vendorType>
                         </dyn:listDetails>';
 
             
