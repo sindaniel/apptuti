@@ -26,8 +26,8 @@ class OrderRepository
         
         $delivery_date = now()->addDays($min_delivery)->format('Y-m-d');
         $day = $user->day;
-        $route = $user->route;
-        $zone = $user->zone;
+        $zone = $user->route;
+        $route = $user->zone;
 
         $productList = '';
 
