@@ -54,8 +54,8 @@ class UserRepository
 
         if($aListRuteros->aRoute){
 
-            $zone = $aListRuteros->aRoute->__toString();
-            $route = $aListRuteros->aZona->__toString();
+            $route = $aListRuteros->aRoute->__toString();
+            $zone = $aListRuteros->aZona->__toString();
             $day = $aListRuteros->aDiaRecorrido->__toString();
             $aCustRuteroID = $aListRuteros->aDetail->aListDetailsRuteros-> aCustRuteroID->__toString();
             $day = explode('- ', $day)[0];
