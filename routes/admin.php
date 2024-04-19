@@ -19,6 +19,13 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\SellerController;
 use Illuminate\Support\Facades\Route;
 
+
+Route::middleware(['auth', 'role:seller'])->group( function () {
+    Route::post('/setclient', [SellerController::class, 'setclient'])->name('seller.setclient');
+    Route::post('/revemoclient', [SellerController::class, 'removeclient'])->name('seller.removeclient');
+    
+});
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
 

@@ -3,7 +3,7 @@
 
 
 @section('content')
-<div class="xl:px-96 py-20 px-0">
+<div class="xl:px-96 px-0">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
         Ingreso
     </h2>

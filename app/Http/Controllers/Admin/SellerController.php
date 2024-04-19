@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 class SellerController extends Controller
@@ -83,5 +84,49 @@ class SellerController extends Controller
 
 
         return to_route('sellers.index')->with('success', 'Vendedor actualizado');
+    }
+
+
+    public function setclient(Request $request){
+        $validate = $request->validate([
+            'document' => 'required|integer',
+        ]);
+    
+        $document = $validate['document'];
+        $user = User::whereDocument($document)->first();
+        
+        if(!$user){
+    
+            $client = UserRepository::getCustomRuteroId($document);
+            $email = time() . '@tuti.com';
+            $password = bcrypt($email);
+            $user = User::create([
+                'name' => $client['name'],
+                'email' => $email,
+                'document' => $document,
+                'password' => $password,
+                'status_id' => User::PENDING
+            ]);
+
+            $user->zones()->create([
+                'route' => $client['route'],
+                'zone' => $client['zone'],
+                'day' => $client['day'],
+                'address' => $client['address'],
+                'code' => $client['code'],
+            ]);
+
+        }
+
+        session()->put('user_id', $user->id);
+        return to_route('cart');
+
+       
+         
+    }
+
+    public function removeclient(){
+        session()->forget('user_id');
+        return to_route('cart')->with('success', 'Cliente desvinculado');
     }
 }

@@ -46,6 +46,10 @@ Route::get('/carrito', [CartController::class, 'cart'])->name('cart');
 
 Route::post('/carrito', [CartController::class, 'processOrder'])->name('cart.process');
 
+
+
+
+
 Route::name('sellers.')->prefix('vendedor')->group(function () {
     Route::get('/', [SellerPageController::class, 'home'])->name('home');
     Route::get('/product', [SellerPageController::class, 'product'])->name('product');

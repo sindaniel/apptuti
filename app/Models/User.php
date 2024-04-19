@@ -31,9 +31,9 @@ class User extends Authenticatable
 
     ];
 
-
-    const ACTIVE = 1;
-
+    const PENDING = 1;
+    const ACTIVE = 2;
+    
     /**
      * The attributes that should be hidden for serialization.
      *

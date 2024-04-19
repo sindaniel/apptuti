@@ -51,5 +51,4 @@
     });
 </script>
 
-@endsection.
-3
+@endsection

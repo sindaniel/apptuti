@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\OrderProductBonification;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Vendor;
 use App\Repositories\OrderRepository;
 use App\Settings\GeneralSettings;
@@ -27,6 +28,18 @@ class CartController extends Controller
         
         $user = auth()->user();
         $zones = $user->zones->pluck('address', 'id')->toArray();
+
+        $set_user = false;
+        $client = null;
+        if($user->hasRole('seller')){
+            $user_id = session()->get('user_id');
+            $set_user = true;
+            if($user_id){
+                $client = User::with('zones')->find($user_id);
+                $zones = $client->zones->pluck('address', 'id')->toArray();
+                $set_user = false;
+            }
+        }
 
         $products = [];
         
@@ -62,7 +75,7 @@ class CartController extends Controller
 
         
         
-        $context = compact('products', 'alertVendors', 'zones'); 
+        $context = compact('products', 'alertVendors', 'zones', 'set_user', 'client'); 
         
         return view('pages.cart', $context);
 
@@ -164,12 +177,12 @@ class CartController extends Controller
        
         $seller_id = null;
         $user_id = $user->id;
-
+        
         if($user->hasRole('seller')){
             $seller_id = $user->id;
             $user_id = session()->get('user_id');
         }
-
+        
 
         $order = Order::create([
             'user_id' => $user_id,

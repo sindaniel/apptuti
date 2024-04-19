@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
         $client = UserRepository::getCustomRuteroId($document);
         
         $validate['name'] = $client['name'];
-        $validate['status_id'] = 2;
+        $validate['status_id'] = User::ACTIVE;
         
         $user = User::create($validate);
 
