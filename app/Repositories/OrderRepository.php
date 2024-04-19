@@ -146,32 +146,69 @@ class OrderRepository
 
     }
 
-    public static function checkDay($date){
+    public static function isBussinessDay($date){
 
-        dd($date);
         
+        //if is sunday or saturday
+        info('entro a revisar si es dia habil'. $date);
+        $response = false;
+
+        //check if holiday 
+        $holiday = Holiday::whereDate('date', $date)->whereTypeId(Holiday::HOLIDAY)->exists();
+        if($holiday){
+            return false;
+        }
+
+        // //check if saturday
+        $saturday = Holiday::whereDate('date', $date)->whereTypeId(Holiday::SATURDAY)->exists();
+        if($saturday){
+            $response = true;
+        }
+
+        //if is weekday
+        if($date->isWeekday()){
+            $response = true;
+        }
+        info('respuesta de dia habil'. ($response ? 'true' : 'false'));
+        return $response;
+
+
+
+
     
     }
 
     public static function getBusinessDay(){
 
-
         $now = now();
         $hour = $now->subHours(5)->hour;
         $closing_time = (int)Setting::getByKey('closing_time');
-
+      
         
-        if($closing_time >= $hour){     
+        if($closing_time <= $hour){     
             $now = now()->addDay();
         }
 
+        
+
         //while 10 times
+        $i = 0;
         while(True):
-            if(!self::checkDay($now)){
+            $now = $now->addDay();
+          
+            $i++;
+            if($i > 10){
                 break;
             }
-            $now->addDay();
+
+            if(self::isBussinessDay($now)){
+                break;
+            }
+          
+           
         endwhile;
+
+        dd($now);
 
 
 

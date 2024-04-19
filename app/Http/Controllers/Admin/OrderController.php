@@ -19,8 +19,7 @@ class OrderController extends Controller
                 $query->where('seller_id', $seller_id);
             })
             ->when($request->q, function ($query, $q) {
-                $query->whereRelation('user', 'name', 'ilike', "%$q%");
-                    
+                $query->whereRelation('user', 'name', 'ilike', "%$q%");       
             })
             ->with(['user', 'seller'])
             ->withCount('products')

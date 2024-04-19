@@ -43,6 +43,13 @@ class HolidayController extends Controller
             'type_id' => 'required',
             'date'=> 'required|date|after:today',
         ]);
+
+        if($validate['type_id'] == Holiday::SATURDAY){
+            //validate if date is saturday
+            if(date('N', strtotime($validate['date'])) != 6){
+                return back()->with('error', 'La fecha no es un sábado')->withInput();
+            }
+        }
         
 
         Holiday::create($validate);
