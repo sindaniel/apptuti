@@ -1,3 +1,3 @@
 <div class="text-sm">
-    <span>Fecha de pedidos: </span><strong>{{$format}}</strong>
+    <span>Fecha de pedidos: </span><strong>{{$date}}</strong>
 </div>

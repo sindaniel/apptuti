@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Repositories\OrderRepository;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -12,7 +13,7 @@ class HumanDate extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $date)
+    public function __construct()
     {
         //
     }
@@ -22,8 +23,8 @@ class HumanDate extends Component
      */
     public function render(): View|Closure|string
     {
-
-        $date = Carbon::parse($this->date);
+        $date = OrderRepository::getBusinessDay();
+        $date = Carbon::parse($date);
         //spanis days array
         $days = [
             "Domingo",
@@ -53,8 +54,8 @@ class HumanDate extends Component
         ];
 
         //format date Lunes 12 de Julio
-        $format = $days[$date->dayOfWeek] . ' ' . $date->day . ' de ' . $months[$date->month - 1];
+        $date = $days[$date->dayOfWeek] . ' ' . $date->day . ' de ' . $months[$date->month - 1];
 
-        return view('components.human-date', ['format' => $format]);
+        return view('components.human-date', ['date' => $date]);
     }
 }

@@ -41,7 +41,7 @@ class HolidayController extends Controller
     {
         $validate = $request->validate([
             'type_id' => 'required',
-            'date'=> 'required|date|after:today',
+            'date'=> 'required|date',
         ]);
 
         if($validate['type_id'] == Holiday::SATURDAY){
