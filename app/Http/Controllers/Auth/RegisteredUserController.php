@@ -85,7 +85,9 @@ class RegisteredUserController extends Controller
         $validate['name'] = $client['name'];
         $validate['status_id'] = User::ACTIVE;
         
-        $user = User::create($validate);
+        $user = User::updateOrCreate([
+            'document' => $document,
+        ], $validate);
 
         $user->zones()->create([
             'route' => $client['route'],

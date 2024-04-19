@@ -72,7 +72,10 @@
                                 {{ $order->created_at->format('Y-m-d H:i') }}
                             </td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
-                                {{ $order->user->name }}
+                               
+                                 <a class="flex flex-col text-gray-900  hover:text-blue-500" href="{{ route('users.edit', $order->user) }}">
+                                    {{ $order->user->name }}
+                                </a>
                             </td>
 
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowra">
