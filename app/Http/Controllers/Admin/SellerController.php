@@ -15,7 +15,8 @@ class SellerController extends Controller
             ->whereRelation('roles', 'name', 'seller')
             ->when(request('q'), function ($query, $q) {
                 $query->where('name', 'ilike', "%{$q}%")
-                ->orWhere('email', 'ilike', "%{$q}%");
+                    ->orWhere('email', 'ilike', "%{$q}%")
+                    ->orWhere('zone', 'ilike', "%{$q}%");
             })
             ->orderBy('name')
             ->paginate();

@@ -27,7 +27,8 @@ class User extends Authenticatable
         'password',
         'document',
         'phone',
-        'status_id'
+        'status_id',
+        'zone'
 
     ];
 
