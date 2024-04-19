@@ -44,7 +44,11 @@
                 <div class="flex items-center ml-3 space-x-2">
 
                     <div>
-                        {{-- Fecha de pedidos: <strong>{{ App\Repositories\OrderRepository::getBusinessDay()->format('Y-m-d') }}</strong> --}}
+                        @php
+                            $date = App\Repositories\OrderRepository::getBusinessDay();
+                        @endphp
+                        <x-human-date :date='$date'/> 
+                        {{-- Fecha de pedidos: <strong>{{ }}</strong> --}}
                     </div>
                     <div>
                         <button type="button"

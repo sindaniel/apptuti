@@ -13,7 +13,13 @@
             <h3 class="mb-4 text-xl font-semibold ">Información</h3>
 
             <div class="grid grid-cols-6 gap-6">
-                {{ Aire::input('value')->groupClass('col-span-6 sm:col-span-3') }}
+                @php
+                    $help = '';
+                    if($setting->id == 4){
+                        $help = 'Hora militar';
+                    }
+                @endphp
+                {{ Aire::input('value')->helpText($help)->groupClass('col-span-6 sm:col-span-3') }}
                 <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">
 
                     <p class="flex space-x-2 items-center">

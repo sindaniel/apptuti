@@ -182,6 +182,8 @@ class CartController extends Controller
             $seller_id = $user->id;
             $user_id = session()->get('user_id');
         }
+
+        $delivery_date = OrderRepository::getBusinessDay(); 
         
 
         $order = Order::create([
@@ -190,6 +192,7 @@ class CartController extends Controller
             'discount' => $discount,
             'zone_id' => $request->zone_id,
             'seller_id' => $seller_id,
+            'delivery_date' => $delivery_date,
         ]);
 
 

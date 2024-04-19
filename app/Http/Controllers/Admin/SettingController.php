@@ -15,6 +15,7 @@ class SettingController extends Controller
                 $query->where('name', 'like', "%{$q}%");
             })
             ->whereShow(true)
+            ->orderBy('id')
             ->paginate();
        
         $context = compact('settings');

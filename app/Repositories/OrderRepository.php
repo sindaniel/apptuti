@@ -26,10 +26,8 @@ class OrderRepository
         $zone = $order->zone;
 
         $order->load('products.product.brand.vendor');
- 
-        $min_delivery = $products->min('product.delivery_days');
         
-        $delivery_date = now()->addDays($min_delivery)->format('Y-m-d');
+        $delivery_date = $order->delivery_date;
         
         $day = $zone->day;
         $route = $zone->route;
@@ -208,7 +206,7 @@ class OrderRepository
            
         endwhile;
 
-        dd($now);
+        return $now->format('Y-m-d');
 
 
 
