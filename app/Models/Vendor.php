@@ -16,7 +16,8 @@ class Vendor extends Model
         'slug',
         'minimum_purchase',
         'active',
-        'discount'
+        'discount',
+        'vendor_type',
     ];
 
     public function brands(){

@@ -26,30 +26,13 @@ class User extends Authenticatable
         'email',
         'password',
         'document',
-        'code',
-        'city_id',
-        'document',
-        'state_id',
-        'city_id',
-        'company',
-        'address',
-        'area',
         'phone',
-        'mobile',
-        'password',
-        'password_confirmation',
-        'document_front',
-        'document_back',
-        'company_document',
-        'has_whatsapp',
-        'visit_by_tronex',
-        'terms',
-        'status_id',
-        'route',
-        'zone',
-        'day'
+        'status_id'
 
     ];
+
+
+    const ACTIVE = 1;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -83,6 +66,11 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function zones()
+    {
+        return $this->hasMany(Zone::class);
     }
     
 }

@@ -45,15 +45,22 @@ class UserRepository
         ])->send('POST', 'https://uattrx.sandbox.operations.dynamics.com/soap/services/DIITDWSSalesForceGroup?=null', [
             'body' => $body
         ]);
-
         $data = $response->body();
+
+        
         $xmlString = preg_replace('/<(\/)?(s|a):/', '<$1$2', $data);
         $xml = simplexml_load_string($xmlString);
 
-        $aListRuteros = $xml->sBody->getRuterosResponse->result->agetRuterosResult->aListRuteros;
+        try {
+            $aListRuteros = $xml->sBody->getRuterosResponse->result->agetRuterosResult->aListRuteros;
+        } catch (\Throwable $th) {
+            return null;
+        }
+      
 
         if($aListRuteros->aRoute){
-
+            $address = $aListRuteros->aDetail->aListDetailsRuteros->aAddress->__toString();
+            $name = $aListRuteros->aDetail->aListDetailsRuteros->aName->__toString();
             $route = $aListRuteros->aRoute->__toString();
             $zone = $aListRuteros->aZona->__toString();
             $day = $aListRuteros->aDiaRecorrido->__toString();
@@ -64,7 +71,9 @@ class UserRepository
                 'zone' => $zone,
                 'route' => $route,
                 'code' => $aCustRuteroID,
-                'day' => $day
+                'day' => $day,
+                'address' => $address,
+                'name' => $name
             ];
 
         }else{

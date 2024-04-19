@@ -49,6 +49,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $user->load('zones');
         $states = State::orderBy('name')->get()->pluck('name', 'id');
         $cities = City::whereStateId($user->state_id)->orderBy('name')->get()->pluck('name', 'id');
 

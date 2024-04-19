@@ -5,11 +5,11 @@
 <section class="w-full">
        
         <h1 class='text-2xl font-bold mb-5'>Registro</h1>
-        {{ Aire::open()->route('register')->post()->enctype('multipart/form-data')}}
+        {{ Aire::open()->route('complete')}}
             
             <div class='grid xl:grid-cols-2 grid-cols-1 gap-5'>
-                {{ Aire::input('name', 'Nombre')->groupClass('mb-0') }}
-                {{ Aire::email('email', 'Correo electrónico')->groupClass('mb-0') }}
+                {{ Aire::input('document', 'Documento')->helpText('Nit sin dígito de verificación')->groupClass('mb-0') }}
+                {{-- {{ Aire::email('email', 'Correo electrónico')->groupClass('mb-0') }}
                 
                 {{ Aire::select(['Cédula de ciudadanía', 'NIT'], 'city_id', 'Tipo de documento')->value(1)->groupClass('mb-0') }}
                 {{ Aire::input('document', 'Documento')->groupClass('mb-0') }}
@@ -46,7 +46,7 @@
                     </a>
                 </label>
 
-                <div></div>
+                <div></div> --}}
 
 
 
@@ -54,13 +54,11 @@
                 
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+            <div class="flex items-center  mt-4">
+                
 
-                <x-primary-button class="ml-4">
-                    {{ __('Register') }}
+                <x-primary-button >
+                    Registrarme
                 </x-primary-button>
             </div>
         {{ Aire::close() }}

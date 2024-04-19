@@ -46,6 +46,7 @@ class VendorController extends Controller
             'minimum_purchase'=> 'required|numeric',
             'discount'=>'numeric',
             'active'=>'nullable',
+            'vendor_type'=> 'required|string|max:1',
         ]);
 
         
@@ -96,6 +97,7 @@ class VendorController extends Controller
             'discount'=>'numeric',
             'slug'=>'required|unique:brands,slug,'.$vendor->id,
             'active'=>'nullable',
+            'vendor_type' => 'required|string|max:1',
         ]);
         
         //save file

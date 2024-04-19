@@ -47,7 +47,19 @@ class PageController extends Controller
         if(!$related->count()){
             $related = Product::active()->where('brand_id', $product->brand_id)->where('id', '!=', $product->id)->limit(4)->get();
         }
-        $context = compact('product', 'related');
+
+        $quantity = $product->step;
+
+        $cart = session()->get('cart');
+        if($cart){
+            $product_id = $product->id;
+            //check if product_id exists in cart  array_key_exists
+            if(array_key_exists($product_id, $cart)){
+                $quantity = $cart[$product_id]['quantity'];
+            }
+
+        }
+        $context = compact('product', 'related', 'quantity');
         
         return view('pages.product',  $context);
     }

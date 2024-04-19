@@ -88,7 +88,7 @@
 
         <div class="bg-blue3 flex items-center justify-center">
             <button type="button" id='increment' class="text-blue1 text-5xl">-</button>
-            <input type="numeric" id='quantity'  name='quantity' class="w-20 text-center bg-transparent border-0 text-xl px-4 focus:ring-0 focus:outline-none"  readonly value="{{$product->step}}">
+            <input type="numeric" id='quantity'  name='quantity' class="w-20 text-center bg-transparent border-0 text-xl px-4 focus:ring-0 focus:outline-none"  readonly value="{{$quantity}}">
             <button type="button" id='decrement' class="text-blue1 text-5xl">+</button>
         </div>
 

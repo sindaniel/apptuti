@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\Holiday;
 use App\Models\Order;
 use App\Models\Setting;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
@@ -21,18 +23,24 @@ class OrderRepository
     private static function sendData($order, $products, $bonification = 0){
        
         $user  = $order->user;
+        $zone = $order->zone;
+
+        $order->load('products.product.brand.vendor');
  
         $min_delivery = $products->min('product.delivery_days');
         
         $delivery_date = now()->addDays($min_delivery)->format('Y-m-d');
-        $day = $user->day;
-      
-        $route = $user->route;
-        $zone = $user->zone;
+        
+        $day = $zone->day;
+        $route = $zone->route;
+        $code = $zone->code;
+        $zone = $zone->zone;
+        
 
         $productList = '';
 
         foreach ($products as $product) {
+            $vendor_type = $product->product->brand->vendor->vendor_type;
             $unitPrice = $product->price + $product->discount;
             if($bonification){
                 $unitPrice = $product->product->price;
@@ -41,7 +49,6 @@ class OrderRepository
             if($product->variationItem){
                 $sku = DB::table('product_item_variation')->where('id', $product->variation_item_id)->value('sku');
             }
-          
             $productList .= '<dyn:listDetails>
                             <dyn:discount>' . (int)$product->percentage . '</dyn:discount>
                             <dyn:itemId>' . $sku . '</dyn:itemId>
@@ -50,7 +57,7 @@ class OrderRepository
                             <dyn:um>Unidad</dyn:um>
                             <dyn:umCust>None</dyn:umCust>
                             <dyn:unitPrice>' . (int)$unitPrice . '</dyn:unitPrice>
-                            <dyn:vendorType>F</dyn:vendorType>
+                            <dyn:vendorType>'.$vendor_type.'</dyn:vendorType>
                         </dyn:listDetails>';
 
             
@@ -77,7 +84,7 @@ class OrderRepository
                     <tem:ArrayOfPreSalesOrder>
                         <dyn:preSalesOrder>
                             <dyn:TRO_E_obsequio>'. $bonification.'</dyn:TRO_E_obsequio> 
-                            <dyn:codCustomer>' . $user->code . '</dyn:codCustomer> 
+                            <dyn:codCustomer>' . $code . '</dyn:codCustomer> 
                             <dyn:deliveryDate>' . $delivery_date . '</dyn:deliveryDate>
                             <dyn:diaRecorrido>' . $day . '</dyn:diaRecorrido>
                             <dyn:listDetails>
@@ -137,5 +144,117 @@ class OrderRepository
 
       
 
+    }
+
+    public static function checkDay($date){
+
+        dd($date);
+        
+    
+    }
+
+    public static function getBusinessDay(){
+
+
+        $now = now();
+        $hour = $now->subHours(5)->hour;
+        $closing_time = (int)Setting::getByKey('closing_time');
+
+        
+        if($closing_time >= $hour){     
+            $now = now()->addDay();
+        }
+
+        //while 10 times
+        while(True):
+            if(!self::checkDay($now)){
+                break;
+            }
+            $now->addDay();
+        endwhile;
+
+
+
+        //     $now = now();
+
+        //     //current hour
+        //     $hour = $now->hour;
+        //     $closing_time = (int)Setting::getByKey('closing_time');
+
+        //     if($closing_time >= $hour){
+        //         //add day to $now
+        //         $now = now()->addDay();
+        //     }
+        // //    $now = now()->addDays(2);
+
+        //   //dd($now->isSaturday());   
+        //     //check if this date is saturday
+        //     if($now->isSaturday()){
+        //         //add 2 days to $now
+        //         //check is saturday is in holidays
+        //         $saturday = Holiday::whereDate('date', $now)->first();            
+        //         if($saturday){
+        //             $now = $saturday->date->addDays(2);
+        //         }
+        //     }
+
+        //     //cecck if this date is holiday
+        //     $holiday = Holiday::whereDate('date', $now)->first();
+        //     if($holiday){
+        //         $now = $holiday->date->addDay();
+        //     }
+
+        //     dd($now);
+
+        //     return $now;
+
+
+
+        $closing_time = (int)Setting::getByKey('closing_time');
+       
+        $next_business_day = now(); // Inicialmente, sumamos un día
+            
+        // Si la hora actual es mayor a la hora de cierre, sumamos otro día
+        if($closing_time >= $next_business_day->hour) {
+            $next_business_day->addDay();
+        }
+       
+        // Si el próximo día es un día festivo, sumamos otro día
+        while (Holiday::whereDate('date', $next_business_day)->exists()) {
+            $next_business_day->addDay();
+        }
+
+        
+        
+        if ($next_business_day->isWeekend()) {
+            //$next_business_day->next(Carbon::MONDAY);
+        
+            //valido si es sabado 
+            if($next_business_day->isSaturday()){
+                //valido in holidays
+             
+                while (Holiday::whereDate('date', $next_business_day)->first()) {
+                    $next_business_day->next(Carbon::MONDAY);
+                }
+                
+            }
+
+            // Si el próximo lunes es un día festivo, sumamos otro día
+            while (Holiday::whereDate('date', $next_business_day)->exists()) {
+                $next_business_day->addDay();
+            }
+        }
+
+        // Si el próximo día no es un día de semana (de lunes a viernes), lo cambiamos al siguiente lunes
+        if ($next_business_day->isWeekend()) {
+            $next_business_day->next(Carbon::MONDAY);
+
+            // Si el próximo lunes es un día festivo, sumamos otro día
+            while (Holiday::whereDate('date', $next_business_day)->exists()) {
+                $next_business_day->addDay();
+            }
+        }
+
+        return $next_business_day;
     }
 }

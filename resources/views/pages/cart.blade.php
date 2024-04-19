@@ -98,10 +98,18 @@
                         <strong>${{currency($subtotal-$discount)}}</strong>
                     </div>
 
+                  
                     @if($alertVendors)
                         <button disabled class="bg-orange-600 opacity-50 w-full text-white rounded py-3 px-5 mt-5 block text-center">Realizar Pedido</button>
                     @else 
                        {{ Aire::open()->route('cart.process')}}
+
+                         <div class="pt-5">
+                            {{ Aire::select($zones, 'zone_id', 'Dirección')->id('states')}}
+                        </div>
+
+
+
                             <button type="submit" class="bg-orange-600 w-full text-white rounded py-3 px-5 mt-5 block text-center hover:bg-orange-900">Realizar Pedido</button> 
                         {{ Aire::close() }}
                         

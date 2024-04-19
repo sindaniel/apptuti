@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\VariationController;
 use App\Http\Controllers\Admin\VariationItemController;
 use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\SellerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -55,6 +56,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('settings', SettingController::class);
     Route::resource('banners', BannerController::class);
     Route::resource('admins', AdminController::class);
+    Route::resource('sellers', SellerController::class);
 
 
     Route::resource('orders', OrderController::class);

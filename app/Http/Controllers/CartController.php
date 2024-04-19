@@ -18,7 +18,6 @@ class CartController extends Controller
     public function cart(){
        
         
-       
         
         $cart = session()->get('cart');
         
@@ -26,6 +25,8 @@ class CartController extends Controller
             return redirect()->route('home');
         }
         
+        $user = auth()->user();
+        $zones = $user->zones->pluck('address', 'id')->toArray();
 
         $products = [];
         
@@ -61,7 +62,7 @@ class CartController extends Controller
 
         
         
-        $context = compact('products', 'alertVendors'); 
+        $context = compact('products', 'alertVendors', 'zones'); 
         
         return view('pages.cart', $context);
 
@@ -153,16 +154,29 @@ class CartController extends Controller
 
     public function processOrder(Request $request){
 
-
+     //   dd($request->all());
         $cart = session()->get('cart');
     
         $total = 0;
         $discount = 0;
 
+        $user = auth()->user();
+       
+        $seller_id = null;
+        $user_id = $user->id;
+
+        if($user->hasRole('seller')){
+            $seller_id = $user->id;
+            $user_id = session()->get('user_id');
+        }
+
+
         $order = Order::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => $user_id,
             'total' => $total,
             'discount' => $discount,
+            'zone_id' => $request->zone_id,
+            'seller_id' => $seller_id,
         ]);
 
 
@@ -218,21 +232,16 @@ class CartController extends Controller
             session()->forget('cart');
         }
        
-        $user  = auth()->user();
-        if($user->code){
-            OrderRepository::presalesOrder($order);
-            return to_route('home')->with('success', 'Compra procesada con exito!');
-        }
 
-     
-
-        return to_route('home')->with('success', 'Es necesario tener un codigo de cliente para procesar la compra, contacta al administrador!');
-        
+    
+        OrderRepository::presalesOrder($order);
+        return to_route('home')->with('success', 'Compra procesada con exito!');
+    
+        // return to_route('home')->with('success', 'Es necesario tener un codigo de cliente para procesar la compra, contacta al administrador!');
 
         // dispatch(new ProcessOrder($order));
         // new NewOrderEmail($order);
         
-      
 
     }
 

@@ -28,6 +28,9 @@
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Nombre
                             </th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Valor
+                            </th>
                           
                           
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase "></th>
@@ -43,6 +46,10 @@
                                         {{ $setting->name }}
                                     </span>
                                 </a>
+                            </td>
+
+                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
+                                {{ $setting->value }}
                             </td>
                           
                           

@@ -38,8 +38,8 @@
                     <x-dropdown title='Configuraciones'
                         icon='heroicon-o-cog-6-tooth'
                         :menu="[
-                            'holidays'=>'Festivos',
-                            'settings'=>'Textos',
+                            'settings'=>'Configuraciones',
+                            'holidays'=>'Festivos y Sabados',
                             'banners'=>'Banners',
                             ]" />
                         
@@ -48,6 +48,12 @@
                             <a href="{{ route('users.index') }}">
                                 @svg('heroicon-o-user-group', 'w-6 h-6 text-gray-500')
                                 <span class="ml-3" sidebar-toggle-item>Clientes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('sellers.index') }}">
+                                @svg('heroicon-o-shopping-bag', 'w-6 h-6 text-gray-500')
+                                <span class="ml-3" sidebar-toggle-item>Vendedores</span>
                             </a>
                         </li>
                         <li>

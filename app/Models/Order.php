@@ -17,6 +17,8 @@ class Order extends Model
         'status_id',
         'request',
         'response',
+        'zone_id',
+        'seller_id',
     ];
 
 
@@ -40,6 +42,10 @@ class Order extends Model
         return $this->hasMany(OrderProductBonification::class);
     }
 
+
+    public function zone(){
+        return $this->belongsTo(Zone::class);
+    }
 
 
 }

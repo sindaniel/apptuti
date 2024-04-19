@@ -34,8 +34,8 @@ class test extends Command
      */
     public function handle()
     {
-        $order = Order::find(16);
-        OrderRepository::presalesOrder($order);
+        //$order = Order::find(16);
+        OrderRepository::getBusinessDay();
         
       
     }

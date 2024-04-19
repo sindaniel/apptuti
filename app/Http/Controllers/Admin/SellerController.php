@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class SellerController extends Controller
 {
     public function index(Request $request)
     {
         $users = User::query()
-            ->whereRelation('roles', 'name', 'admin')
+            ->whereRelation('roles', 'name', 'seller')
             ->when(request('q'), function ($query, $q) {
                 $query->where('name', 'ilike', "%{$q}%")
                 ->orWhere('email', 'ilike', "%{$q}%");
@@ -19,14 +19,14 @@ class AdminController extends Controller
             ->orderBy('name')
             ->paginate();
 
-        $context = compact('users'); 
+        $context = compact('users');
 
-        return view('admins.index' , $context);
+        return view('sellers.index', $context);
     }
 
     public function create()
     {
-        return view('admins.create');
+        return view('sellers.create');
     }
 
     public function store(Request $request)
@@ -35,13 +35,15 @@ class AdminController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'zone'=>['required', 'integer'],
         ]);
 
         $validate['password'] = bcrypt($validate['password']);
 
         $user = User::create($validate);
 
-        $user->assignRole('admin');
+
+        $user->assignRole('seller');
 
         return to_route('admins.index')->with('success', 'Usuario creado');
     }
@@ -52,18 +54,17 @@ class AdminController extends Controller
         $user = User::findorFail($id);
         $context = compact('user');
 
-        return view('admins.edit', $context);
+        return view('sellers.edit', $context);
     }
 
 
     public function update(Request $request, $id)
     {
-
         $user = User::findorFail($id);
         $validations =  [
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class . ',email,' . $user->id],
-            'zone'=>['required', 'integer'],
+            'zone' => 'required|integer',
         ];
 
         if ($request->filled('password')) {
@@ -78,8 +79,9 @@ class AdminController extends Controller
 
         $user->update($validate);
 
+      
 
-        return to_route('sellers.index')->with('success', 'Usuario actualizado');
+
+        return to_route('sellers.index')->with('success', 'Vendedor actualizado');
     }
-
 }

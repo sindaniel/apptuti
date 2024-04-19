@@ -14,10 +14,11 @@ class HolidayController extends Controller
     public function index(Request $request)
     {
         $holidays = Holiday::query()
-        ->when($request->q, function($query, $q){
-            $query->where('name', 'like', "%{$q}%");
-        })
         ->orderBy('date')
+        ->where('date', '>=', now())
+        ->when($request->type_id, function ($query, $type_id) {
+            return $query->where('type_id', $type_id);
+        })
         ->paginate();
        
         $context = compact('holidays'); 
@@ -39,8 +40,8 @@ class HolidayController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'name' => 'required|string|max:255',
-            'date'=> 'required|date',
+            'type_id' => 'required',
+            'date'=> 'required|date|after:today',
         ]);
         
 
@@ -49,37 +50,6 @@ class HolidayController extends Controller
         return to_route('holidays.index')->with('success', 'Festivo creado');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Holiday $holiday)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Holiday $holiday)
-    {
-        $context = compact('holiday');
-        return view('holidays.edit', $context);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Holiday $holiday)
-    {
-        $validate = $request->validate([
-            'name' => 'required|string|max:255',
-            'date'=> 'required|date',
-        ]);
-
-        $holiday->update($validate);
-
-        return to_route('holidays.index')->with('success', 'Festivo actualizado');
-    }
 
     /**
      * Remove the specified resource from storage.
