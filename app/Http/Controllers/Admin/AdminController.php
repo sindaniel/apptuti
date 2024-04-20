@@ -63,7 +63,7 @@ class AdminController extends Controller
         $validations =  [
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class . ',email,' . $user->id],
-            'zone'=>['required', 'integer'],
+            
         ];
 
         if ($request->filled('password')) {
