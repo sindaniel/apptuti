@@ -126,6 +126,7 @@ return [
             'submit' => ['color' => 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center'],
             'red' => ['color' => 'text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2.5 text-center mr-2 dark:focus:ring-red-900'],
             'green' => ['color' => 'btn btn-success ms-auto'],
+			'primary' => ['color' => 'text-white bg-secondary px-4 py-2 rounded'],
         ]
     ],
 	

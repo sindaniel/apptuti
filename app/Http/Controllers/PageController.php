@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Label;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -120,5 +121,27 @@ class PageController extends Controller
         $products = $brand->products()->paginate();
         $context = compact('brand', 'products');
         return view('pages.brand', $context);
+    }
+
+
+    public function form(){
+        return view('pages.form');
+    }
+
+    public function form_post(Request $request){
+        $validate = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'business_name' => 'required',
+        ]);
+
+        Contact::create($validate);
+
+
+
+
+
+        return back()->with('success', 'Mensaje enviado correctamente');
     }
 }

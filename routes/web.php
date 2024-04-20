@@ -43,6 +43,8 @@ Route::delete('/cart/remove', [CartController::class, 'remove'])->name('cart.rem
 Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::get('/carrito', [CartController::class, 'cart'])->name('cart');
 
+Route::get('/formulario', [PageController::class, 'form'])->name('form');
+Route::post('/formulario', [PageController::class, 'form_post'])->name('form_post');
 
 Route::post('/carrito', [CartController::class, 'processOrder'])->name('cart.process');
 

@@ -62,6 +62,22 @@
                                 <span class="ml-3" sidebar-toggle-item>Administradores</span>
                             </a>
                         </li>
+
+
+                         <li>
+                            <a href="{{ route('contacts.index') }}">
+                                @svg('heroicon-o-inbox-arrow-down', 'w-6 h-6 text-gray-500')
+                                <span class="ml-3" >Mensajes </span>
+                                {{-- @php
+                                    $contacts  = App\Models\Contact::where('read', 0)->get();
+                                @endphp
+                                @if ($contacts->count())
+                                    <span class="ml-3 text-xs text-white bg-red-500 rounded-full px-2">{{ $contacts->count() }}</span>
+                                @endif --}}
+                            </a>
+                        </li>
+
+
                 
                 
                

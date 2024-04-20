@@ -247,7 +247,8 @@ class CartController extends Controller
         if(app()->environment('production')){
             session()->forget('cart');
         }
-       
+
+        session()->forget('user_id');
 
     
         OrderRepository::presalesOrder($order);

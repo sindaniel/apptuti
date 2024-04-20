@@ -159,8 +159,8 @@
                     <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('cart')}}">Carrito @if($cartCount)<small>({{ $cartCount }})</small>@endif</a>
                     <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('logout')}}">Salir</a>
                 @else
-                    <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('login')}}">Acceder</a>
-                    <a class="bg-gray3 py-1 px-2 text-gray-700"  href="{{route('register')}}">Registrarme</a>
+                    <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('login')}}">Login</a>
+                    <a class="bg-gray3 py-1 px-2 text-gray-700"  href="{{route('register')}}">Acceder</a>
                 @endauth
             </div>
 
