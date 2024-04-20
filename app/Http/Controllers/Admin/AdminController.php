@@ -79,7 +79,7 @@ class AdminController extends Controller
         $user->update($validate);
 
 
-        return to_route('sellers.index')->with('success', 'Usuario actualizado');
+        return to_route('admins.index')->with('success', 'Usuario actualizado');
     }
 
 }
