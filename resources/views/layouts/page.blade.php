@@ -161,6 +161,7 @@
                 @else
                     <a class="bg-gray3 py-1 px-2 text-gray-700" href="{{route('login')}}">Login</a>
                     <a class="bg-gray3 py-1 px-2 text-gray-700"  href="{{route('register')}}">Acceder</a>
+                    <a class="bg-gray3 py-1 px-2 text-gray-700"  href="{{route('form')}}">Quiero ser cliente</a>
                 @endauth
             </div>
 

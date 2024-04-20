@@ -46,6 +46,7 @@
                 <h3 class="text-xl mb-3">PÁGINAS DE INTERÉS</h3>
                 <ul class="text-sm space-y-2">
                     <li><a href="{{route('register')}}">Registro</a></li>
+                    <li><a href="{{route('form')}}">Quiero ser cliente</a></li>
                     <li><a href="">Preguntas frecuentes</a></li>  
                 </ul>
             </div>

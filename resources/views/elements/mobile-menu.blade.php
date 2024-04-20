@@ -13,12 +13,16 @@
         </header>
         <section class="p-5">
             <ul class="text-xl space-y-4">
-                <li><a href="#">Usuario</a></li>
+                <li>
+                    <a   href="{{route('form')}}">Quiero ser cliente</a>
+                </li>
+                
                 <li><a href="#">Preguntas frecuentes</a></li>
                 <li><a href="#">Sobre nosotros</a></li>
                 <li><a href="#">Políticas de privacidad</a></li>
                 <li><a href="#">Términos y condiciones</a></li>
                 <li><a href="#">Contáctanos</a></li>
+
 
             </ul>
 
