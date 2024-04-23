@@ -9,7 +9,7 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone', 'business_name', 'read'];
+    protected $fillable = ['name', 'email', 'phone', 'business_name', 'read', 'city'];
 
     public function scopeUnRead($query)
     {

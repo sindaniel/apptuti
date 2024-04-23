@@ -134,13 +134,10 @@ class PageController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'business_name' => 'required',
+            'city' => 'required',
         ]);
 
         Contact::create($validate);
-
-
-
-
 
         return back()->with('success', 'Mensaje enviado correctamente');
     }

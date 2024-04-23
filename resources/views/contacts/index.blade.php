@@ -24,14 +24,12 @@
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Nombre
                             </th>
-                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
-                                Email
-                            </th>
+                          
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Celular
                             </th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
-                                Tienda
+                                Tienda / Ciudad
                             </th>
                           
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">Fecha</th>
@@ -42,16 +40,21 @@
                         <tr class="hover:bg-gray-100">
                             
                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                {{ $contact->name }}
+                             
+                                <div class="flex flex-col">
+                                    <span>{{ $contact->name }}</span>
+                                    <small>{{$contact->email}}</small>
+                                </div>
                             </td>
-                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                {{ $contact->email }}
-                            </td>
+                           
                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
                                 {{ $contact->phone }}
                             </td>
                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                {{ $contact->business_name }}
+                                <div class="flex flex-col">
+                                    <span>{{ $contact->business_name }}</span>
+                                    <small>{{$contact->city}}</small>
+                                </div>
                             </td>
                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
                                 {{ $contact->created_at->subHours(5)}}
