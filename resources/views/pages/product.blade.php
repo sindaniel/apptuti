@@ -39,7 +39,9 @@
             </div>
             <div class="xl:col-span-9 col-span-12 xl:order-2 order-1">
                 <div class="border p-2">
+                    @if($product->images->first())
                     <img src="{{asset('storage/'.$product->images->first()->path)}}" alt="">
+                    @endif
                 </div>
                 
             </div>
