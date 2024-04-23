@@ -47,7 +47,7 @@ class SellerController extends Controller
 
         $user->assignRole('seller');
 
-        return to_route('admins.index')->with('success', 'Usuario creado');
+        return to_route('sellers.index')->with('success', 'Usuario creado');
     }
 
 
