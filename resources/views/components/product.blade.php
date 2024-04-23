@@ -31,6 +31,6 @@
             @endif
         </div>
         <a href="{{route('product', $product->slug)}}" class="text-xs text-[#180F09]">{{$product->name}}</a>
-        <p class="text-xs text-[#180F09]">{{$product->categories->first()->name}}</p>
+        <p class="text-xs text-[#180F09]">{{$product->categories?->first()->name}}</p>
     </div>
 </div>

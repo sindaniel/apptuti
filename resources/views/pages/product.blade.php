@@ -19,7 +19,7 @@
             <li>></li>
             <li><a href="#">Productos</a></li>
             <li>></li>
-            <li><a href="{{route('category',$product->categories->first()->slug)}}">{{$product->categories->first()->name}}</a></li>
+            {{-- <li><a href="{{route('category',$product->categories->first()->slug)}}">{{$product->categories->first()->name}}</a></li> --}}
         </ul>
     </div>
 
