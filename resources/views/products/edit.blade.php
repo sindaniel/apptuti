@@ -56,7 +56,7 @@
                     {{Aire::select($variations, 'variation_id', "Variación")->groupClass('col-span-3')}}
                 @endif
 
-                {{  Aire::range('discount', 'Descuento %')->id('discount')->value(old('discount', $product->discount))->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
+                {{Aire::input('discount', 'Descuento %')->id('discount')->min(0)->max(100)->step(1)->groupClass('col-span-6')}}
 
                 {{  Aire::range('step', 'Steps')->data('sufix', '')->id('step')->value(old('step', $product->step))->min(1)->max(100)->step(1)->groupClass('col-span-6')->helpText('Salto de cantidad para el precio')}}
                 
