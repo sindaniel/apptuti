@@ -138,4 +138,10 @@ class Product extends  Model
         return $query->where('active', 1);
     }
 
+    public function orders(){
+        return $this->belongsToMany(Order::class, 'order_products');
+    }
+
+
+
 }

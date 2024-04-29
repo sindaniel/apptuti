@@ -132,7 +132,7 @@ class CartController extends Controller
     }
 
 
-    public function remove(Request $request){
+    public function remove(Request $request, Product $product){
         $request->validate([
             'product_id' => 'required|numeric',
         ]);
@@ -149,19 +149,33 @@ class CartController extends Controller
 
 
     public function update(Request $request){
-        $request->validate([
-            'product_id' => 'required|numeric',
-            'quantity' => 'required|numeric',
-        ]);
+
+        // dd($request->all());
 
         $cart = session()->get('cart');
-    
-        if(isset($cart[$request->product_id])) {
-            $cart[$request->product_id]['quantity'] = $request->quantity;
-            session()->put('cart', $cart);
+        
+        $items = $request->items;
+
+        foreach($items as $key => $item){
+            $cart[$key]['quantity'] = $item;
         }
 
-        return redirect()->back()->with('success', 'Producto actualizado exitosamente!');
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Carrito actualizado exitosamente!');
+
+        // $request->validate([
+        //     'product_id' => 'required|numeric',
+        //     'quantity' => 'required|numeric',
+        // ]);
+
+        // $cart = session()->get('cart');
+    
+        // if(isset($cart[$request->product_id])) {
+        //     $cart[$request->product_id]['quantity'] = $request->quantity;
+        //     session()->put('cart', $cart);
+        // }
+
+        // return redirect()->back()->with('success', 'Producto actualizado exitosamente!');
     }
 
 

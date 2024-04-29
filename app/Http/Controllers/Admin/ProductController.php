@@ -246,6 +246,17 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $product->load('orders');
+
+        if(!$product->orders->isEmpty()){
+            $product->update(['active'=>0]);
+            return back()->with('error', 'No se puede eliminar el producto, tiene pedidos asociados, producto desactivado');
+        }
+
+        $product->delete();
+
+        return to_route('products.index')->with('success', 'Producto eliminado');
+
         //TODO validar que no tenga pedidos
     }
 
