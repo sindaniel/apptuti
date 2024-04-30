@@ -39,7 +39,7 @@ Route::get('/proveedores/{brand}', [PageController::class, 'brand'])->name('bran
 
 
 Route::post('/carrito/agregrar/{product}', [CartController::class, 'add'])->name('cart.add');
-Route::get('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cart/remove/{key}', [CartController::class, 'remove'])->name('cart.remove');
 Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::get('/carrito', [CartController::class, 'cart'])->name('cart');
 

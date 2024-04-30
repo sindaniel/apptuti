@@ -18,8 +18,10 @@ class CartController extends Controller
 {
     public function cart(){
        
+        // session()->forget('cart');
+        // back();
         
-        
+
         $cart = session()->get('cart');
         
         if(!$cart){
@@ -85,64 +87,74 @@ class CartController extends Controller
 
     public function add(Request $request, Product $product){
 
+        
         $user = auth()->user();
         if (!$user) {
             return redirect()->route('login');
         }
-
-        
-
-       
 
         $request->validate([
             'variation_id'=> 'nullable|numeric',
             'quantity' => 'required|numeric',
         ]);
 
+        $product_id = $product->id;
+        $variation_id = $request->variation_id;
+
         $cart = session()->get('cart');
+        
            
         if(!$cart){
-            $cart = [
-                $product->id => [
-                    "product_id" => $product->id,
-                    "quantity" => $request->quantity,
-                    "variation_id" => $request->variation_id,
-                ]
+            $cart[] = [
+                "product_id" => $product->id,
+                "quantity" => $request->quantity,
+                "variation_id" => $request->variation_id,
+            ];
+            session()->put('cart', $cart);
+            return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
+        }
+
+        $found_index = null;
+
+        foreach ($cart as $index => $product) {
+            if ($product["product_id"] == $product_id && $product["variation_id"] == $variation_id) {
+                $found_index = $index;
+                break;
+            }
+        }
+
+        if($found_index === null){
+            $cart[] = [
+                "product_id" => $product_id,
+                "quantity" => $request->quantity,
+                "variation_id" => $request->variation_id,
             ];
             session()->put('cart', $cart);
             return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
         }
 
 
+        $cart[$found_index]['quantity'] = $request->quantity;
 
-        if(isset($cart[$product->id])) {
-            $cart[$product->id]['quantity'] = $request->quantity;
-            session()->put('cart', $cart);
-            return to_route('cart')->with('success', 'Producto agregado al carrito exitosamente!');
-        }
-           
-        $cart[$product->id] = [
-            "product_id" => $product->id,
-            "quantity" => $request->quantity,
-            "variation_id" => $request->variation_id,
-        ];
 
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Producto agregado al carrito exitosamente!');
     }
 
 
-    public function remove(Request $request, Product $product){
-        $request->validate([
-            'product_id' => 'required|numeric',
-        ]);
+    public function remove(Request $request, $key){
+        
 
         $cart = session()->get('cart');
+
     
-        if(isset($cart[$request->product_id])) {
-            unset($cart[$request->product_id]);
+        if(isset($cart[$key])) {
+            unset($cart[$key]);
+            $cart = array_values($cart);
+
             session()->put('cart', $cart);
         }
+        
 
         return redirect()->back()->with('success', 'Producto eliminado del carrito exitosamente!');
     }
@@ -153,8 +165,12 @@ class CartController extends Controller
         // dd($request->all());
 
         $cart = session()->get('cart');
+
+        
         
         $items = $request->items;
+
+        
 
         foreach($items as $key => $item){
             $cart[$key]['quantity'] = $item;
