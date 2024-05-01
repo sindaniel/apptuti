@@ -70,9 +70,8 @@ class UserRepository
         } catch (\Throwable $th) {
             return null;
         }
-      
-
-        if($aListRuteros->aRoute){
+        
+        if(!empty($aListRuteros->aRoute)){
             $address = $aListRuteros->aDetail->aListDetailsRuteros->aAddress->__toString();
             $name = $aListRuteros->aDetail->aListDetailsRuteros->aName->__toString();
             $route = $aListRuteros->aRoute->__toString();
