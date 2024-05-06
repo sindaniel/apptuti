@@ -14,7 +14,7 @@ class PageController extends Controller
 {   
     public function home()
     {
-        $products = Product::active()->with('images')->orderBy('created_at', 'desc')->paginate();
+        $products = Product::active()->with('images')->orderBy('created_at', 'desc')->paginate(12);
         $categories = Category::with('children')->whereNull('parent_id')->get();
         $banners = Banner::whereTypeId(1)->orderBy('id')->get();
         $lateral = Banner::whereTypeId(2)->orderBy('id')->get();
