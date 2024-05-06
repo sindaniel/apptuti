@@ -47,6 +47,7 @@ class BannerController extends Controller
         Banner::create([
             'path' => $path,
             'url' => $request->url,
+            'type_id' => $request->type_id,
         ]);
 
         return to_route('banners.index');
@@ -83,7 +84,7 @@ class BannerController extends Controller
             ]);
         }
        
-        $data = $request->only('url');
+        $data = $request->only('url', 'type_id');
         
         if($request->hasFile('file')){
             $request->validate([

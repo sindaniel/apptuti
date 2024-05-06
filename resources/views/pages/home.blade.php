@@ -31,8 +31,8 @@
         @foreach ($categories as $category)
 
             <h2 id="accordion-collapse-heading-c{{$category->id}}">
-                 {{-- @if($i == 0) rounded-t-xl @endif @if($i == 10) rounded-b-xl @endif --}}
-                <button type="button" class="bg-blue2 flex items-center justify-between w-full py-2 px-4 font-medium rtl:text-right text-gray-500  focus:ring-0 focus:ring-gray-200  gap-3" data-accordion-target="#accordion-collapse-body-c{{$category->id}}" aria-expanded="true" aria-controls="accordion-collapse-body-c{{$category->id}}">
+               
+                <button type="button" class="bg-blue2  @if($loop->first) rounded-t @endif @if($loop->last) rounded-b @endif flex items-center justify-between w-full py-2 px-4 font-medium rtl:text-right text-gray-500  focus:ring-0 focus:ring-gray-200  gap-3" data-accordion-target="#accordion-collapse-body-c{{$category->id}}" aria-expanded="true" aria-controls="accordion-collapse-body-c{{$category->id}}">
                 <div class="flex items-center space-x-2">
                     <span class="icon-energy"></span>
                     <span>{{$category->name}}</span>

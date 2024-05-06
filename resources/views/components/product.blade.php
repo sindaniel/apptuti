@@ -2,7 +2,7 @@
 <div class="border border-gray-100 rounded">
     <div class="flex w-full items-center justify-center py-2 text-gray-400">
         @if($product->images->first())
-            <a href="{{route('product', $product->slug)}}"  class="h-40 block w-full bg-cover bg-center" style="background-image: url({{asset('storage/'.$product->images->first()->path)}});">
+            <a href="{{route('product', $product->slug)}}"  class="h-40 block w-full bg-cover bg-center hover:scale-110 transition duration-500 cursor-pointer object-cover" style="background-image: url({{asset('storage/'.$product->images->first()->path)}});">
             </a>
         @else
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">

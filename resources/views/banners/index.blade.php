@@ -9,12 +9,15 @@
         <div class="mb-4">
             <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl ">Banners</h1>
         </div>
-        <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 ">
+        <div class="items-center flex  space-x-5">
            
             <a href="{{ route('banners.create') }}"
                 class="text-white bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-5 py-2.5 ">
                 Nuevo banner
             </a>
+            {{-- <form class="" id='form'>
+                {{Aire::select([1=>'Principal', 2=>'Lateral'], 'type_id')->value(request()->get('type_id', 1))->groupClass('mb-0')}}
+            </form> --}}
         </div>
     </div>
 </div>
@@ -29,9 +32,13 @@
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Banner
                             </th>
+                              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
+                                Posición
+                            </th>
                              <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase ">
                                 Url
                             </th>
+                           
                             
                           
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase "></th>
@@ -45,6 +52,10 @@
                                 <a class="" href="{{ route('banners.edit', $banner) }}">
                                     <img src="{{asset('storage/'.$banner->path)}}" class="h-20">
                                 </a>
+                            </td>
+
+                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
+                                {{ $banner->type_id == 1 ? 'Principal' : 'Lateral'}}
                             </td>
 
                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
@@ -84,11 +95,23 @@
 
 
 
+@endsection
 
 
 
 
+@section('scripts')
+    
+<script src="{{ asset('js/jquery.js') }}" ></script>
+<script>
 
+    $(document).ready(function(){
+        $('select').on('change', function(){
+            $('#form').submit();
+        })
+    })
+
+</script>
 
 
 @endsection

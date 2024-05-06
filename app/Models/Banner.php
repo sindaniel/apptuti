@@ -11,6 +11,7 @@ class Banner extends Model
 
     protected $fillable = [
         'path',
-        'url'
+        'url',
+        'type_id'
     ];
 }

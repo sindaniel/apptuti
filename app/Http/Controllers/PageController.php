@@ -16,7 +16,8 @@ class PageController extends Controller
     {
         $products = Product::active()->with('images')->orderBy('created_at', 'desc')->paginate();
         $categories = Category::with('children')->whereNull('parent_id')->get();
-        $banners = Banner::orderBy('id')->get();
+        $banners = Banner::whereTypeId(1)->orderBy('id')->get();
+        $lateral = Banner::whereTypeId(2)->orderBy('id')->get();
       
         $context = compact('products', 'categories', 'banners');
         return view('pages.home', $context);
