@@ -22,7 +22,7 @@
 @endif
 
 
-@if ($errors->any())
+@if (@$errors && $errors->any())
     <div  class='px-5 mt-5'>
         <div class="font-medium text-red-600">
         Confirme lo siguiente

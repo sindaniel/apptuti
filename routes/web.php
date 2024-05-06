@@ -53,7 +53,7 @@ Route::post('/carrito', [CartController::class, 'processOrder'])->name('cart.pro
 
 Route::middleware(['auth' ])->group(function () {
     Route::get('/ordenes', [OrderController::class, 'index'])->name('clients.orders.index');
-    Route::get('/ordenes/{order}', [OrderController::class, 'index'])->name('clients.orders.show');
+    Route::get('/ordenes/{order}', [OrderController::class, 'show'])->name('clients.orders.show');
 });
 
 Route::name('sellers.')->prefix('vendedor')->group(function () {

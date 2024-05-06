@@ -20,6 +20,26 @@ class OrderController extends Controller
     }
 
     public function show($id){
-        dd($id);
+
+
+        $user = auth()->user();
+
+        $order = Order::query()
+            ->with('user')
+            ->withCount('products')
+            ->whereBelongsTo($user)
+            ->orwhere('seller_id', $user->id)
+            ->orderByDesc('id')
+            ->first();
+
+        if(!$order){
+            return redirect()->route('clients.orders.index');
+        }
+
+        $context = compact('order');
+
+        return view('clients.orders.show', $context);
+
+      
     }
 }
