@@ -57,11 +57,11 @@
     }
  
     .owl-nav button.owl-prev{
-      @apply xl:left-5 left-2 absolute top-20 xl:top-64
+      @apply xl:left-5 left-2 absolute top-20 xl:top-44
     }
 
     .owl-nav button.owl-next{
-      @apply xl:right-5 right-2  absolute top-20 xl:top-64
+      @apply xl:right-5 right-2  absolute top-20 xl:top-44
     }
 
     

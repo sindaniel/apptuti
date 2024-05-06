@@ -5,15 +5,16 @@
 
     @include('elements.seo', ['title'=>'Inicio' ])
 
-        <link rel="stylesheet" href="{{asset('assets/owl.carousel.min.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/owl.theme.default.min.css')}}">
+  
 @endsection
 
 
 @section('content')
     
-<section class="w-full">
-    <div class="owl-carousel banners text-gray-400">
+<section class="w-full mb-10">
+    <div id='banners' class="owl-carousel  banners text-gray-400">
         @foreach ($banners as $banner)
             <div class="w-full bg-[#eae9e7] rounded flex items-center justify-center">
                 <a href="{{$banner->url}}">
@@ -70,7 +71,7 @@
 
     <div class="xl:col-span-3 col-span-12">
         <div class="w-full">
-            <div class="owl-carousel text-gray-400">
+            <div class="owl-carousel lateral text-gray-400">
                 @foreach ($lateral as $banner)
                     <div class="w-full bg-[#eae9e7] rounded flex items-center justify-center">
                         <a href="{{$banner->url}}">
@@ -160,6 +161,7 @@
     <script src="{{asset('assets/owl.carousel.min.js')}}"></script>
     
     <script>
+        
         $('.owl-carousel.banners').owlCarousel({
             loop:true,
             margin:10,
@@ -174,7 +176,7 @@
         })
 
 
-        $('.owl-carousel').owlCarousel({
+        $('.owl-carousel.lateral').owlCarousel({
             loop:true,
             margin:10,
             nav:false,
