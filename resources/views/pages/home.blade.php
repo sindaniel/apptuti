@@ -13,7 +13,7 @@
 @section('content')
     
 <section class="w-full">
-    <div class="owl-carousel text-gray-400">
+    <div class="owl-carousel banners text-gray-400">
         @foreach ($banners as $banner)
             <div class="w-full bg-[#eae9e7] rounded flex items-center justify-center">
                 <a href="{{$banner->url}}">
@@ -69,27 +69,18 @@
     </div>
 
     <div class="xl:col-span-3 col-span-12">
-        <div class=" ">
-            <h2 class="bg-offert border border-offert rounded-t text-center py-2">
-                Oferta de la semana
-            </h2>
-            <div class="border rounded-b border-offert">
-                <div class="flex items-center justify-center text-gray-400 py-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                    </svg>
-                </div>
-                <div class="border-t py-4  px-4 space-y-3">
-                    <div class="flex justify-center items-center space-x-2">
-                         <strong class="text-xl">$12.000</strong>
-                         <span class="line-through text-xs">$11.000</span>
+        <div class="w-full">
+            <div class="owl-carousel text-gray-400">
+                @foreach ($lateral as $banner)
+                    <div class="w-full bg-[#eae9e7] rounded flex items-center justify-center">
+                        <a href="{{$banner->url}}">
+                            <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
+                        </a>
                     </div>
-                    <p class="text-sm  text-center">Bombillo LED 7W Santablanca 10.000H</p>
-                      <p class="text-xs  text-center">Presentación</p>
-                </div>
+                @endforeach
             </div>
-           
         </div>
+       
     </div>
 </section>
 
@@ -169,7 +160,7 @@
     <script src="{{asset('assets/owl.carousel.min.js')}}"></script>
     
     <script>
-        $('.owl-carousel').owlCarousel({
+        $('.owl-carousel.banners').owlCarousel({
             loop:true,
             margin:10,
             nav:true,
@@ -181,6 +172,28 @@
             items: 1,
 
         })
+
+
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:false,
+            //auto
+            autoplay:true,
+
+            responsive:{
+                0:{
+                    items:2
+                },
+                
+             
+                1000:{
+                    items:1
+                }
+            }
+
+        })
+
     </script>
 
 @endsection

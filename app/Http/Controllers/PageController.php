@@ -19,7 +19,7 @@ class PageController extends Controller
         $banners = Banner::whereTypeId(1)->orderBy('id')->get();
         $lateral = Banner::whereTypeId(2)->orderBy('id')->get();
       
-        $context = compact('products', 'categories', 'banners');
+        $context = compact('products', 'categories', 'banners', 'lateral');
         return view('pages.home', $context);
     }
 
