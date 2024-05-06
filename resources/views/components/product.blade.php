@@ -18,7 +18,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
         </a>
-        <a href="{{route('product', $product->slug)}}" class="bg-gray3 hover:bg-gray2 flex px-4 text-sm rounded-full items-center justify-center">
+        <a href="{{route('product', $product->slug)}}" class="bg-secondary text-white hover:bg-gray2 flex px-4 text-sm rounded-full items-center justify-center">
             <span>Ver</span>
         </a>
     </div>
@@ -30,9 +30,9 @@
                 <small class="line-through">${{currency($product->final_price['old'])}}</small>
             @endif
         </div>
-        <a href="{{route('product', $product->slug)}}" class="text-xs text-[#180F09]">{{$product->name}}</a>
-        @if($product->categories->first())
-        <p class="text-xs text-[#180F09]">{{$product->categories->first()->name}}</p>
+        <a href="{{route('product', $product->slug)}}" class=" text-[#180F09]">{{$product->name}}</a>
+        @if($product->category)
+            <p class=" text-[#180F09] text-xs">{{$product->category->name}}</p>
         @endif
     </div>
 </div>

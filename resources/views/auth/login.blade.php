@@ -13,14 +13,9 @@
         {{ Aire::input('email', 'Email') }}
         {{ Aire::password('password', 'Contraseña') }}
 
-        <div class="flex items-start">
-            <div class="flex items-center h-5">
-                <input id="remember" aria-describedby="remember" name="remember" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 ">
-            </div>
-            <div class="ml-2 text-sm">
-            <label for="remember" class="font-medium text-gray-900 ">Recordarme</label>
-            </div>
-            <a href="{{ route('password.request') }}" class="ml-auto text-sm text-blue-700 hover:underline ">Olvido su contraseña?</a>
+        <div class="flex justify-between">
+            <a href="{{ route('register') }}" class=" text-sm text-blue-700 hover:underline ">Crear cuenta</a>
+            {{-- <a href="{{ route('password.request') }}" class=" text-sm text-blue-700 hover:underline ">Olvido su contraseña?</a> --}}
         </div>
 
         

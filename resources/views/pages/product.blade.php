@@ -16,9 +16,11 @@
     <div class="col-span-12">
         <ul class="flex  space-x-2 text-gray-500">
             <li><a href="#">Inicio</a></li>
-            <li>></li>
-            <li><a href="#">Productos</a></li>
-            <li>></li>
+            @if($product->category)
+                <li>></li>
+                <li><a href="{{route('category', $product->category->slug)}}">{{$product->category->name}}</a></li>
+            @endif
+            {{-- <li>></li> --}}
             {{-- <li><a href="{{route('category',$product->categories->first()->slug)}}">{{$product->categories->first()->name}}</a></li> --}}
         </ul>
     </div>
@@ -54,7 +56,7 @@
         <div class="flex justify-start items-center space-x-2">
             <strong class="text-xl">${{currency($product->final_price['price'])}}</strong>
             @if ($product->final_price['has_discount'])
-                <span class="line-through text-xs">${{currency($product->final_price['old'])}}</span>
+                <span class="line-through text-gray-500 text-xl">${{currency($product->final_price['old'])}}</span>
             @endif   
         </div>
 

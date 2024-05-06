@@ -32,7 +32,6 @@
 
                     <div>
                         <x-human-date/> 
-                        
                     </div>
                     <div>
                         <button type="button"

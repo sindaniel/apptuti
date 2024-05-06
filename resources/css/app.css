@@ -46,6 +46,24 @@
       @apply block  text-sm font-medium text-gray-900 
     }
 
+    .owl-nav{
+      /* #@apply flex justify-between absolute xl:top-[200px] top-[60px] w-full px-2 */
+      @apply absolute top-0 w-full
+    }
+
+
+    .owl-nav button>div{
+      @apply bg-gray-200 rounded-full h-10 w-10 flex items-center justify-center
+    }
+ 
+    .owl-nav button.owl-prev{
+      @apply xl:left-5 left-2 absolute top-20 xl:top-64
+    }
+
+    .owl-nav button.owl-next{
+      @apply xl:right-5 right-2  absolute top-20 xl:top-64
+    }
+
     
 }
 

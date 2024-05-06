@@ -3,10 +3,7 @@
 
 @section('head')
 
-    @include('elements.seo', [
-        'title'=>'Home', 
-        'description'=>'Description del home'
-        ])
+    @include('elements.seo', ['title'=>'Inicio' ])
 
         <link rel="stylesheet" href="{{asset('assets/owl.carousel.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/owl.theme.default.min.css')}}">
@@ -18,7 +15,7 @@
 <section class="w-full">
     <div class="owl-carousel text-gray-400">
         @foreach ($banners as $banner)
-            <div class="xl:h-96 h-40 w-full bg-[#eae9e7] rounded flex items-center justify-center">
+            <div class="w-full bg-[#eae9e7] rounded flex items-center justify-center">
                 <a href="{{$banner->url}}">
                     <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
                 </a>
@@ -175,7 +172,12 @@
         $('.owl-carousel').owlCarousel({
             loop:true,
             margin:10,
-            nav:false,
+            nav:true,
+            //auto
+            autoplay:true,
+            //custom nav
+            navText: ["<div><span class='icon-arrow-left icons '></span></div>","<div><span class='icon-arrow-right icons'></span></div>"],
+            
             items: 1,
 
         })

@@ -143,5 +143,9 @@ class Product extends  Model
     }
 
 
+    public function getCategoryAttribute(){
+        return $this->categories->first();
+    }
+
 
 }

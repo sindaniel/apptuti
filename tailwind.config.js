@@ -10,7 +10,7 @@ export default {
         "./resources/views/**/*.blade.php",
         "./node_modules/flowbite/**/*.js",
     ],
-    safelist: ["resize-none"],
+    safelist: ["resize-none", "owl-nav"],
     theme: {
         fontFamily: {
             inter: ["Inter", "sans-serif"],

@@ -12,7 +12,7 @@
         
     </div>
 </section> --}}
-<div class="bg-footer2 py-10 text-white">
+<div class="bg-footer2 py-10 mt-10 text-white">
     <div class="container mx-auto max-w-7xl">
         <div class="grid xl:grid-cols-5 grid-cols-1 border-b pb-10 px-5 xl:gap-y-0 gap-y-5">
             <div class="xl:col-span-2 col-span-1">
@@ -33,6 +33,7 @@
                     </div>
                 </div>
             </div>
+            <div></div>
             <div>
                 <h3 class="text-xl mb-3">NOSOTROS</h3>
                 <ul class="text-sm space-y-2">
