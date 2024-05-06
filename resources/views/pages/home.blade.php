@@ -17,7 +17,7 @@
     <div id='banners' class="owl-carousel  banners text-gray-400">
         @foreach ($banners as $banner)
             <div class="w-full bg-[#eae9e7] rounded flex items-center justify-center">
-                <a href="{{$banner->url}}">
+               <a @if(!empty($banner->url)) href="{{$banner->url}}" @endif>
                     <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
                 </a>
             </div>
@@ -74,7 +74,7 @@
             <div class="owl-carousel lateral text-gray-400">
                 @foreach ($lateral as $banner)
                     <div class="w-full bg-[#eae9e7] rounded flex items-center justify-center">
-                        <a href="{{$banner->url}}">
+                        <a @if(!empty($banner->url)) href="{{$banner->url}}" @endif>
                             <img src="{{asset('storage/'.$banner->path)}}" class="w-full">
                         </a>
                     </div>
