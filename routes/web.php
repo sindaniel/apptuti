@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Seller\PageController as SellerPageController;
 use App\Http\Controllers\Shopper\PageController as ShopperPageController;
@@ -50,7 +51,10 @@ Route::post('/carrito', [CartController::class, 'processOrder'])->name('cart.pro
 
 
 
-
+Route::middleware(['auth' ])->group(function () {
+    Route::get('/ordenes', [OrderController::class, 'index'])->name('clients.orders.index');
+    Route::get('/ordenes/{order}', [OrderController::class, 'index'])->name('clients.orders.show');
+});
 
 Route::name('sellers.')->prefix('vendedor')->group(function () {
     Route::get('/', [SellerPageController::class, 'home'])->name('home');

@@ -12,7 +12,7 @@
 @section('content')
     
 
-
+    <h1 class="font-bold my-5 text-2xl">{{$category->name}}</h1>
 <section class="w-full grid grid-cols-12 gap-x-10 xl:gap-y-0 gap-y-10">
 
      <div class="col-span-12">
@@ -24,7 +24,7 @@
     </div>
 
 
-    <h1 class="font-bold my-5 text-2xl">{{$category->name}}</h1>
+
     <div class="col-span-12 ">
         <div class="grid grid-cols-2 xl:grid-cols-6 gap-5 ">
             @foreach ($products as $product)
