@@ -12,7 +12,7 @@
 @section('content')
     
 
-    <h1 class="font-bold my-5 text-2xl">{{$category->name}}</h1>
+
 <section class="w-full grid grid-cols-12 gap-x-10 xl:gap-y-0 gap-y-10">
 
      <div class="col-span-12">
@@ -23,6 +23,8 @@
         </ul>
     </div>
 
+
+    <h1 class="font-bold my-5 text-2xl col-span-12">{{$category->name}}</h1>
 
 
     <div class="col-span-12 ">
