@@ -19,7 +19,8 @@ class Order extends Model
         'response',
         'zone_id',
         'seller_id',
-        'delivery_date'
+        'delivery_date',
+        'observations'
     ];
 
 

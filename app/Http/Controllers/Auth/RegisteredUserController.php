@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
         $client = UserRepository::getCustomRuteroId($document);
         
         if(!$client){
-            return back()->with('error', 'El usuario no se encuentra registrado en el sistema.');
+            return to_route('form')->with('error', 'El usuario no se encuentra registrado en el sistema.');
         }
 
 

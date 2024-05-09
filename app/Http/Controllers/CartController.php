@@ -199,6 +199,7 @@ class CartController extends Controller
 
      //   dd($request->all());
         $cart = session()->get('cart');
+        $observations = $request->observations;
     
         $total = 0;
         $discount = 0;
@@ -223,6 +224,7 @@ class CartController extends Controller
             'zone_id' => $request->zone_id,
             'seller_id' => $seller_id,
             'delivery_date' => $delivery_date,
+            'observations' => $observations,
         ]);
 
 
