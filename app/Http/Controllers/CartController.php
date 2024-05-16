@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ProcessOrder;
 use App\Mail\NewOrderEmail;
+use App\Mail\OrderEmail;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\OrderProductBonification;
@@ -13,6 +14,7 @@ use App\Models\Vendor;
 use App\Repositories\OrderRepository;
 use App\Settings\GeneralSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -284,12 +286,15 @@ class CartController extends Controller
 
     
         OrderRepository::presalesOrder($order);
+        $email = $order->user->email;
+
+        Mail::to($email)->send(new OrderEmail($order));
         return to_route('home')->with('success', 'Compra procesada con exito!');
     
         // return to_route('home')->with('success', 'Es necesario tener un codigo de cliente para procesar la compra, contacta al administrador!');
 
         // dispatch(new ProcessOrder($order));
-        // new NewOrderEmail($order);
+        // 
         
 
     }

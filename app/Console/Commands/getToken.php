@@ -42,12 +42,14 @@ class getToken extends Command
         ];
 
         $response = Http::asForm()->post($url, $data);
-        
-        $json = $response->json();
 
+        $json = $response->json();
+       
         $token = $json['access_token'];
         Setting::where('key', 'microsoft_token')->update(['value' => $token]);
         
+        //print 
+        $this->info('Token: ' . $token);
         
 
     }
