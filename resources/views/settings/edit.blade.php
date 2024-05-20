@@ -19,7 +19,13 @@
                         $help = 'Hora militar';
                     }
                 @endphp
-                {{ Aire::input('value')->helpText($help)->groupClass('col-span-6 sm:col-span-3') }}
+
+                @if($setting->id == 5)
+                    {{ Aire::textarea('value')->rows(10)->groupClass('col-span-6 sm:col-span-3') }}
+                @else
+                    {{ Aire::input('value')->helpText($help)->groupClass('col-span-6 sm:col-span-3') }}
+                @endif
+                
                 <div class="col-span-6 justify-between  items-center mt-5 space-x-2 flex">
 
                     <p class="flex space-x-2 items-center">

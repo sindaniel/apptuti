@@ -49,7 +49,8 @@
                             </td>
 
                              <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                {{ $setting->value }}
+
+                                {{ Str::limit($setting->value, 30) }}
                             </td>
                           
                           

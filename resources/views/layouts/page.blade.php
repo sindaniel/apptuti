@@ -14,6 +14,14 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/site.js'])
 
+     @php
+        $categories  = App\Models\Category::active()->whereNull('parent_id')->with('children')->orderBy('name')->get();
+        $phone = App\Models\Setting::where('key', 'phone')->first()->value;
+        $email = App\Models\Setting::where('key', 'email')->first()->value;
+        $google_tag = App\Models\Setting::where('key', 'google_tag')->first()->value;
+    @endphp
+
+    {!! $google_tag !!}
 
     @yield('head')
 </head>
@@ -25,11 +33,7 @@
     @include('elements.mobile-menu')
 
 
-    @php
-        $categories  = App\Models\Category::active()->whereNull('parent_id')->with('children')->orderBy('name')->get();
-        $phone = App\Models\Setting::where('key', 'phone')->first()->value;
-        $email = App\Models\Setting::where('key', 'email')->first()->value;
-    @endphp
+   
     <div class="bg-orange-500 py-2">
         <div class="container mx-auto">
             <div class="flex justify-center  space-x-5 text-white">
