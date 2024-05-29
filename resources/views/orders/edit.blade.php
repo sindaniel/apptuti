@@ -196,11 +196,18 @@
 @else
 
 
-<div>
+<div class="text-xs">
         <pre>
-        <code>
-            {{$order->request}}
-        </code>
+            <code>
+                {{$order->request}}
+            </code>
+        </pre>
+
+        Response
+        <pre>
+            <code>
+                {{$order->response}}
+            </code>
         </pre>
    
    

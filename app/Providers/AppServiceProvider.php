@@ -22,4 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    //app url
+    
 }

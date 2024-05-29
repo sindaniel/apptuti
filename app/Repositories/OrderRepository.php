@@ -91,8 +91,9 @@ class OrderRepository
                             </dyn:listDetails>
                             <dyn:orderSales>' . $order_id . '</dyn:orderSales>
                             <dyn:ruta>' . $route . '</dyn:ruta> 
-                            <dyn:salesCons>' . $order_id . '</dyn:salesCons> 
+                            <dyn:salesCons>' . $zone . '-' . $order_id . '</dyn:salesCons> 
                             <dyn:transactionDate>' . $order->created_at->format('Y-m-d') . '</dyn:transactionDate>
+                            <dyn:vendorType>' . $vendor_type . '</dyn:vendorType>
                             <dyn:zona>' . $zone . '</dyn:zona> 
                         </dyn:preSalesOrder>
                     </tem:ArrayOfPreSalesOrder>
@@ -104,14 +105,17 @@ class OrderRepository
 
         $token = Setting::getByKey('microsoft_token');
 
+        $resource_url = config('microsoft.resource');
+
         $response = Http::withHeaders([
             'Content-Type' => 'text/xml;charset=UTF-8',
             'SOAPAction' => 'http://tempuri.org/DWSSalesForce/PreSaslesProcess',
             'Authorization' => "Bearer {$token}"
-        ])->send('POST', 'https://uattrx.sandbox.operations.dynamics.com/soap/services/DIITDWSSalesForceGroup?=null', [
+        ])->send('POST', $resource_url.'/soap/services/DIITDWSSalesForceGroup?=null', [
             'body' => $body
         ]);
 
+       
         $data = $response->body();
         $xmlString = preg_replace('/<(\/)?(s|a):/', '<$1$2', $data);
         $xml = simplexml_load_string($xmlString);
