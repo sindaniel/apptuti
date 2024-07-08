@@ -6,6 +6,7 @@ use App\Mail\OrderEmail;
 use App\Models\Order;
 use App\Models\Setting;
 use App\Repositories\OrderRepository;
+use App\Repositories\UserRepository;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Console\Command;
@@ -36,14 +37,15 @@ class test extends Command
      */
     public function handle()
     {
-        // //$order = Order::find(16);
-        // $date = OrderRepository::getBusinessDay();
-        // dd($date);
+    // //$order = Order::find(16);
+    // $date = OrderRepository::getBusinessDay();
+    // dd($date);
 
-        $order = Order::with(['products', 'user', 'zone'])->find(51);
-      // dd($order->products[0]->product);
-        Mail::to('danielpunk4@gmail.com')->send(new OrderEmail($order));
-        
+    //   $order = Order::with(['products', 'user', 'zone'])->find(51);
+    // // dd($order->products[0]->product);
+    //   Mail::to('danielpunk4@gmail.com')->send(new OrderEmail($order));
+
+    UserRepository::getCustomRuteroId(901596354);
       
     }
 }

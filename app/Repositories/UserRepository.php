@@ -48,9 +48,7 @@ class UserRepository
             </soapenv:Body>
             </soapenv:Envelope>';
 
-    
-
-        
+            
 
         $response = Http::withHeaders([
             'Content-Type' => 'text/xml;charset=UTF-8',
@@ -61,7 +59,7 @@ class UserRepository
         ]);
         $data = $response->body();
 
-        
+      
         $xmlString = preg_replace('/<(\/)?(s|a):/', '<$1$2', $data);
         $xml = simplexml_load_string($xmlString);
 
