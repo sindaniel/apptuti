@@ -287,8 +287,12 @@ class CartController extends Controller
     
         OrderRepository::presalesOrder($order);
         $email = $order->user->email;
-
-        Mail::to($email)->send(new OrderEmail($order));
+        try{
+            Mail::to($email)->send(new OrderEmail($order));
+        }catch(\Exception $e){
+            info($e->getMessage());
+        }
+        
         return to_route('home')->with('success', 'Compra procesada con exito!');
     
         // return to_route('home')->with('success', 'Es necesario tener un codigo de cliente para procesar la compra, contacta al administrador!');
