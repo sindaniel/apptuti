@@ -45,7 +45,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/products/{product}/combinations{combination}', [ProductCombinationsController::class, 'remove_combination'])->name('products.remove_combination');
 
-    Route::post('/users/{user}/code', [UserController::class, 'code'])->name('users.code');
+    //Route::post('/users/{user}/code', [UserController::class, 'code'])->name('users.code');
     Route::post('/users/{user}/password', [UserController::class, 'password'])->name('users.password');
     Route::resource('users', UserController::class);
     Route::resource('brands', BrandController::class);

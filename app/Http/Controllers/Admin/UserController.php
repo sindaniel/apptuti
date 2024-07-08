@@ -83,38 +83,38 @@ class UserController extends Controller
     }
 
  
-    public function code(Request $request, User $user)
-    {
+    // public function code(Request $request, User $user)
+    // {
 
-        $validate = $request->validate([
-            'code' => ['required', 'string', 'max:255'],
-        ]);
+    //     $validate = $request->validate([
+    //         'code' => ['required', 'string', 'max:255'],
+    //     ]);
 
-        $code = $validate['code'];
+    //     $code = $validate['code'];
 
 
-        $response = UserRepository::getCustomRuteroId($code);
+    //     $response = UserRepository::getCustomRuteroId($code);
         
-        if($response){
+    //     if($response){
 
-            $orders = $user->orders()->where('status_id', Order::STATUS_PENDING)->get();
+    //         $orders = $user->orders()->where('status_id', Order::STATUS_PENDING)->get();
             
-            foreach($orders as $order){
-                OrderRepository::presalesOrder($order);
-            }
+    //         foreach($orders as $order){
+    //             OrderRepository::presalesOrder($order);
+    //         }
 
 
-            $user->update($response);
+    //         $user->update($response);
 
-            //pending order to processed
+    //         //pending order to processed
            
 
-            return back()->with('success', 'Código actualizado, ya este cliente puede comprar');
-        }
+    //         return back()->with('success', 'Código actualizado, ya este cliente puede comprar');
+    //     }
 
-        return back()->with('error', 'Código no encontrado');
+    //     return back()->with('error', 'Código no encontrado');
 
-    }
+    // }
 
 
     public function password(Request $request, User $user)

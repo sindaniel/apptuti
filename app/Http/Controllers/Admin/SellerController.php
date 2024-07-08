@@ -95,34 +95,50 @@ class SellerController extends Controller
     
         $document = $validate['document'];
         $user = User::whereDocument($document)->first();
-        
+ 
         if(!$user){
     
-            $client = UserRepository::getCustomRuteroId($document);
-            $email = time() . '@tuti.com';
-            $password = bcrypt($email);
-            $user = User::create([
-                'name' => $client['name'],
-                'email' => $email,
-                'document' => $document,
-                'password' => $password,
-                'status_id' => User::PENDING
-            ]);
+            $data = UserRepository::getCustomRuteroId($document);
+         
+            if($data){
+                $name = $data['name'];
 
-            $user->zones()->create([
-                'route' => $client['route'],
-                'zone' => $client['zone'],
-                'day' => $client['day'],
-                'address' => $client['address'],
-                'code' => $client['code'],
-            ]);
+                $email = time() . '@tuti.com';
+                $password = bcrypt($email);
+                $user = User::create([
+                    'name' => $name,
+                    'email' => $email,
+                    'document' => $document,
+                    'password' => $password,
+                    'status_id' => User::PENDING
+                ]);
+              
+                foreach ($data['routes'] as $route) {
+                    $user->zones()->create([
+                        'route' => $route['route'],
+                        'zone' => $route['zone'],
+                        'day' => $route['day'],
+                        'address' => $route['address'],
+                        'code' => $route['code'],
+                    ]);
+                }
+              
 
+                session()->put('user_id', $user->id);
+                return to_route('cart');
+
+    
+            }else{
+                return back()->with('error', 'No se encontró el rutero');    
+            }
+               
         }
+
 
         session()->put('user_id', $user->id);
         return to_route('cart');
+    
 
-       
          
     }
 

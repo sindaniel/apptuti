@@ -80,22 +80,34 @@ class RegisteredUserController extends Controller
         
 
         $document = $validate['document'];
-        $client = UserRepository::getCustomRuteroId($document);
+        $data = UserRepository::getCustomRuteroId($document);
+  
         
-        $validate['name'] = $client['name'];
+        $validate['name'] = $data['name'];
         $validate['status_id'] = User::ACTIVE;
         
+
+        
+
         $user = User::updateOrCreate([
             'document' => $document,
         ], $validate);
 
-        $user->zones()->create([
-            'route' => $client['route'],
-            'zone' => $client['zone'],
-            'day' => $client['day'],
-            'address' => $client['address'],
-            'code' => $client['code'],
-        ]);
+        if(!$user->zones->count()){
+            foreach ($data['routes'] as $route) {
+                $user->zones()->create([
+                    'route' => $route['route'],
+                    'zone' => $route['zone'],
+                    'day' => $route['day'],
+                    'address' => $route['address'],
+                    'code' => $route['code'],
+                ]);
+            }
+
+        }
+
+       
+      
 
         Auth::login($user);
 
