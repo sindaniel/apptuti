@@ -36,7 +36,7 @@
 
 
 
-<section class="w-full grid grid-cols-12 gap-x-10 xl:gap-y-0 gap-y-10">
+<section class="w-full grid grid-cols-12 xl:gap-x-10 gap-x-0 xl:gap-y-0 gap-y-10">
     <div class="col-span-3 hidden xl:block" id="accordion-collapse" data-accordion="collapse" data-active-classes='text-gray-700'>
         
         @foreach ($categories as $category)
