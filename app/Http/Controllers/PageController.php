@@ -30,7 +30,7 @@ class PageController extends Controller
             $query->orWhere('name', 'ILIKE', '%' . $q . '%')
                 ->orWhere('description', 'ILIKE', '%' . $q . '%')
                 ->orWhere('short_description', 'ILIKE', '%' . $q . '%');
-        })->paginate();
+        })->paginate(24);
         
             
 

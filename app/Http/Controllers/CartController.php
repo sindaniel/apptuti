@@ -285,7 +285,16 @@ class CartController extends Controller
         session()->forget('user_id');
 
     
-        OrderRepository::presalesOrder($order);
+       
+        try {
+            OrderRepository::presalesOrder($order);
+        } catch (\Throwable $th) {
+            info($th->getMessage());
+            return to_route('home')->with('error', 'Error al procesar la compra!');
+        }
+
+
+
         $email = $order->user->email;
         try{
             Mail::to($email)->send(new OrderEmail($order));
