@@ -28,7 +28,7 @@ class OrderRepository
         $order->load('products.product.brand.vendor');
         
         $delivery_date = $order->delivery_date;
-
+      
         
         $day = $zone->day;
         $route = $zone->route;
@@ -62,13 +62,17 @@ class OrderRepository
             
         }
 
-
         $order_id = $order->id;
         if ($bonification) {
             $order_id = $order->id.'-1';
         }
         $transactionDate = $order->created_at->format('Y-m-d');
-       
+        
+      
+        // $transactionDate = '2024-07-08';
+        // $delivery_date = '2024-07-09';
+      
+
         $body = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://schemas.microsoft.com/dynamics/2013/01/datacontracts" xmlns:tem="http://tempuri.org" xmlns:dyn="http://schemas.datacontract.org/2004/07/Dynamics.AX.Application">
             <soapenv:Header>
                 <dat:CallContext>

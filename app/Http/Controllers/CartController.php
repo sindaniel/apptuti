@@ -86,7 +86,7 @@ class CartController extends Controller
 
       
     }
-
+    #TODO crear plugin de agregar al carrito
     public function add(Request $request, Product $product){
 
         
