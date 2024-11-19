@@ -13,7 +13,7 @@ class OrderRepository
 {
     public static function presalesOrder($order)
     {   
-        info('test');
+        
         self::sendData(order: $order, products: $order->products, bonification: 0);
         if($order->bonifications->count()){
             self::sendData(order: $order, products: $order->bonifications, bonification: 1);

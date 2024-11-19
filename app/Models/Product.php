@@ -48,7 +48,8 @@ class Product extends  Model
         return $this->belongsToMany(Product::class, 'product_related', 'product_id', 'product_related_id')->orderBy('name');
     }
 
-    
+ 
+
     public function tax(){
         return $this->belongsTo(Tax::class);
     }

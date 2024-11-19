@@ -15,6 +15,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')->hourly();
         //comand every 20 minutes
         $schedule->command('app:get-token')->cron('*/20 * * * *');
+        //app:fallidos
+        $schedule->command('app:fallidos')->everyMinute();
     }
 
     /**
